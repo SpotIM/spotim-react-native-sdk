@@ -16,7 +16,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
 1. Install and add the package to your project:
     `npm install react-native-spotim --save`
 2. Import Spot.IM modules:
-    `import { SpotIM, SpotIMEventEmitter } from 'react-native-spotim';`
+    `import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from 'react-native-spotim';`
 
 ### Use Spot.IM native view
 ### iOS
@@ -73,4 +73,79 @@ const onStartLoginFlow = (event) => {
     ...
 }
 const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+```
+
+##### Authentication with SSO:
+
+There are to types of SSO available: **Generic SSO** and **SSO with JWT secret**. Please contact your Spot.IM advisor to pick the best option for you.
+
+##### Generic SSO
+
+1. Authenticate a user with your backend - see Authentication above
+2. Call `startSSO` function and get `codeA`
+3. Send the `codeA` and all needed information to your backend system in order to get `codeB`
+4. Call `completeSSO` with the `codeB`
+5. Check `success` and `error` properties in the callback to ensure everything is ok
+
+###### Example
+```javascript
+// 2
+SpotIMAPI.startSSO()
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        console.error(error);
+    })
+      
+// 4
+SpotIMAPI.completeSSO("<CODE_B>")
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        console.error(error);
+    })
+```
+
+
+##### SSO with JWT secret
+
+1. Authenticate a user with your backend
+2. Call `sso(JWTSecret)` function with a user JWT secret
+3. If there’s no error in the callback and `response?.success` is true, the authentication process finished successfully
+
+###### Example
+```swift
+SpotIMAPI.sso("<SECRET_JWT>")
+    .then(response => {
+        console.log(response);
+      })
+    .catch(error => {
+        console.error(error);
+      })
+```
+
+##### Logout
+Call SpotIm logout API whenever a user logs out of your system
+
+###### Example
+```swift
+SpotIMAPI.logout();
+```
+
+##### Login status
+An API to understand the status of the current SpotIm user.
+Guest - Means this is a guest unregistered user. You should call startSSO/sooWithJWT if your own login status is 'user is logged in'
+LoggedIn - Mean this is a registered user of SpotIm. You should avoid calling startSSO/sooWithJWT in this case. If you own status is 'user is logged out', you should SpotIm logout method
+
+###### Example
+```javascript
+SpotIMAPI.getUserLoginStatus()
+    .then(status => {
+        console.log(status);
+      })
+    .catch(error => {
+        console.error(error);
+      })
 ```

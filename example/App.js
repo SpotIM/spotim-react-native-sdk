@@ -18,13 +18,6 @@ export default class App extends Component<{}> {
       // Load here login view
     }
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
-    SpotIMAPI.getUserLoginStatus()
-      .then(status => {
-        console.log(status);
-      })
-      .catch(error => {
-        console.error(error);
-      })
 
     return (
       <ScrollView style={styles.container}>
