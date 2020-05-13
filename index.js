@@ -2,11 +2,11 @@ import React from 'react';
 import { requireNativeComponent, NativeModules, NativeEventEmitter } from 'react-native';
 import PropTypes from 'prop-types';
 
-const SpotIMModule = NativeModules.SpotIM;
+export const SpotIMModule = NativeModules.SpotIM;
 const SpotIMEvents = NativeModules.SpotIMEvents;
-const SpotIMEventEmitter = new NativeEventEmitter(SpotIMEvents);
+export const SpotIMEventEmitter = new NativeEventEmitter(SpotIMEvents);
 
-class SpotIM extends React.Component {
+export class SpotIM extends React.Component {
     componentDidMount() {
         SpotIMModule.initWithSpotId(this.props.spotId);
 
@@ -19,6 +19,25 @@ class SpotIM extends React.Component {
     }
 }
 
+export class SpotIMAPI {
+    static startSSO = () => {
+        return SpotIMModule.startSSO();
+    }
+    static completeSSO = (str) => {
+        return SpotIMModule.completeSSO(str);
+    }
+    static sso = (jwt) => {
+        return SpotIMModule.sso(jwt);
+    }
+    static getUserLoginStatus = () => {
+        return SpotIMModule.getUserLoginStatus();
+    }
+    static logout = () => {
+        return SpotIMModule.logout();
+    }
+    
+}
+
 SpotIM.propTypes = {
     spotId: PropTypes.string,
     postId: PropTypes.string,
@@ -29,5 +48,3 @@ SpotIM.propTypes = {
 };
 
 var RNSpotIM = requireNativeComponent('SpotIM', SpotIM);
-
-module.exports = { SpotIM, SpotIMEventEmitter };

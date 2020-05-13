@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, ScrollView } from 'react-native';
-import { SpotIM, SpotIMEventEmitter } from 'react-native-spotim';
+import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from 'react-native-spotim';
 
 export default class App extends Component<{}> {
   render() {
@@ -18,6 +18,13 @@ export default class App extends Component<{}> {
       // Load here login view
     }
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+    SpotIMAPI.getUserLoginStatus()
+      .then(status => {
+        console.log(status);
+      })
+      .catch(error => {
+        console.error(error);
+      })
 
     return (
       <ScrollView style={styles.container}>
