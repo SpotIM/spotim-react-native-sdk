@@ -116,7 +116,7 @@ SpotIMAPI.completeSSO("<CODE_B>")
 3. If there’s no error in the callback and `response?.success` is true, the authentication process finished successfully
 
 ###### Example
-```swift
+```javascript
 SpotIMAPI.sso("<SECRET_JWT>")
     .then(response => {
         console.log(response);
@@ -130,7 +130,7 @@ SpotIMAPI.sso("<SECRET_JWT>")
 Call SpotIm logout API whenever a user logs out of your system
 
 ###### Example
-```swift
+```javascript
 SpotIMAPI.logout();
 ```
 
