@@ -13,6 +13,8 @@
 
 SpotImBridge *spotIm;
 UIViewController *preConversationVC;
+UIViewController *appRootViewController;
+BOOL defaultNavBarVisibilityHidden;
 
 - (id)initWithFrame:(CGRect)frame;
 {
@@ -38,6 +40,9 @@ UIViewController *preConversationVC;
     
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.visibleViewController;
+    appRootViewController = rootViewController;
+    
+    defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
     
     [spotIm createSpotImFlowCoordinator:self completion:^() {
         
@@ -101,6 +106,15 @@ UIViewController *preConversationVC;
     } onError:^(NSError * _Nonnull err) {
         error(err);
     }];
+}
+
+- (void)didMoveToWindow {
+    UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = navController.visibleViewController;
+    
+    if (defaultNavBarVisibilityHidden && appRootViewController == rootViewController) {
+        [navController setNavigationBarHidden:YES];
+    }
 }
 
 @end
