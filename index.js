@@ -15,7 +15,7 @@ export class SpotIM extends React.Component {
         });
     }
     render() {
-        return <RNSpotIM {...this.props} style={{height: this.state && this.state.height ? Number(this.state.height) : 0}} />;
+        return <RNSpotIM {...this.props} style={{alignSelf: 'stretch', height: this.state && this.state.height ? Number(this.state.height) : 0}} />;
     }
 }
 
