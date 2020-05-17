@@ -14,7 +14,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
 
 #### [@spot.im/react-native-spotim](https://www.npmjs.com/package/@spot.im/react-native-spotim)
 1. Install and add the package to your project:
-    `npm install react-native-spotim --save`
+    `npm install @spot.im/react-native-spotim --save`
 2. Import Spot.IM modules:
     `import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from 'react-native-spotim';`
 
