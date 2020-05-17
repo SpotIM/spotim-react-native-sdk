@@ -27,7 +27,7 @@ export class SpotIMAPI {
         return SpotIMModule.completeSSO(str);
     }
     static sso = (jwt) => {
-        return SpotIMModule.sso(jwt);
+        return SpotIMModule.ssoWithJwtSecret(jwt);
     }
     static getUserLoginStatus = () => {
         return SpotIMModule.getUserLoginStatus();
