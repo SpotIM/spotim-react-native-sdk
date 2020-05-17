@@ -19,6 +19,7 @@ typedef void (^SSOErrorBlock)(NSError *error);
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *thumbnailUrl;
+@property (nonatomic, copy) NSString *backgroundColor;
 
 - (void)initWithSpotId:(NSString *)spotId;
 - (void)startSSO:(SSOCompletionBlock)completion onError:(SSOErrorBlock)error;
