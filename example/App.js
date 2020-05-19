@@ -29,7 +29,7 @@ export default class App extends Component<{}> {
           title="Spot.IM is aiming for the stars!"
           subtitle=""
           thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
-          backgroundColor="#dfdfdf"
+          darkModeBackgroundColor="#dfdfdf"
           style={{flex: 1}} />
       </ScrollView>
     );

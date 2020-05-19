@@ -38,8 +38,8 @@ BOOL defaultNavBarVisibilityHidden;
 {
     _spotId = spotId;
     
-    if (self->_backgroundColor) {
-        [self setBackgroundColor];
+    if (self->_darkModeBackgroundColor) {
+        [self setDarkModeBackgroundColor];
     }
     
     [self initPreConversationControlle];
@@ -70,9 +70,9 @@ BOOL defaultNavBarVisibilityHidden;
     }];
 }
 
-- (void)setBackgroundColor
+- (void)setDarkModeBackgroundColor
 {
-    NSString *hex = self->_backgroundColor;
+    NSString *hex = self->_darkModeBackgroundColor;
     
     NSUInteger red, green, blue;
     sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
