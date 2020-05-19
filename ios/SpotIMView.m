@@ -38,10 +38,19 @@ BOOL defaultNavBarVisibilityHidden;
 {
     _spotId = spotId;
     
+    if (self->_darkModeBackgroundColor) {
+        [self setDarkModeBackgroundColor];
+    }
+    
+    [self initPreConversationControlle];
+}
+
+- (void)initPreConversationControlle
+{
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.visibleViewController;
-    appRootViewController = rootViewController;
     
+    appRootViewController = rootViewController;
     defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
     
     [spotIm createSpotImFlowCoordinator:self completion:^() {
@@ -59,6 +68,16 @@ BOOL defaultNavBarVisibilityHidden;
         }];
     } onError:^(NSError *error) {
     }];
+}
+
+- (void)setDarkModeBackgroundColor
+{
+    NSString *hex = self->_darkModeBackgroundColor;
+    
+    NSUInteger red, green, blue;
+    sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
+    
+    [spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
 }
 
 - (void)startSSO:(SSOCompletionBlock)completion

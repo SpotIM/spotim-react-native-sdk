@@ -44,6 +44,7 @@ self.window.rootViewController = self.navControll;
     title="<POST_TITLE>"
     subtitle="<POST_SUBTITLE>"
     thumbnailUrl="<POST_THUMBNAIL>"
+    darkModeBackgroundColor="#<HEX_COLOR>"
     style={{flex: 1}}
 />
 ```
