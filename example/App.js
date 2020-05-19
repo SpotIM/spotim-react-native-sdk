@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, ScrollView } from 'react-native';
-import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from 'react-native-spotim';
+import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from '@spot.im/react-native-spotim';
 
 export default class App extends Component<{}> {
   render() {
