@@ -24,7 +24,7 @@ export default class App extends Component<{}> {
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
         <SpotIM
           spotId="sp_eCIlROSD"
-          postId="p0st1"
+          postId="default"
           url="http://www.spotim.name/bd-playground/post9.html"
           title="Spot.IM is aiming for the stars!"
           subtitle=""
@@ -39,7 +39,7 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 60,
+    marginVertical: 30,
   },
   welcome: {
     fontSize: 20,

@@ -68,11 +68,16 @@ repositories {
     }
     google()
     jcenter()
+
+    // SpotIM
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 
 def configureReactNativePom(def pom) {
@@ -82,7 +87,7 @@ def configureReactNativePom(def pom) {
         name packageJson.title
         artifactId packageJson.name
         version = packageJson.version
-        group = "com.reactlibrary"
+        group = "com.spotim.reactnative"
         description packageJson.description
         url packageJson.repository.baseUrl
 
@@ -91,13 +96,6 @@ def configureReactNativePom(def pom) {
                 name packageJson.license
                 url packageJson.repository.baseUrl + '/blob/master/' + packageJson.licenseFilename
                 distribution 'repo'
-            }
-        }
-
-        developers {
-            developer {
-                id packageJson.author.username
-                name packageJson.author.name
             }
         }
     }
