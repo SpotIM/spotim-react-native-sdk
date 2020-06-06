@@ -43,8 +43,8 @@ export class SpotIM extends React.Component {
         }, 2000);
     }
     _onChange(event: Event) {
-        this.setState({ height: event.nativeEvent.height / 2 });
-      }
+        this.setState({ height: event.nativeEvent.height });
+    }
     render() {
         return <RNSpotIM
                 {...this.props}

@@ -38,6 +38,7 @@ import java.util.concurrent.CountDownLatch;
 
 import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
+import spotIm.common.SpotLayoutListener;
 import spotIm.common.options.Article;
 import spotIm.common.options.ConversationOptions;
 import spotIm.common.options.theme.SpotImThemeMode;
@@ -130,10 +131,6 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     }
 
     public void createFragment(FrameLayout parentLayout, final int reactNativeViewId) {
-        final View parentView = (ViewGroup)viewRoot.findViewById(reactNativeViewId).getParent();
-        final View aa = (ViewGroup)viewRoot.findViewById(reactNativeViewId);
-        //setupLayout((ViewGroup) parentView, reactNativeViewId);
-
         SpotImThemeParams themeParams = new SpotImThemeParams(false, SpotImThemeMode.LIGHT, Color.WHITE);
         if (darkModeBackgroundColor != "") {
             SpotImThemeMode themeMode = SpotImThemeMode.DARK;
@@ -143,7 +140,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
 
         ConversationOptions options = new ConversationOptions.Builder()
                 .configureArticle(new Article(url, thumbnailUrl, title, subtitle))
-                .addMaxCountOfPreConversationComments(10)
+                .addMaxCountOfPreConversationComments(2)
                 .addTheme(themeParams)
                 .build();
 
@@ -153,25 +150,23 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 ((FragmentActivity)context.getCurrentActivity())
                         .getSupportFragmentManager()
                         .beginTransaction()
-                        .add(reactNativeViewId, fragment, String.valueOf(reactNativeViewId))
+                        .replace(reactNativeViewId, fragment, String.valueOf(reactNativeViewId))
                         .commit();
                 ((FragmentActivity)context.getCurrentActivity())
                         .getSupportFragmentManager().executePendingTransactions();
-
-                fragment.getView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                    @Override
-                    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                        WritableMap map = Arguments.createMap();
-                        map.putInt("height", v.getHeight());
-                        context.getJSModule(RCTEventEmitter.class)
-                                .receiveEvent(reactNativeViewId, "topChange", map);
-                    }
-                });
             }
 
             @Override
             public void onFailure(SpotException exception) {
                 Log.d("MainActivity", exception.toString());
+            }
+        }, new SpotLayoutListener() {
+            @Override
+            public void heightDidChange(float v) {
+                WritableMap map = Arguments.createMap();
+                map.putInt("height", Math.round(v/2));
+                context.getJSModule(RCTEventEmitter.class)
+                        .receiveEvent(reactNativeViewId, "topChange", map);
             }
         });
     }
@@ -184,31 +179,6 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                         MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onChange"))
                 )
                 .build();
-    }
-
-    void setupLayout(final ViewGroup view, final int reactNativeViewId) {
-        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
-            @Override
-            public void doFrame(long frameTimeNanos) {
-                manuallyLayoutChildren(view, reactNativeViewId);
-                view.getViewTreeObserver().dispatchOnGlobalLayout();
-                Choreographer.getInstance().postFrameCallback(this);
-            }
-        });
-    }
-
-    void manuallyLayoutChildren(ViewGroup view, int reactNativeViewId) {
-        for (int i=0; i < view.getChildCount(); i++) {
-            View child = view.getChildAt(i);
-
-            if (child == (ViewGroup)viewRoot.findViewById(reactNativeViewId)) {
-                int a = view.getMeasuredHeight();
-                child.measure(
-                        View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
-                        View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
-                child.layout(0, 0, child.getMeasuredWidth(), child.getMeasuredHeight());
-            }
-        }
     }
 
     @Override
