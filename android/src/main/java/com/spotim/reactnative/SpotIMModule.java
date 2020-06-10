@@ -30,6 +30,10 @@ import spotIm.common.model.StartSSOResponse;
 import spotIm.sdk.SpotIm;
 
 public class SpotIMModule extends ReactContextBaseJavaModule {
+
+    public static final String LOGIN_STATUS_GUEST = "guest";
+    public static final String LOGOUT_SUCCESS = "Logout from SpotIm was successful";
+
     private static ReactApplicationContext reactContext;
 
     @Override
@@ -126,7 +130,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             @Override
             public void onSuccess(UserStatus status) {
                 if (status == UserStatus.GUEST) {
-                    promise.resolve("guest");
+                    promise.resolve(LOGIN_STATUS_GUEST);
                 } else {
                     promise.resolve("user is logged in");
                 }
@@ -144,7 +148,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
         SpotIm.logout(new SpotVoidCallback() {
             @Override
             public void onSuccess() {
-
+                promise.resolve(LOGOUT_SUCCESS);
             }
 
             @Override
