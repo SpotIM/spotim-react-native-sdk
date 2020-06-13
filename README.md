@@ -34,6 +34,19 @@ self.window.rootViewController = self.navControll;
 ...
 ```
 
+Add 'use_frameworks!' to Podfile.
+For RN version > 0.62, please disable 'flipper':
+1. Comment the following:
+```ruby
+...
+#add_flipper_pods!
+#  post_install do |installer|
+#  flipper_post_install(installer)
+#end
+...
+```
+2. Disable flipper initialization in AppDelegate.m
+
 ### Load PreConversation View in React-Native
 
 ```javascript
