@@ -17,7 +17,44 @@ This library provides an easy integration with Spot.IM into a React-Native app.
     `npm install @spot.im/react-native-spotim --save`
 2. Import Spot.IM modules:
     `import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from 'react-native-spotim';`
+3. Go to the project ios folder and make sure `use_frameworks!` is set in the Podfile
+4. If you're using RN version > 0.62, you will need to disable `flipper` by doing the follownig:
+  * Comment the following lines from the Podfile:
+  ```ruby
+  ...
+  #add_flipper_pods!
+  #  post_install do |installer|
+  #  flipper_post_install(installer)
+  #end
+  ...
+  ```
+  * Disable flipper init by removing the following lines from AppDelegate.m:
+  ```obj-c
+  ...
+  #if DEBUG
+    #import <FlipperKit/FlipperClient.h>
+    #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
+    #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
+    #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
+    #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
+    #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
+    static void InitializeFlipper(UIApplication *application) {
+      FlipperClient *client = [FlipperClient sharedClient];
+      SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
+      [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
+      [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
+      [client addPlugin:[FlipperKitReactPlugin new]];
+      [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
+      [client start];
+    }
+  #endif
+  ...
+  #if DEBUG
+    InitializeFlipper(application);
+  #endif
+  ...
+  ```
 ### Use Spot.IM native view
 ### iOS
 
@@ -99,7 +136,7 @@ SpotIMAPI.startSSO()
     .catch(error => {
         console.error(error);
     })
-      
+
 // 4
 SpotIMAPI.completeSSO("<CODE_B>")
     .then(response => {
