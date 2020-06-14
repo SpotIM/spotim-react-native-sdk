@@ -49,7 +49,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
       [client start];
     }
   #endif
-
+  ...
   #if DEBUG
     InitializeFlipper(application);
   #endif
