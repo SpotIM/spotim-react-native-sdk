@@ -17,8 +17,11 @@ This library provides an easy integration with Spot.IM into a React-Native app.
     `npm install @spot.im/react-native-spotim --save`
 2. Import Spot.IM modules:
     `import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from 'react-native-spotim';`
-3. Go to the project ios folder and make sure `use_frameworks!` is set in the Podfile
-4. If you're using RN version > 0.62, you will need to disable `flipper` by doing the follownig:
+    
+### Use Spot.IM native view
+### iOS
+1. Go to the project ios folder and make sure `use_frameworks!` is set in the Podfile
+2. If you're using RN version > 0.62, you will need to disable `flipper` by doing the follownig:
   * Comment the following lines from the Podfile:
   ```ruby
   ...
@@ -55,10 +58,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
   #endif
   ...
   ```
-### Use Spot.IM native view
-### iOS
-
-The default React-Native root view controller is an instance of UIViewController.
+3. The default React-Native root view controller is an instance of UIViewController.
 Spot.IM is using UINavigationController no navigate to native view controllers.
 To support native navigation wrap the app with a navigation controller in your `AppDelegate.m`:
 ```obj-c
