@@ -60,7 +60,15 @@ This library provides an easy integration with Spot.IM into a React-Native app.
   ```
 3. The default React-Native root view controller is an instance of UIViewController.
 Spot.IM is using UINavigationController no navigate to native view controllers.
-To support native navigation wrap the app with a navigation controller in your `AppDelegate.m`:
+To support native navigation wrap the app with a navigation controller.
+
+Add the following to your code:
+`AppDelegate.h`:
+```obj-c
+@property (nonatomic, strong) UINavigationController *navControll;
+```
+
+`AppDelegate.m`:
 ```obj-c
 ...
 UIViewController *rootViewController = [UIViewController new];
