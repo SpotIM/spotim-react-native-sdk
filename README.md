@@ -63,6 +63,7 @@ Spot.IM is using UINavigationController no navigate to native view controllers.
 To support native navigation wrap the app with a navigation controller.
 
 Add the following to your code:
+
 `AppDelegate.h`:
 ```obj-c
 @property (nonatomic, strong) UINavigationController *navControll;
