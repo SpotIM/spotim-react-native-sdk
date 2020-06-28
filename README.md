@@ -5,7 +5,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
 ## Requirements
 
 * iOS 10.3 or later.
-* Android SDK verison (API 18) and above.
+* Android SDK verison (API 19) and above.
 * Have a [Spot.IM](https://spot.im) account
 
 ## Getting started
@@ -17,7 +17,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
     `npm install @spot.im/react-native-spotim --save`
 2. Import Spot.IM modules:
     `import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from '@spot.im/react-native-spotim';`
-    
+
 ### Use Spot.IM native view
 ### iOS
 1. Go to the project ios folder and make sure `use_frameworks!` is set in the Podfile
@@ -92,12 +92,13 @@ self.window.rootViewController = self.navControll;
 ```gradle
 repositories {
    maven { url 'https://jitpack.io' }
+   maven { url "http://giphy.bintray.com/giphy-sdk" }
 }
 ```
 2. Add the following lines to the **app** module's `build.gradle` file.
 ```gradle
-implementation 'com.android.support:multidex:1.0.3'
-implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.1.2'
+implementation 'androidx.multidex:multidex:2.0.1'
+implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.2.0'
 ```
 3. Apply Spot.IM gradle plugin
 	There are two options to implement the plugin:
@@ -138,7 +139,7 @@ implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.1.2'
         multiDexEnabled true
     }
 	```
-    
+
 	```gradle
 	apply plugin: "im.spot"
 	```
