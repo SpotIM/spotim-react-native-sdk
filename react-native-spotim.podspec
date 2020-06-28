@@ -10,11 +10,8 @@ Pod::Spec.new do |s|
                   react-native-spotim
                    DESC
   s.homepage     = "https://github.com/github_account/react-native-spotim"
-  # brief license entry:
-  s.license      = "MIT"
-  # optional - use expanded license entry instead:
-  # s.license    = { :type => "MIT", :file => "LICENSE" }
-  s.authors      = { "Your Name" => "yourname@email.com" }
+  s.license      = { :type => "Apache 2.0", :file => "LICENSE" }
+  s.authors      = { "Rotem Itzhak" => "rotem.i@openweb.com" }
   s.platforms    = { :ios => "9.0" }
   s.source       = { :git => "https://github.com/github_account/react-native-spotim.git", :tag => "#{s.version}" }
 
@@ -25,4 +22,3 @@ Pod::Spec.new do |s|
   s.dependency "SpotIMCore"
 
 end
-
