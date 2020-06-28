@@ -82,7 +82,7 @@ self.window.rootViewController = self.navControll;
 
 ### Android
 
-- Android SDK verison (API 18) and above.
+- Android SDK verison (API 19) and above.
 - Your application will need a permission to use the Internet. Add the following line to your **AndroidManifest.xml**:
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
