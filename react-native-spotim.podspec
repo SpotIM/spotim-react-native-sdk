@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/github_account/react-native-spotim"
   s.license      = { :type => "Apache 2.0", :file => "LICENSE" }
   s.authors      = { "Rotem Itzhak" => "rotem.i@openweb.com" }
-  s.platforms    = { :ios => "9.0" }
+  s.platforms    = { :ios => "10.3" }
   s.source       = { :git => "https://github.com/github_account/react-native-spotim.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,swift}"
