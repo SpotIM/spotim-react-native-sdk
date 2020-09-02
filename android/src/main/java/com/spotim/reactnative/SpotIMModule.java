@@ -104,7 +104,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sso(String jwt, final Promise promise) {
+    public void ssoWithJwtSecret(String jwt, final Promise promise) {
         SpotIm.ssoWithJwt(jwt, new SpotCallback<SsoWithJwtResponse>() {
             @Override
             public void onSuccess(SsoWithJwtResponse response) {
