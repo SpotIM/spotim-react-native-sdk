@@ -24,12 +24,11 @@ export default class App extends Component<{}> {
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
         <SpotIM
           spotId="sp_eCIlROSD"
-          postId="default"
+          postId="sdk1"
           url="http://www.spotim.name/bd-playground/post9.html"
           title="Spot.IM is aiming for the stars!"
           subtitle=""
           thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
-          darkModeBackgroundColor="#dfdfdf"
           style={{flex: 1}} />
       </ScrollView>
     );
