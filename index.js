@@ -1,6 +1,7 @@
-import React from 'react';
-import { requireNativeComponent, NativeModules, NativeEventEmitter, Platform, findNodeHandle, UIManager, Dimensions } from 'react-native';
+import { Dimensions, NativeEventEmitter, NativeModules, Platform, UIManager, findNodeHandle, requireNativeComponent } from 'react-native';
+
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const ISIOS = Platform.OS === "ios";
 
@@ -55,6 +56,9 @@ export class SpotIM extends React.Component {
 }
 
 export class SpotIMAPI {
+    static init = (spotId) => {
+        return SpotIMModule.initWithSpotId(spotId)
+    }
     static startSSO = () => {
         return SpotIMModule.startSSO();
     }
@@ -70,7 +74,6 @@ export class SpotIMAPI {
     static logout = () => {
         return SpotIMModule.logout();
     }
-    
 }
 
 SpotIM.propTypes = {
