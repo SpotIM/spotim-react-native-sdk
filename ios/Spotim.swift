@@ -17,6 +17,10 @@ import SpotImCore
     @objc func viewHeightDidChange(to newValue: CGFloat)
 }
 
+@objc public enum SpotImUserInterfaceStyle: Int {
+    case light, dark
+}
+
 @objc(SpotImBridge)
 public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.SpotImLayoutDelegate {
     
@@ -36,6 +40,15 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     
     @objc public func setBackgroundColor(_ red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         SpotIm.darkModeBackgroundColor = UIColor(red: red, green: green, blue: blue, alpha: alpha);
+    }
+    
+    @objc public func overrideUserInterfaceStyle(style: SpotImUserInterfaceStyle) {
+        switch style {
+        case .light:
+            SpotIm.overrideUserInterfaceStyle = .light
+        case .dark:
+            SpotIm.overrideUserInterfaceStyle = .dark
+        }
     }
     
     @objc public func getConversationCounters(_ conversationIds: Array<String>,

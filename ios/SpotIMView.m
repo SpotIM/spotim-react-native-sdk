@@ -40,6 +40,8 @@ BOOL defaultNavBarVisibilityHidden;
     
     if (self->_darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
+    } else {
+        [spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
     
     [self initPreConversationControlle];
