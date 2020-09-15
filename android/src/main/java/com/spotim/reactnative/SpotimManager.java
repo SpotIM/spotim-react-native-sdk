@@ -164,7 +164,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
             @Override
             public void heightDidChange(float v) {
                 WritableMap map = Arguments.createMap();
-                map.putInt("height", Math.round(v/2));
+                map.putInt("height", Math.round(v));
                 context.getJSModule(RCTEventEmitter.class)
                         .receiveEvent(reactNativeViewId, "topChange", map);
             }
