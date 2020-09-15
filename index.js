@@ -1,4 +1,4 @@
-import { Dimensions, NativeEventEmitter, NativeModules, Platform, UIManager, findNodeHandle, requireNativeComponent } from 'react-native';
+import { Dimensions, NativeEventEmitter, NativeModules, Platform, UIManager, findNodeHandle, requireNativeComponent, PixelRatio } from 'react-native';
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -28,7 +28,7 @@ export class SpotIM extends React.Component {
         } else {
             setTimeout(() => {
                 this.create();
-            }, 3000);
+            }, 2000);
         }  
     }
     create = () => {
@@ -40,11 +40,11 @@ export class SpotIM extends React.Component {
         );
 
         setTimeout(() => {
-            this.setState({ height: Dimensions.get('window').height });
+            this.setState({ height: Dimensions.get('window').height*1.5 });
         }, 2000);
     }
     _onChange(event: Event) {
-        this.setState({ height: event.nativeEvent.height });
+        this.setState({ height: event.nativeEvent.height / PixelRatio.get() });
     }
     render() {
         return <RNSpotIM
