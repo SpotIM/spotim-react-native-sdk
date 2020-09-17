@@ -144,6 +144,9 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 .addTheme(themeParams)
                 .build();
 
+        View parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
+        setupLayoutHack((ViewGroup) parentView);
+
         SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
             public void onSuccess(final Fragment fragment) {
@@ -169,6 +172,26 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                         .receiveEvent(reactNativeViewId, "topChange", map);
             }
         });
+    }
+
+    private void setupLayoutHack(final ViewGroup view) {
+        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+            @Override
+            public void doFrame(long frameTimeNanos) {
+                manuallyLayoutChildren(view);
+                view.getViewTreeObserver().dispatchOnGlobalLayout();
+                Choreographer.getInstance().postFrameCallback(this);
+            }
+        });
+    }
+
+    private void manuallyLayoutChildren(ViewGroup view) {
+        for (int i = 0; i < view.getChildCount(); i++) {
+            View child = view.getChildAt(i);
+            child.measure(View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
+            child.layout(child.getLeft(), child.getTop(), child.getMeasuredWidth(), child.getMeasuredHeight());
+        }
     }
 
     @Override

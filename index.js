@@ -38,10 +38,6 @@ export class SpotIM extends React.Component {
           UIManager.SpotIM.Commands.create.toString(),
           [androidViewId]
         );
-
-        setTimeout(() => {
-            this.setState({ height: Dimensions.get('window').height*1.5 });
-        }, 2000);
     }
     _onChange(event: Event) {
         this.setState({ height: event.nativeEvent.height / PixelRatio.get() });
