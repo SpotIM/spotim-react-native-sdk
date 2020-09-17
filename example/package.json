@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@spot.im/react-native-spotim": "^1.0.8",
+    "@spot.im/react-native-spotim": "^1.0.10",
     "react": "^16.13.1",
     "react-native": "^0.63.2"
   },
