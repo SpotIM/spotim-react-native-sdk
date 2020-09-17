@@ -1,4 +1,4 @@
-import { Dimensions, NativeEventEmitter, NativeModules, Platform, UIManager, findNodeHandle, requireNativeComponent, PixelRatio } from 'react-native';
+import { Dimensions, NativeEventEmitter, NativeModules, PixelRatio, Platform, UIManager, findNodeHandle, requireNativeComponent } from 'react-native';
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -26,9 +26,7 @@ export class SpotIM extends React.Component {
                 this.setState({height: event['newHeight']});
             });
         } else {
-            setTimeout(() => {
-                this.create();
-            }, 2000);
+            this.create();
         }  
     }
     create = () => {
