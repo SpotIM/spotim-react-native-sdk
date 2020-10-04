@@ -37,36 +37,36 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)setSpotId:(NSString *)spotId
 {
     _spotId = spotId;
-    
+
     if (self->_darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
     } else {
         [spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
-    
+
     [self initPreConversationControlle];
 }
 
 - (void)initPreConversationControlle
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    UIViewController *rootViewController = navController.visibleViewController;
-    
+    UIViewController *rootViewController = navController.topViewController;
+
     appRootViewController = rootViewController;
     defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
-    
+
     [spotIm createSpotImFlowCoordinator:self completion:^() {
-        
+
         [spotIm getPreConversationController:navController postId:self->_postId url:self->_url title:self->_title subtitle:self->_subtitle thumbnailUrl:self->_thumbnailUrl completion:^(UIViewController *vc) {
-            
+
             [rootViewController addChildViewController:vc];
             [self addSubview:vc.view];
             vc.view.frame = self.bounds;
             [vc didMoveToParentViewController:rootViewController];
             preConversationVC = vc;
-            
+
         } onError:^(NSError * error) {
-            
+
         }];
     } onError:^(NSError *error) {
     }];
@@ -75,10 +75,10 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)setDarkModeBackgroundColor
 {
     NSString *hex = self->_darkModeBackgroundColor;
-    
+
     NSUInteger red, green, blue;
     sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
-    
+
     [spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
 }
 
@@ -131,8 +131,8 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)didMoveToWindow {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    UIViewController *rootViewController = navController.visibleViewController;
-    
+    UIViewController *rootViewController = navController.topViewController;
+
     if (defaultNavBarVisibilityHidden && appRootViewController == rootViewController) {
         [navController setNavigationBarHidden:YES];
     }
