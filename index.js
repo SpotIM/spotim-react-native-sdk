@@ -12,6 +12,8 @@ export const SpotIMEventEmitter = new NativeEventEmitter(SpotIMEvents);
 export class SpotIM extends React.Component {
 
     nativeComponentRef;
+    lastHeightUpdate = 0;
+    heightUpdateTimestamp;
 
     constructor(props) {
         super(props);
@@ -26,9 +28,12 @@ export class SpotIM extends React.Component {
                 this.setState({height: event['newHeight']});
             });
         } else {
+            this.create();
+            this.setState({ loading: true });
+            this.heightUpdateTimestamp = Date.now() / 1000;
             setTimeout(() => {
-                this.create();
-            }, 2000);
+                this.setState({ loading: false });
+            }, 2500);
         }  
     }
     create = () => {
@@ -40,14 +45,25 @@ export class SpotIM extends React.Component {
         );
     }
     _onChange(event: Event) {
-        this.setState({ height: event.nativeEvent.height / PixelRatio.get() });
+        const newHeight = event.nativeEvent.height / PixelRatio.get();
+        const heightDiff = Math.abs(newHeight - this.lastHeightUpdate);
+        if ((!this.lastHeightUpdate || heightDiff != 0)) {
+            this.lastHeightUpdate = newHeight;
+            if (!this.state.height ||
+                this.state.height < newHeight ||
+                Date.now() / 1000 - this.heightUpdateTimestamp > 5) {
+                this.setState({ height: newHeight });
+            }
+            this.heightUpdateTimestamp = Date.now() / 1000;
+        }
+        
     }
     render() {
         return <RNSpotIM
                 {...this.props}
                 onChange={this._onChange}
                 ref={(nativeRef) => this.nativeComponentRef = nativeRef}
-                style={{alignSelf: 'stretch', height: this.state && this.state.height ? Number(this.state.height) : 0}} />;
+                style={{alignSelf: 'stretch', height: this.state && this.state.height ? Number(this.state.height) : 0, opacity: this.state && this.state.loading ? 0 : 1}} />;
     }
 }
 
