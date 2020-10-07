@@ -188,9 +188,11 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     private void manuallyLayoutChildren(ViewGroup view) {
         for (int i = 0; i < view.getChildCount(); i++) {
             View child = view.getChildAt(i);
-            child.measure(View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
-            child.layout(child.getLeft(), child.getTop(), child.getMeasuredWidth(), child.getMeasuredHeight());
+            if(child == viewRoot) {
+                child.measure(View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+                        View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
+                child.layout(child.getLeft(), child.getTop(), child.getMeasuredWidth(), child.getMeasuredHeight());
+            }
         }
     }
 
