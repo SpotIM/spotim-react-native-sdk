@@ -150,13 +150,15 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
             public void onSuccess(final Fragment fragment) {
-                ((FragmentActivity)context.getCurrentActivity())
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(reactNativeViewId, fragment, String.valueOf(reactNativeViewId))
-                        .commit();
-                ((FragmentActivity)context.getCurrentActivity())
-                        .getSupportFragmentManager().executePendingTransactions();
+                if(context.getCurrentActivity() != null && context.getCurrentActivity() instanceof FragmentActivity && context.getCurrentActivity().findViewById(reactNativeViewId) != null) {
+                    ((FragmentActivity) context.getCurrentActivity())
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(reactNativeViewId, fragment, String.valueOf(reactNativeViewId))
+                            .commit();
+                    ((FragmentActivity) context.getCurrentActivity())
+                            .getSupportFragmentManager().executePendingTransactions();
+                }
             }
 
             @Override
