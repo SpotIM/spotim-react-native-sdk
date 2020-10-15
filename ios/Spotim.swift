@@ -101,45 +101,53 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         
     }
     
-    @objc public func startSSO(_ completion: @escaping (String) -> Void,
+    @objc public func startSSO(_ completion: @escaping ([String:Any]) -> Void,
                                  onError: @escaping (Error) -> Void) {
-        SpotIm.startSSO { [weak self] response, error in
+        SpotIm.startSSO { response, error in
             if let error = error {
                 onError(error)
             } else {
-                completion(String(describing: response))
+                if let response = response, let responseAsDic = self.dictionary(encodable: response) {
+                    completion(responseAsDic)
+                } else {
+                    completion([String:Any]())
+                }
             }
         }
     }
     
-    @objc public func completeSSO(_ with: String, completion: @escaping (String) -> Void,
+    @objc public func completeSSO(_ with: String, completion: @escaping ([String:Any]) -> Void,
                                     onError: @escaping (Error) -> Void) {
-        SpotIm.completeSSO(with: with) { [weak self] success, error in
+        SpotIm.completeSSO(with: with) { success, error in
             if let error = error {
                 onError(error)
             } else if success {
-                completion(String(describing: success))
+                completion(["success": success])
             }
         }
     }
     
-    @objc public func sso(_ withJwtSecret: String, completion: @escaping (String) -> Void,
+    @objc public func sso(_ withJwtSecret: String, completion: @escaping ([String:Any]) -> Void,
                             onError: @escaping (Error) -> Void) {
-        SpotIm.sso(withJwtSecret: withJwtSecret) { [weak self] response, error in
+        SpotIm.sso(withJwtSecret: withJwtSecret) { response, error in
             if let error = error {
                 onError(error)
             } else {
-                completion(String(describing: response))
+                if let response = response, let responseAsDic = self.dictionary(encodable: response) {
+                    completion(responseAsDic)
+                } else {
+                    completion([String:Any]())
+                }
             }
         }
     }
     
-    @objc public func getUserLoginStatus(_ completion: @escaping (String) -> Void,
+    @objc public func getUserLoginStatus(_ completion: @escaping ([String:Any]) -> Void,
                                            onError: @escaping (Error) -> Void) {
         SpotIm.getUserLoginStatus(completion: { result in
             switch result {
                 case .success(let loginStatus):
-                    completion("\(loginStatus)")
+                    completion(["status":"\(loginStatus)"])
                 case .failure(let error):
                     onError(error)
                 @unknown default:
@@ -148,17 +156,22 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         })
     }
     
-    @objc public func logout(_ completion: @escaping (String) -> Void,
+    @objc public func logout(_ completion: @escaping ([String:Any]) -> Void,
                                onError: @escaping (Error) -> Void) {
         SpotIm.logout(completion: { result in
             switch result {
                 case .success():
-                    completion("Logout from SpotIm was successful")
+                    completion(["success": true])
                 case .failure(let error):
                     onError(error)
                 @unknown default:
                     print("Got unknown response")
             }
         })
+    }
+    
+    private func dictionary<T>(encodable: T) -> [String: Any]? where T : Encodable {
+        guard let data = try? JSONEncoder().encode(encodable) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
     }
 }

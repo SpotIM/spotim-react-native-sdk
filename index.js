@@ -1,4 +1,4 @@
-import { Dimensions, NativeEventEmitter, NativeModules, Platform, UIManager, findNodeHandle, requireNativeComponent, PixelRatio } from 'react-native';
+import { Dimensions, NativeEventEmitter, NativeModules, PixelRatio, Platform, UIManager, findNodeHandle, requireNativeComponent } from 'react-native';
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -69,22 +69,92 @@ export class SpotIM extends React.Component {
 
 export class SpotIMAPI {
     static init = (spotId) => {
-        return SpotIMModule.initWithSpotId(spotId)
+        SpotIMModule.initWithSpotId(spotId)
     }
     static startSSO = () => {
-        return SpotIMModule.startSSO();
+        return new Promise((resolve, reject) => {
+            const successSubscription = SpotIMEventEmitter.addListener('startSSOSuccess', (response) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                resolve(response);
+            });
+
+            const failureSubscription = SpotIMEventEmitter.addListener('startSSOFailed', (event) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                reject(event);
+            });
+
+            SpotIMModule.startSSO();
+        })
     }
     static completeSSO = (str) => {
-        return SpotIMModule.completeSSO(str);
+        return new Promise((resolve, reject) => {
+            const successSubscription = SpotIMEventEmitter.addListener('completeSSOSuccess', (response) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                resolve(response);
+            });
+
+            const failureSubscription = SpotIMEventEmitter.addListener('completeSSOFailed', (event) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                reject(event);
+            });
+
+            SpotIMModule.completeSSO(str);
+        })
     }
     static sso = (jwt) => {
-        return SpotIMModule.ssoWithJwtSecret(jwt);
+        return new Promise((resolve, reject) => {
+            const successSubscription = SpotIMEventEmitter.addListener('ssoSuccess', (response) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                resolve(response);
+            });
+
+            const failureSubscription = SpotIMEventEmitter.addListener('ssoFailed', (event) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                reject(event);
+            });
+
+            SpotIMModule.ssoWithJwtSecret(jwt);
+        })
     }
     static getUserLoginStatus = () => {
-        return SpotIMModule.getUserLoginStatus();
+        return new Promise((resolve, reject) => {
+            const successSubscription = SpotIMEventEmitter.addListener('getUserLoginStatusSuccess', (response) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                resolve(response);
+            });
+
+            const failureSubscription = SpotIMEventEmitter.addListener('getUserLoginStatusFailed', (event) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                reject(event);
+            });
+
+            SpotIMModule.getUserLoginStatus();
+        })
     }
     static logout = () => {
-        return SpotIMModule.logout();
+        return new Promise((resolve, reject) => {
+            const successSubscription = SpotIMEventEmitter.addListener('logoutSuccess', (response) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                resolve(response);
+            });
+
+            const failureSubscription = SpotIMEventEmitter.addListener('logoutFailed', (event) => {
+                successSubscription.remove();
+                failureSubscription.remove();
+                reject(event);
+            });
+
+            SpotIMModule.logout();
+        })
     }
 }
 

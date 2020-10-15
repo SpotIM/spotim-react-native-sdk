@@ -23,7 +23,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"startLoginFlow", @"viewHeightDidChange"];
+    return @[@"startLoginFlow", @"viewHeightDidChange", @"startSSOSuccess", @"startSSOFailed", @"completeSSOSuccess", @"completeSSOFailed", @"ssoSuccess", @"ssoFailed", @"getUserLoginStatusSuccess", @"getUserLoginStatusFailed", @"logoutSuccess", @"logoutFailed"];
 }
 
 - (void)sendLoginEvent
@@ -35,4 +35,13 @@ RCT_EXPORT_MODULE();
     [self sendEventWithName:@"viewHeightDidChange" body:@{@"newHeight": newHeight}];
 }
 
+- (void)sendRequsetSuccessEvent:(NSString*)eventName response:(NSDictionary *)response
+{
+    [self sendEventWithName:eventName body:response];
+}
+
+- (void)sendRequsetFailedEvent:(NSString*)eventName error:(NSError *)error
+{
+    [self sendEventWithName:eventName body:@{@"error": error}];
+}
 @end
