@@ -1,23 +1,19 @@
 package com.spotim.reactnative;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
-import java.util.HashMap;
 
 import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
@@ -32,6 +28,7 @@ import spotIm.sdk.SpotIm;
 public class SpotIMModule extends ReactContextBaseJavaModule {
 
     public static final String LOGIN_STATUS_GUEST = "guest";
+    public static final String LOGIN_STATUS_LOGGED_IN = "loggedIn";
     public static final String LOGOUT_SUCCESS = "Logout from SpotIm was successful";
 
     private static ReactApplicationContext reactContext;
@@ -47,7 +44,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void initWithSpotId(String spodId, Promise promise) {
+    public void initWithSpotId(String spodId) {
         SpotIm.init(reactContext, spodId);
 
         SpotIm.setLoginDelegate(new LoginDelegate() {
@@ -62,64 +59,70 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startSSO(final Promise promise) {
+    public void startSSO() {
         SpotIm.startSSO(new SpotCallback<StartSSOResponse>() {
             @Override
             public void onSuccess(StartSSOResponse response) {
                 try {
                     Gson gson = new Gson();
                     WritableMap responseMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(response)));
-                    promise.resolve(responseMap);
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("startSSOSuccess", responseMap);
                 } catch (JSONException e) {
-                    promise.reject(e);
+                    sendError("startSSOFailed", e);
                 }
             }
 
             @Override
             public void onFailure(SpotException e) {
-                promise.reject(e);
+                sendError("startSSOFailed", e);
             }
         });
     }
 
     @ReactMethod
-    public void completeSSO(String codeB, final Promise promise) {
+    public void completeSSO(String codeB) {
         SpotIm.completeSSO(codeB, new SpotCallback<CompleteSSOResponse>() {
             @Override
             public void onSuccess(CompleteSSOResponse response) {
                 try {
                     Gson gson = new Gson();
                     WritableMap responseMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(response)));
-                    promise.resolve(responseMap);
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("completeSSOSuccess", responseMap);
                 } catch (JSONException e) {
-                    promise.reject(e);
+                    sendError("completeSSOFailed", e);
                 }
             }
 
             @Override
             public void onFailure(SpotException e) {
-                promise.reject(e);
+                sendError("completeSSOFailed", e);
             }
         });
     }
 
     @ReactMethod
-    public void ssoWithJwtSecret(String jwt, final Promise promise) {
+    public void ssoWithJwtSecret(String jwt) {
         SpotIm.ssoWithJwt(jwt, new SpotCallback<SsoWithJwtResponse>() {
             @Override
             public void onSuccess(SsoWithJwtResponse response) {
                 try {
                     Gson gson = new Gson();
                     WritableMap responseMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(response)));
-                    promise.resolve(responseMap);
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("ssoSuccess", responseMap);
                 } catch (JSONException e) {
-                    promise.reject(e);
+                    sendError("ssoFailed", e);
                 }
             }
 
             @Override
             public void onFailure(SpotException e) {
-                promise.reject(e);
+                sendError("ssoFailed", e);
             }
         });
     }
@@ -129,32 +132,68 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
         SpotIm.getUserStatus(new SpotCallback<UserStatus>() {
             @Override
             public void onSuccess(UserStatus status) {
+                JSONObject json = new JSONObject();
+                String statusString = "";
                 if (status == UserStatus.GUEST) {
-                    promise.resolve(LOGIN_STATUS_GUEST);
+                    statusString = LOGIN_STATUS_GUEST;
                 } else {
-                    promise.resolve("user is logged in");
+                    statusString = LOGIN_STATUS_LOGGED_IN;
+                }
+
+                try {
+                    json.put("status", statusString);
+                    WritableMap responseMap = ReactNativeJson.convertJsonToMap(json);
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("getUserLoginStatusSuccess", responseMap);
+                } catch (JSONException jsonException) {
+                    sendError("getUserLoginStatusFailed", jsonException);
                 }
             }
 
             @Override
             public void onFailure(SpotException e) {
-                promise.reject(e);
+                sendError("getUserLoginStatusFailed", e);
             }
         });
     }
 
     @ReactMethod
-    public void logout(final Promise promise) {
+    public void logout() {
         SpotIm.logout(new SpotVoidCallback() {
             @Override
             public void onSuccess() {
-                promise.resolve(LOGOUT_SUCCESS);
+                try {
+                    JSONObject json = new JSONObject();
+                    json.put("success", true);
+                    WritableMap responseMap = ReactNativeJson.convertJsonToMap(json);
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("logoutSuccess", responseMap);
+                } catch (JSONException jsonException) {
+                    sendError("logoutFailed", jsonException);
+                }
             }
 
             @Override
             public void onFailure(SpotException e) {
-                promise.reject(e);
+                sendError("logoutFailed", e);
             }
         });
+    }
+
+    private void sendError(String errorEvent, Exception e) {
+        JSONObject json = new JSONObject();
+        WritableMap responseMap = Arguments.createMap();
+        try {
+            json.put("error", e.toString());
+            responseMap = ReactNativeJson.convertJsonToMap(json);
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+        } finally {
+            reactContext
+                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                    .emit(errorEvent, responseMap);
+        }
     }
 }
