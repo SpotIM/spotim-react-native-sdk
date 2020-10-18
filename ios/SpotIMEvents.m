@@ -42,6 +42,6 @@ RCT_EXPORT_MODULE();
 
 - (void)sendRequsetFailedEvent:(NSString*)eventName error:(NSError *)error
 {
-    [self sendEventWithName:eventName body:@{@"error": error}];
+    [self sendEventWithName:eventName body:@{@"error": error.localizedDescription}];
 }
 @end
