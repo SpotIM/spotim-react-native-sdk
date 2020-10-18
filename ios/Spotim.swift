@@ -171,7 +171,9 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     }
     
     private func dictionary<T>(encodable: T) -> [String: Any]? where T : Encodable {
-        guard let data = try? JSONEncoder().encode(encodable) else { return nil }
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        guard let data = try? encoder.encode(encodable) else { return nil }
         return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
     }
 }
