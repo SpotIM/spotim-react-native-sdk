@@ -82,9 +82,9 @@ BOOL defaultNavBarVisibilityHidden;
     [spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
 }
 
-- (void)startSSO:(SSOCompletionBlock)completion
+- (void)startSSO:(RequestCompletion)completion
                   onError:(SSOErrorBlock)error {
-    [spotIm startSSO:^(NSString *response) {
+    [spotIm startSSO:^(NSDictionary *response) {
         completion(response);
     } onError:^(NSError *err) {
         error(err);
@@ -92,9 +92,9 @@ BOOL defaultNavBarVisibilityHidden;
 }
 
 - (void)completeSSO:(NSString *)with
-       onCompletion:(SSOCompletionBlock)completion
+       onCompletion:(RequestCompletion)completion
             onError:(SSOErrorBlock)error {
-    [spotIm completeSSO:with completion:^(NSString * _Nonnull response) {
+    [spotIm completeSSO:with completion:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -102,27 +102,27 @@ BOOL defaultNavBarVisibilityHidden;
 }
 
 - (void)ssoWithJwtSecret:(NSString *)token
-            onCompletion:(SSOCompletionBlock)completion
+            onCompletion:(RequestCompletion)completion
                  onError:(SSOErrorBlock)error {
-    [spotIm sso:token completion:^(NSString * _Nonnull response) {
+    [spotIm sso:token completion:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
     }];
 }
 
-- (void)getUserLoginStatus:(SSOCompletionBlock)completion
+- (void)getUserLoginStatus:(RequestCompletion)completion
                    onError:(SSOErrorBlock)error {
-    [spotIm getUserLoginStatus:^(NSString * _Nonnull response) {
+    [spotIm getUserLoginStatus:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
     }];
 }
 
-- (void)logout:(SSOCompletionBlock)completion
+- (void)logout:(RequestCompletion)completion
        onError:(SSOErrorBlock)error {
-    [spotIm logout:^(NSString * _Nonnull response) {
+    [spotIm logout:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);

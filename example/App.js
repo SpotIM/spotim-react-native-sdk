@@ -19,12 +19,96 @@ export default class App extends Component<{}> {
     }
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
 
+    // SPOT IM INIT
+    // SpotIMAPI.init(SPOT_ID);
+    
+
+    // COMPLETE SSO FLOW
+    // const Http = new XMLHttpRequest();
+    // const url=SSO_ENDPOINT_BASE_URL+SSO_ENDPOINT_LOGIN;
+    // Http.open("POST", url);
+    // Http.setRequestHeader("content-type","application/json");
+    // Http.send(JSON.stringify({
+    //   "username":USERNAME,
+    //   "password":PASSWORD
+    // }));
+    // Http.onreadystatechange=(e) => {
+    //   if(Http.readyState == 4) {
+    //     console.log(Http.responseText);
+    //     const json = JSON.parse(Http.responseText);
+    //     const userToken = json.token
+    //     console.log("user token: " + userToken);
+    //     SpotIMAPI.startSSO()
+    //     .then((data) => {
+    //       console.log("SpotIm: Succees for SSO: ");
+    //       console.log("SpotIm: Code: " + data.code_a);
+
+    //       const Http = new XMLHttpRequest();
+    //       const url=SSO_ENDPOINT_BASE_URL+SSO_ENDPOINT_CODE_B;
+    //       Http.open("POST", url);
+    //       Http.setRequestHeader("access-token-network", SPOT_ACCESS_TOKEN);
+    //       Http.setRequestHeader("content-type","application/json");
+    //       Http.send(JSON.stringify({
+    //         "code_a":data.code_a,
+    //         "access_token":userToken,
+    //         "username":USERNAME,
+    //         "environment":"production"
+    //       }));
+    //       Http.onreadystatechange=(e) => {
+    //         if(Http.readyState == 4) {
+    //           const json = JSON.parse(Http.responseText);
+    //           console.log("Got code B: ");
+    //           console.log(json)
+    //           SpotIMAPI.completeSSO(json.code_b)
+    //           .then((response) => {
+    //             console.log("SpotIm: " + response.success);
+    //           })
+    //           .catch((error) => {
+    //             console.log("SpotIm: " + error);
+    //           })
+    //         }        
+    //       } 
+    //     })
+    //     .catch((error) => {
+    //       console.log("SpotIm: Api call error: " + error);
+    //     });
+    //   }
+    // }
+    
+
+    // SSO WITH JWT
+    // SpotIMAPI.sso(JWT_TOKEN)
+    // .then((data) => {
+    //   console.log("Succees for SSO: ");
+    //   console.log(data.success);
+    // }).catch((error)=>{
+    //   console.log("Api call error: " + error.error);
+    // });
+  
+    // LOGOUT
+    // SpotIMAPI.logout()
+    // .then((response) => {
+    //   console.log("Logout success: " + response.success);
+    // })
+    // .catch((error) => {
+    //   console.log("Logout error: " + error);
+    // });
+
+    // // GET USER STATUS
+    // SpotIMAPI.getUserLoginStatus()
+    // .then((response) => {
+    //   console.log("User status is: " + response.status);
+    // })
+    // .catch((error) => {
+    //   console.log("User status error: ");
+    //   console.log(error);
+    // });
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
         <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
         <SpotIM
-          spotId="sp_eCIlROSD"
+          spotId="sp_ANQXRpqH"
           postId="sdk1"
           url="http://www.spotim.name/bd-playground/post9.html"
           title="Spot.IM is aiming for the stars!"

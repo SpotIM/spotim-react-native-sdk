@@ -13,5 +13,7 @@
 
 - (void)sendLoginEvent;
 - (void)sendViewHeightDidChangeEvent:(NSString*)newHeight;
+- (void)sendRequsetSuccessEvent:(NSString*)eventName response:(NSDictionary *)response;
+- (void)sendRequsetFailedEvent:(NSString*)eventName error:(NSError *)error;
 
 @end
