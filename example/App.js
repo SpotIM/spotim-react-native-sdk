@@ -22,46 +22,67 @@ export default class App extends Component<{}> {
     // SPOT IM INIT
     // SpotIMAPI.init(SPOT_ID);
     
-    // COMPLETE SSO FLOW
-    // SpotIMAPI.startSSO()
-    // .then((data) => {
-    //   console.log("Succees for SSO: ");
-    //   console.log("Code: " + data.codeA);
-    //   console.log("token: " + data.jwtToken);
 
-    //   const Http = new XMLHttpRequest();
-    //   const url=SSO_ENDPOINT;
-    //   Http.open("POST", url);
-    //   Http.setRequestHeader("access-token-network", SPOT_ACCESS_TOKEN);
-    //   Http.setRequestHeader("content-type","application/json");
-    //   Http.send(JSON.stringify({
-    //     "code_a":data.codeA,
-    //     "access_token":data.jwtToken,
-    //     "username":"test",
-    //     "environment":"production"
-    //   }));
-    //   Http.onreadystatechange=(e) => {
+    // COMPLETE SSO FLOW
+    // const Http = new XMLHttpRequest();
+    // const url=SSO_ENDPOINT_BASE_URL+SSO_ENDPOINT_LOGIN;
+    // Http.open("POST", url);
+    // Http.setRequestHeader("content-type","application/json");
+    // Http.send(JSON.stringify({
+    //   "username":USERNAME,
+    //   "password":PASSWORD
+    // }));
+    // Http.onreadystatechange=(e) => {
+    //   if(Http.readyState == 4) {
+    //     console.log(Http.responseText);
     //     const json = JSON.parse(Http.responseText);
-    //     SpotIMAPI.completeSSO(json.code_b)
-    //     .then((response) => {
-    //       console.log(response.success);
+    //     const userToken = json.token
+    //     console.log("user token: " + userToken);
+    //     SpotIMAPI.startSSO()
+    //     .then((data) => {
+    //       console.log("SpotIm: Succees for SSO: ");
+    //       console.log("SpotIm: Code: " + data.code_a);
+
+    //       const Http = new XMLHttpRequest();
+    //       const url=SSO_ENDPOINT_BASE_URL+SSO_ENDPOINT_CODE_B;
+    //       Http.open("POST", url);
+    //       Http.setRequestHeader("access-token-network", SPOT_ACCESS_TOKEN);
+    //       Http.setRequestHeader("content-type","application/json");
+    //       Http.send(JSON.stringify({
+    //         "code_a":data.code_a,
+    //         "access_token":userToken,
+    //         "username":USERNAME,
+    //         "environment":"production"
+    //       }));
+    //       Http.onreadystatechange=(e) => {
+    //         if(Http.readyState == 4) {
+    //           const json = JSON.parse(Http.responseText);
+    //           console.log("Got code B: ");
+    //           console.log(json)
+    //           SpotIMAPI.completeSSO(json.code_b)
+    //           .then((response) => {
+    //             console.log("SpotIm: " + response.success);
+    //           })
+    //           .catch((error) => {
+    //             console.log("SpotIm: " + error);
+    //           })
+    //         }        
+    //       } 
     //     })
     //     .catch((error) => {
-    //       console.log(error);
-    //     })
+    //       console.log("SpotIm: Api call error: " + error);
+    //     });
     //   }
-    // })
-    // .catch((error) => {
-    //   console.log("Api call error: " + error);
-    // });
+    // }
+    
 
     // SSO WITH JWT
-    // const result = SpotIMAPI.sso(JWT_TOKEN)
+    // SpotIMAPI.sso(JWT_TOKEN)
     // .then((data) => {
     //   console.log("Succees for SSO: ");
     //   console.log(data.success);
     // }).catch((error)=>{
-    //    console.log("Api call error");
+    //   console.log("Api call error: " + error.error);
     // });
   
     // LOGOUT
