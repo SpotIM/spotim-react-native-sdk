@@ -108,7 +108,7 @@ export default class App extends Component<{}> {
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
         <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
         <SpotIM
-          spotId="sp_ANQXRpqH"
+          spotId="sp_eCIlROSD"
           postId="sdk1"
           url="http://www.spotim.name/bd-playground/post9.html"
           title="Spot.IM is aiming for the stars!"
