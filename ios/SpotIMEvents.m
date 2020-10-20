@@ -13,35 +13,51 @@
 
 RCT_EXPORT_MODULE();
 
-+ (id)allocWithZone:(NSZone *)zone {
-    static SpotIMEvents *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [super allocWithZone:zone];
-    });
-    return sharedInstance;
+NSString *const EVENT_NAME_KEY = @"eventName";
+NSString *const EVENT_BODY_KEY = @"eventBody";
+NSString *const OPENWEB_EVENT_EMITTER_NOTIFICATIN = @"openwebEventEmitted";
+
+
+- (void)startObserving
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(emitEventInternal:)
+                                                 name:OPENWEB_EVENT_EMITTER_NOTIFICATIN
+                                               object:nil];
+}
+
+- (void)stopObserving
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)emitEventInternal:(NSNotification *)notification
+{
+    NSDictionary *event = notification.userInfo;
+    NSString *name = event[EVENT_NAME_KEY];
+    NSDictionary *body = event[EVENT_BODY_KEY];
+    [self sendEventWithName:name
+                       body:body];
+}
+
++ (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload
+{
+    NSDictionary *event = @{EVENT_NAME_KEY:name, EVENT_BODY_KEY: payload};
+    [[NSNotificationCenter defaultCenter] postNotificationName:OPENWEB_EVENT_EMITTER_NOTIFICATIN
+                                                        object:self
+                                                      userInfo:event];
+}
+
++ (void)emitErrorEventWithName:(NSString *)name andError:(NSError *)error
+{
+    NSDictionary *event = @{EVENT_NAME_KEY:name, EVENT_BODY_KEY: @{@"error": error.localizedDescription}};
+    [[NSNotificationCenter defaultCenter] postNotificationName:OPENWEB_EVENT_EMITTER_NOTIFICATIN
+                                                        object:self
+                                                      userInfo:event];
 }
 
 - (NSArray<NSString *> *)supportedEvents {
     return @[@"startLoginFlow", @"viewHeightDidChange", @"startSSOSuccess", @"startSSOFailed", @"completeSSOSuccess", @"completeSSOFailed", @"ssoSuccess", @"ssoFailed", @"getUserLoginStatusSuccess", @"getUserLoginStatusFailed", @"logoutSuccess", @"logoutFailed"];
 }
 
-- (void)sendLoginEvent
-{
-   [self sendEventWithName:@"startLoginFlow" body:@""];
-}
-
-- (void)sendViewHeightDidChangeEvent:(NSString*)newHeight {
-    [self sendEventWithName:@"viewHeightDidChange" body:@{@"newHeight": newHeight}];
-}
-
-- (void)sendRequsetSuccessEvent:(NSString*)eventName response:(NSDictionary *)response
-{
-    [self sendEventWithName:eventName body:response];
-}
-
-- (void)sendRequsetFailedEvent:(NSString*)eventName error:(NSError *)error
-{
-    [self sendEventWithName:eventName body:@{@"error": error.localizedDescription}];
-}
 @end

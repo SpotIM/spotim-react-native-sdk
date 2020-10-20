@@ -10,7 +10,6 @@
 
 SpotIMView *spotIMView;
 SpotImBridge *spotImBridge;
-SpotIMEvents *spotIMEvents;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -39,17 +38,16 @@ RCT_EXPORT_MODULE(SpotIM)
 
 - (void)startLoginFlow
 {
-    [spotIMEvents sendLoginEvent];
+    [SpotIMEvents emitEventWithName:@"startLoginFlow" andPayload:@{}];
 }
 
 - (void)viewHeightDidChange:(NSNotification *)notification
 {
-    [spotIMEvents sendViewHeightDidChangeEvent:notification.object];
+    [SpotIMEvents emitEventWithName:@"viewHeightDidChange" andPayload:@{@"newHeight": notification.object}];
 }
 
 RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        spotIMEvents = [SpotIMEvents allocWithZone:nil];
         spotIMView = [[SpotIMView alloc] init];
         [spotIMView initWithSpotId:spotId];
         
@@ -61,9 +59,9 @@ RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
 RCT_EXPORT_METHOD(startSSO) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [spotIMView startSSO:^(NSDictionary *response) {
-            [spotIMEvents sendRequsetSuccessEvent:@"startSSOSuccess" response:response];
+            [SpotIMEvents emitEventWithName:@"startSSOSuccess" andPayload:response];
         } onError:^(NSError *error) {
-            [spotIMEvents sendRequsetFailedEvent:@"startSSOFailed" error:error];
+            [SpotIMEvents emitErrorEventWithName:@"startSSOFailed" andError:error];
             RCTLogInfo(@"RNSpotim: start SSO error: %@ (%ld)", error.localizedDescription, (long)error.code);
         }];
     });
@@ -72,9 +70,9 @@ RCT_EXPORT_METHOD(startSSO) {
 RCT_EXPORT_METHOD(completeSSO:(NSString *)codeB) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [spotIMView completeSSO:codeB onCompletion:^(NSDictionary *response) {
-            [spotIMEvents sendRequsetSuccessEvent:@"completeSSOSuccess" response:response];
+            [SpotIMEvents emitEventWithName:@"completeSSOSuccess" andPayload:response];
         } onError:^(NSError *error) {
-            [spotIMEvents sendRequsetFailedEvent:@"completeSSOFailed" error:error];
+            [SpotIMEvents emitErrorEventWithName:@"completeSSOFailed" andError:error];
             RCTLogInfo(@"RNSpotim: complete SSO error: %@ (%ld)", error.localizedDescription, (long)error.code);
         }];
     });
@@ -83,9 +81,9 @@ RCT_EXPORT_METHOD(completeSSO:(NSString *)codeB) {
 RCT_EXPORT_METHOD(ssoWithJwtSecret:(NSString *)token) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [spotIMView ssoWithJwtSecret:token onCompletion:^(NSDictionary *response) {
-            [spotIMEvents sendRequsetSuccessEvent:@"ssoSuccess" response:response];
+            [SpotIMEvents emitEventWithName:@"ssoSuccess" andPayload:response];
         } onError:^(NSError *error) {
-            [spotIMEvents sendRequsetFailedEvent:@"ssoFailed" error:error];
+            [SpotIMEvents emitErrorEventWithName:@"ssoFailed" andError:error];
             RCTLogInfo(@"RNSpotim: sso with JWT token error: %@ (%ld)", error.localizedDescription, (long)error.code);
         }];
     });
@@ -94,9 +92,9 @@ RCT_EXPORT_METHOD(ssoWithJwtSecret:(NSString *)token) {
 RCT_EXPORT_METHOD(getUserLoginStatus) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [spotIMView getUserLoginStatus:^(NSDictionary *response) {
-            [spotIMEvents sendRequsetSuccessEvent:@"getUserLoginStatusSuccess" response:response];
+            [SpotIMEvents emitEventWithName:@"getUserLoginStatusSuccess" andPayload:response];
         } onError:^(NSError *error) {
-            [spotIMEvents sendRequsetFailedEvent:@"getUserLoginStatusFailed" error:error];
+            [SpotIMEvents emitErrorEventWithName:@"getUserLoginStatusFailed" andError:error];
             RCTLogInfo(@"RNSpotim: getUserLoginStatus error: %@ (%ld)", error.localizedDescription, (long)error.code);
         }];
     });
@@ -105,9 +103,9 @@ RCT_EXPORT_METHOD(getUserLoginStatus) {
 RCT_EXPORT_METHOD(logout) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [spotIMView logout:^(NSDictionary *response) {
-            [spotIMEvents sendRequsetSuccessEvent:@"logoutSuccess" response:response];
+            [SpotIMEvents emitEventWithName:@"logoutSuccess" andPayload:response];
         } onError:^(NSError *error) {
-            [spotIMEvents sendRequsetFailedEvent:@"logoutFailed" error:error];
+            [SpotIMEvents emitErrorEventWithName:@"logoutFailed" andError:error];
             RCTLogInfo(@"RNSpotim: logout error: %@ (%ld)", error.localizedDescription, (long)error.code);
         }];
     });

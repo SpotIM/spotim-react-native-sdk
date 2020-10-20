@@ -11,9 +11,7 @@
 
 @interface SpotIMEvents : RCTEventEmitter <RCTBridgeModule>
 
-- (void)sendLoginEvent;
-- (void)sendViewHeightDidChangeEvent:(NSString*)newHeight;
-- (void)sendRequsetSuccessEvent:(NSString*)eventName response:(NSDictionary *)response;
-- (void)sendRequsetFailedEvent:(NSString*)eventName error:(NSError *)error;
++ (void)emitEventWithName:(NSString *)name andPayload:(NSDictionary *)payload;
++ (void)emitErrorEventWithName:(NSString *)name andError:(NSError *)error;
 
 @end
