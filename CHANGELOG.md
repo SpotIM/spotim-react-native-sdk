@@ -6,4 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/SpotIM/spotim-react-native-sdk/compare/1.0.12...master
+## [v1.0.13] - 21/10/20
+### Fixed
+- Android height issues
+- Android crash when switching fast between screens that contain the SpotIm view
+- iOS Crash when API returns an error
+
+[Unreleased]: https://github.com/SpotIM/spotim-react-native-sdk/compare/v1.0.13...master
+[1.0.13]: https://github.com/SpotIM/spotim-react-native-sdk/compare/1.0.12...v1.0.13
