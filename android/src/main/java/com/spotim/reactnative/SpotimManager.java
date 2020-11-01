@@ -155,7 +155,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                             .getSupportFragmentManager()
                             .beginTransaction()
                             .replace(reactNativeViewId, fragment, String.valueOf(reactNativeViewId))
-                            .commit();
+                            .commitAllowingStateLoss();
                     ((FragmentActivity) context.getCurrentActivity())
                             .getSupportFragmentManager().executePendingTransactions();
                 }
