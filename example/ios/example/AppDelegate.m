@@ -23,6 +23,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = self.navControll;
   [self.window makeKeyAndVisible];
+  
   return YES;
 }
 
