@@ -1291,10 +1291,10 @@
   dependencies:
     type-detect "4.0.8"
 
-"@spot.im/react-native-spotim@^1.0.10":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@spot.im/react-native-spotim/-/react-native-spotim-1.0.11.tgz#296835b0b0cae6aaff31a4709b46fecce6b58a40"
-  integrity sha512-ATvxcKprVSdyXNtHSGFu86WnhpbOv9Q6xb1sdJFtGTIjwAYiHglawaepSjBVG1Mj/BZk/8pzllSyrC4MCUXrbw==
+"@spot.im/react-native-spotim@^1.0.13-rc.1":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@spot.im/react-native-spotim/-/react-native-spotim-1.0.14.tgz#6b40dcd427305db5439a61d5a30f802e23def3aa"
+  integrity sha512-qMrlxnvj+EcMvyjN8j28FVx2B48uApAnkJn+EYHsIobZwhHtbWjuhtgILlMs0lHKQljtXclSiYC2Qk/DoC5Ktg==
 
 "@types/babel__core@^7.1.7":
   version "7.1.7"
