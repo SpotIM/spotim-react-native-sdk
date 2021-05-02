@@ -1291,10 +1291,8 @@
   dependencies:
     type-detect "4.0.8"
 
-"@spot.im/react-native-spotim@^1.0.13-rc.1":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@spot.im/react-native-spotim/-/react-native-spotim-1.0.14.tgz#6b40dcd427305db5439a61d5a30f802e23def3aa"
-  integrity sha512-qMrlxnvj+EcMvyjN8j28FVx2B48uApAnkJn+EYHsIobZwhHtbWjuhtgILlMs0lHKQljtXclSiYC2Qk/DoC5Ktg==
+"@spot.im/react-native-spotim@../":
+  version "1.1.0"
 
 "@types/babel__core@^7.1.7":
   version "7.1.7"
