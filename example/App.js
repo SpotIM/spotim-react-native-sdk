@@ -8,7 +8,7 @@
  * https://github.com/facebook/react-native
  */
 
-import { Platform, ScrollView, StyleSheet, Text } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { Component } from 'react';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 
@@ -21,7 +21,7 @@ export default class App extends Component<{}> {
 
     // SPOT IM INIT
     // SpotIMAPI.init(SPOT_ID);
-    
+
 
     // COMPLETE SSO FLOW
     // const Http = new XMLHttpRequest();
@@ -66,15 +66,15 @@ export default class App extends Component<{}> {
     //           .catch((error) => {
     //             console.log("SpotIm: " + error);
     //           })
-    //         }        
-    //       } 
+    //         }
+    //       }
     //     })
     //     .catch((error) => {
     //       console.log("SpotIm: Api call error: " + error);
     //     });
     //   }
     // }
-    
+
 
     // SSO WITH JWT
     // SpotIMAPI.sso(JWT_TOKEN)
@@ -84,7 +84,7 @@ export default class App extends Component<{}> {
     // }).catch((error)=>{
     //   console.log("Api call error: " + error.error);
     // });
-  
+
     // LOGOUT
     // SpotIMAPI.logout()
     // .then((response) => {
@@ -105,8 +105,10 @@ export default class App extends Component<{}> {
     // });
     return (
       <ScrollView style={styles.container}>
+        <View style={{marginTop: 30}} />
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
-        <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
+        <Text style={{margin:10}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
+        <View style={{marginTop: 30}} />
         <SpotIM
           spotId="sp_eCIlROSD"
           postId="sdk1"
@@ -126,8 +128,10 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 24,
+    color: 'blue',
     textAlign: 'center',
     marginTop: 40,
+    marginBottom: 20,
   },
 });
