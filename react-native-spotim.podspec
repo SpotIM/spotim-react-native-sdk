@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/github_account/react-native-spotim"
   s.license      = { :type => "Apache 2.0", :file => "LICENSE" }
-  s.authors      = { "Rotem Itzhak" => "rotem.i@openweb.com" }
+  s.authors      = { "Itay Dressler" => "itay.d@openweb.com" }
   s.platforms    = { :ios => "10.3" }
   s.source       = { :git => "https://github.com/github_account/react-native-spotim.git", :tag => "#{s.version}" }
 
