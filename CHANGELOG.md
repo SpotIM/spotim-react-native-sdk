@@ -6,10 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v1.0.14] - 02/11/20
+## [v1.2.0] - 2021-05-27
+
+- Update the react native iOS podspec file with iOS SDK v1.5.4 (move to Xcframework solution)
+- Support for Xcode 14.5
+
+## [v1.1.0] - 2021-02-10
+
+- Update the react native iOS podspec file with iOS SDK v1.1.1
+- `s.dependency "Google-Mobile-Ads-SDK", '~> 7.69.0'`
+
+
+
+## [v1.0.14] - 2020-11-2
 - Fixed crash when commiting the pre-conversation fragment after onSaveInstanceState called
 
-## [v1.0.13] - 21/10/20
+## [v1.0.13] - 2020-10-21
 ### Fixed
 - Android height issues
 - Android crash when switching fast between screens that contain the SpotIm view
