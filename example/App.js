@@ -13,14 +13,16 @@ import React, { Component } from 'react';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 
 export default class App extends Component<{}> {
+
+  componentDidMount() {
+    
+  }
+
   render() {
     const onStartLoginFlow = (event) => {
       // Load here login view
     }
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
-
-    // SPOT IM INIT
-    // SpotIMAPI.init(SPOT_ID);
 
 
     // COMPLETE SSO FLOW
@@ -125,7 +127,6 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 30,
   },
   welcome: {
     fontSize: 24,
