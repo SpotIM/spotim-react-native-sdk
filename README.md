@@ -17,8 +17,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
     `npm install @spot.im/react-native-spotim --save`
 2. Import Spot.IM modules:
     `import { SpotIM, SpotIMEventEmitter, SpotIMAPI } from '@spot.im/react-native-spotim';`
-3. When the app starts, call the init method with your spot-id to initilize the SDK
-    `SpotIMAPI.init("spot-id");`
+
 
 ### Use Spot.IM native view
 ### iOS
@@ -61,7 +60,7 @@ This library provides an easy integration with Spot.IM into a React-Native app.
   ...
   ```
 3. The default React-Native root view controller is an instance of UIViewController.
-Spot.IM is using UINavigationController no navigate to native view controllers.
+Spot.IM is using UINavigationController to navigate to native view controllers.
 To support native navigation wrap the app with a navigation controller.
 
 Add the following to your code:
@@ -100,53 +99,13 @@ repositories {
 2. Add the following lines to the **app** module's `build.gradle` file.
 ```gradle
 implementation 'androidx.multidex:multidex:2.0.1'
-implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.2.0'
+implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.5.4'
 ```
-3. Apply Spot.IM gradle plugin
-	There are two options to implement the plugin:
-	1. Using the [plugins DSL](#using-the-plugins-dsl)
-	2. Using [legacy plugin application](#using-legacy-plugin-application)
 
-	### Using the plugins DSL
-
-	Add the following lines to the **app** module's `build.gradle` file.
-	```gradle
-	plugins {
-	  id "im.spot" version "1.0"
-	}
-	```
-	⚠️ **Note:** Maku sure to apply the plugin after the `com.android.application` plugin.
-
-	### Using legacy plugin application
-
-	1. Add the following lines to your **project** module's `build.gradle` file.
-	```gradle
-	buildscript {
-	  repositories {
-	    maven {
-	      url "https://plugins.gradle.org/m2/"
-	    }
-	  }
-	  dependencies {
-	    classpath "gradle.plugin.im.spot:spotim-gradle-plugin:1.0"
-	  }
-	}
-	```
-
-	2. Add the following lines to the **app** module's `build.gradle` file.
-
-	```gradle
-	defaultConfig {
-        ...
-        multiDexEnabled true
-    }
-	```
-
-	```gradle
-	apply plugin: "im.spot"
-	```
 
 ### Load PreConversation View in React-Native
+
+Please note that the call to `SpotIMModule.initWithSpotId(this.props.spotId);` happens "behind the scene" inside SpotIM component `componentDidMount()` method.
 
 ```javascript
 <SpotIM
@@ -163,14 +122,16 @@ implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.2.0'
 
 #### Listen to PreConversation View size changes
 We make sure the container view is resized when the PreConversation View is filled with comments.
-You can also subscribe to `SpotIMEventEmitter` with `startLoginFlow` event to get PreConversation View height changes:
+You can also subscribe to `SpotIMEventEmitter` with `viewHeightDidChange` event to get PreConversation View height changes:
 ```javascript
 SpotIMEventEmitter.addListener('viewHeightDidChange', (event) => {
     this.setState({height: event['newHeight']});
 })
 ```
 
-### Flows
+### Basic Flows
+
+### Conversation (Pre-Full)
 
 Our SDK exposes one major flow to set up. The pre-conversation view is a view that displays a preview of 2-16 comments from the conversation, a text box to create new comments and a button to see all comments.
 
@@ -178,7 +139,7 @@ The Pre-conversation view should be displayed in your article view below the art
 
 When the user wants to see more comments we push a new ViewController/Activity which displays all comments from the conversation.
 
-When clicking on the text box to create a new comments we bring the user to the creation screen. The users needs to be logged in inorder to post new comments, this is where the hosting app needs to integrate it's authentication system.
+When clicking on the text box to create a new comments we bring the user to the creation screen. According to Spot configuration of your choosing - the users can either post as guests or they would need to be logged-in in order to post new comments, this is where the hosting app needs to integrate it's authentication system.
 
 #### Authentication
 To utilize SSO authentication, you can use your login UI by subscribing to `startLoginFlow` event:
