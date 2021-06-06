@@ -6,10 +6,16 @@
 @class SpotImBridge;
 @class SpotImSDKFlowCoordinator;
 
-@implementation SpotIMManager {}
 
-SpotIMView *spotIMView;
-SpotImBridge *spotImBridge;
+@interface SpotIMManager()
+
+@property (nonatomic, strong) SpotIMView *spotIMView;
+@property (nonatomic, strong) SpotImBridge *spotImBridge;
+
+@end
+
+
+@implementation SpotIMManager {}
 
 - (dispatch_queue_t)methodQueue
 {
@@ -23,12 +29,13 @@ RCT_EXPORT_VIEW_PROPERTY(title, NSString)
 RCT_EXPORT_VIEW_PROPERTY(subtitle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(thumbnailUrl, NSString)
 RCT_EXPORT_VIEW_PROPERTY(darkModeBackgroundColor, NSString)
+RCT_EXPORT_VIEW_PROPERTY(notifyOnCommentCreate, BOOL)
 
 RCT_EXPORT_MODULE(SpotIM)
 
 - (UIView *)view
 {
-    return spotIMView;
+    return self.spotIMView;
 }
 
 - (void) dealloc
@@ -46,19 +53,26 @@ RCT_EXPORT_MODULE(SpotIM)
     [SpotIMEvents emitEventWithName:@"viewHeightDidChange" andPayload:@{@"newHeight": notification.object}];
 }
 
+- (void)createCommentForGuest:(NSNotification *)notification
+{
+    [SpotIMEvents emitEventWithName:@"createCommentForGuest" andPayload:@{}];
+}
+
+
 RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        spotIMView = [[SpotIMView alloc] init];
-        [spotIMView initWithSpotId:spotId];
-        
+        self.spotIMView = [[SpotIMView alloc] init];
+        [self.spotIMView initWithSpotId:spotId];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoginFlow) name:@"StartLoginFlow" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewHeightDidChange:) name:@"ViewHeightDidChange" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentForGuest:) name:@"OpenWebCreateComment" object:nil];
     });
 }
 
 RCT_EXPORT_METHOD(startSSO) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [spotIMView startSSO:^(NSDictionary *response) {
+        [self.spotIMView startSSO:^(NSDictionary *response) {
             [SpotIMEvents emitEventWithName:@"startSSOSuccess" andPayload:response];
         } onError:^(NSError *error) {
             [SpotIMEvents emitErrorEventWithName:@"startSSOFailed" andError:error];
@@ -69,7 +83,7 @@ RCT_EXPORT_METHOD(startSSO) {
 
 RCT_EXPORT_METHOD(completeSSO:(NSString *)codeB) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [spotIMView completeSSO:codeB onCompletion:^(NSDictionary *response) {
+        [self.spotIMView completeSSO:codeB onCompletion:^(NSDictionary *response) {
             [SpotIMEvents emitEventWithName:@"completeSSOSuccess" andPayload:response];
         } onError:^(NSError *error) {
             [SpotIMEvents emitErrorEventWithName:@"completeSSOFailed" andError:error];
@@ -80,7 +94,7 @@ RCT_EXPORT_METHOD(completeSSO:(NSString *)codeB) {
 
 RCT_EXPORT_METHOD(ssoWithJwtSecret:(NSString *)token) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [spotIMView ssoWithJwtSecret:token onCompletion:^(NSDictionary *response) {
+        [self.spotIMView ssoWithJwtSecret:token onCompletion:^(NSDictionary *response) {
             [SpotIMEvents emitEventWithName:@"ssoSuccess" andPayload:response];
         } onError:^(NSError *error) {
             [SpotIMEvents emitErrorEventWithName:@"ssoFailed" andError:error];
@@ -91,7 +105,7 @@ RCT_EXPORT_METHOD(ssoWithJwtSecret:(NSString *)token) {
 
 RCT_EXPORT_METHOD(getUserLoginStatus) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [spotIMView getUserLoginStatus:^(NSDictionary *response) {
+        [self.spotIMView getUserLoginStatus:^(NSDictionary *response) {
             [SpotIMEvents emitEventWithName:@"getUserLoginStatusSuccess" andPayload:response];
         } onError:^(NSError *error) {
             [SpotIMEvents emitErrorEventWithName:@"getUserLoginStatusFailed" andError:error];
@@ -102,7 +116,7 @@ RCT_EXPORT_METHOD(getUserLoginStatus) {
 
 RCT_EXPORT_METHOD(logout) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [spotIMView logout:^(NSDictionary *response) {
+        [self.spotIMView logout:^(NSDictionary *response) {
             [SpotIMEvents emitEventWithName:@"logoutSuccess" andPayload:response];
         } onError:^(NSError *error) {
             [SpotIMEvents emitErrorEventWithName:@"logoutFailed" andError:error];
