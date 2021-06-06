@@ -14,6 +14,10 @@
 SpotImBridge *spotIm;
 UIViewController *preConversationVC;
 UIViewController *appRootViewController;
+
+UIViewController *rootViewControllerForPreConversation;
+UINavigationController *rootNavigationControllerForPreConversation;
+
 BOOL defaultNavBarVisibilityHidden;
 
 - (id)initWithFrame:(CGRect)frame;
@@ -43,17 +47,29 @@ BOOL defaultNavBarVisibilityHidden;
     } else {
         [spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self initPreConversationController];
+    });
 
-    [self initPreConversationControlle];
 }
 
-- (void)initPreConversationControlle
+- (void)initPreConversationController
 {
-    UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    UIViewController *rootViewController = navController.topViewController;
+    // Original code
+//    UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//    UIViewController *rootViewController = navController.topViewController;
+//    appRootViewController = rootViewController;
+//    defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
+    // done
 
+    UIViewController *rootViewController = [self parentViewController];
+    UINavigationController *navController = rootViewController.navigationController;
     appRootViewController = rootViewController;
-    defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
+
+    rootViewControllerForPreConversation = rootViewController;
+    rootNavigationControllerForPreConversation = navController;
+
+    defaultNavBarVisibilityHidden = rootViewController.navigationController.navigationBar.isHidden;
 
     [spotIm createSpotImFlowCoordinator:self completion:^() {
 
@@ -70,6 +86,13 @@ BOOL defaultNavBarVisibilityHidden;
         }];
     } onError:^(NSError *error) {
     }];
+}
+
+- (UIViewController *)parentViewController {
+    UIResponder *responder = self;
+    while ([responder isKindOfClass:[UIView class]])
+        responder = [responder nextResponder];
+    return (UIViewController *)responder;
 }
 
 - (void)setDarkModeBackgroundColor
@@ -130,11 +153,13 @@ BOOL defaultNavBarVisibilityHidden;
 }
 
 - (void)didMoveToWindow {
-    UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    UIViewController *rootViewController = navController.topViewController;
+//    UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//    UIViewController *rootViewController = navController.topViewController;
 
-    if (defaultNavBarVisibilityHidden && appRootViewController == rootViewController) {
-        [navController setNavigationBarHidden:YES];
+    UIViewController *currentTopViewController = rootNavigationControllerForPreConversation.topViewController;
+
+    if (defaultNavBarVisibilityHidden && appRootViewController == currentTopViewController) {
+        [rootNavigationControllerForPreConversation setNavigationBarHidden:YES];
     }
 }
 
