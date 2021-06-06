@@ -47,6 +47,11 @@ BOOL defaultNavBarVisibilityHidden;
     [self initPreConversationControlle];
 }
 
+- (void) setNotifyOnCommentCreate:(BOOL)notifyOnCommentCreate {
+    _notifyOnCommentCreate = notifyOnCommentCreate;
+    [spotIm notifyOnCommentCreate:notifyOnCommentCreate];
+}
+
 - (void)initPreConversationControlle
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;

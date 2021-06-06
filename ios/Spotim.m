@@ -23,6 +23,7 @@ RCT_EXPORT_VIEW_PROPERTY(title, NSString)
 RCT_EXPORT_VIEW_PROPERTY(subtitle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(thumbnailUrl, NSString)
 RCT_EXPORT_VIEW_PROPERTY(darkModeBackgroundColor, NSString)
+RCT_EXPORT_VIEW_PROPERTY(notifyOnCommentCreate, BOOL)
 
 RCT_EXPORT_MODULE(SpotIM)
 
@@ -46,13 +47,20 @@ RCT_EXPORT_MODULE(SpotIM)
     [SpotIMEvents emitEventWithName:@"viewHeightDidChange" andPayload:@{@"newHeight": notification.object}];
 }
 
+- (void)createCommentForGuest:(NSNotification *)notification
+{
+    [SpotIMEvents emitEventWithName:@"createCommentForGuest" andPayload:@{}];
+}
+
+
 RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     dispatch_async(dispatch_get_main_queue(), ^{
         spotIMView = [[SpotIMView alloc] init];
         [spotIMView initWithSpotId:spotId];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoginFlow) name:@"StartLoginFlow" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewHeightDidChange:) name:@"ViewHeightDidChange" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentForGuest:) name:@"OpenWebCreateComment" object:nil];
     });
 }
 

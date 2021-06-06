@@ -20,6 +20,7 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *thumbnailUrl;
 @property (nonatomic, copy) NSString *darkModeBackgroundColor;
+@property (nonatomic, assign) BOOL notifyOnCommentCreate;
 
 - (void)initWithSpotId:(NSString *)spotId;
 - (void)startSSO:(RequestCompletion)completion onError:(SSOErrorBlock)error;
