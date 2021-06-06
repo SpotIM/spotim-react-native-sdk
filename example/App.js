@@ -13,11 +13,23 @@ import React, { Component } from 'react';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 
 export default class App extends Component<{}> {
-  render() {
+
+  componentDidMount() {
     const onStartLoginFlow = (event) => {
       // Load here login view
     }
+
+    const onCreateCommentForGuest = (event) => {
+      console.log("--> onCreateCommentForGuest")
+    }
+
+    SpotIMEventEmitter.addListener('createCommentForGuest', onCreateCommentForGuest);
+
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+  }
+
+  render() {
+
 
     // SPOT IM INIT
     // SpotIMAPI.init(SPOT_ID);
@@ -116,6 +128,7 @@ export default class App extends Component<{}> {
           title="Spot.IM is aiming for the stars!"
           subtitle=""
           thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
+          notifyOnCommentCreate={true}
           style={{flex: 1}} />
       </ScrollView>
     );
