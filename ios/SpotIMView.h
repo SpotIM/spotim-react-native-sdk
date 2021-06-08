@@ -28,5 +28,5 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 - (void)ssoWithJwtSecret:(NSString *)token onCompletion:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)getUserLoginStatus:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)logout:(RequestCompletion)completion onError:(SSOErrorBlock)error;
-
+- (void)showFullConversation;
 @end

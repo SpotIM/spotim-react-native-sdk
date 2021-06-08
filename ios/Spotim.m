@@ -47,9 +47,14 @@ RCT_EXPORT_MODULE(SpotIM)
     [SpotIMEvents emitEventWithName:@"viewHeightDidChange" andPayload:@{@"newHeight": notification.object}];
 }
 
-- (void)createCommentForGuest:(NSNotification *)notification
+- (void)createCommentFullConversation:(NSNotification *)notification
 {
-    [SpotIMEvents emitEventWithName:@"createCommentForGuest" andPayload:@{}];
+    [SpotIMEvents emitEventWithName:@"createCommentFullConversation" andPayload:@{}];
+}
+
+- (void)createCommentPreConversation:(NSNotification *)notification
+{
+    [SpotIMEvents emitEventWithName:@"createCommentPreConversation" andPayload:@{}];
 }
 
 
@@ -60,7 +65,8 @@ RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoginFlow) name:@"StartLoginFlow" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewHeightDidChange:) name:@"ViewHeightDidChange" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentForGuest:) name:@"OpenWebCreateComment" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentFullConversation:) name:@"OWCreateCommentFullConversation" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentPreConversation:) name:@"OWCreateCommentPreConversation" object:nil];
     });
 }
 
@@ -116,6 +122,12 @@ RCT_EXPORT_METHOD(logout) {
             [SpotIMEvents emitErrorEventWithName:@"logoutFailed" andError:error];
             RCTLogInfo(@"RNSpotim: logout error: %@ (%ld)", error.localizedDescription, (long)error.code);
         }];
+    });
+}
+
+RCT_EXPORT_METHOD(showFullConversation) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.spotIMView showFullConversation];
     });
 }
 
