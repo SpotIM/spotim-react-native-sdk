@@ -134,6 +134,11 @@ BOOL defaultNavBarVisibilityHidden;
     }];
 }
 
+- (void)showFullConversation {
+    SEL selector = NSSelectorFromString(@"reactNativeShowMoreComments");
+    [self.preConversationVC performSelector:selector];
+}
+
 - (void)didMoveToWindow {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;

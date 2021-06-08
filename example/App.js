@@ -19,13 +19,22 @@ export default class App extends Component<{}> {
       // Load here login view
     }
 
-    const onCreateCommentForGuest = (event) => {
-      console.log("--> onCreateCommentForGuest")
+    const createCommentFullConversation = (event) => {
+      console.log("--> createCommentFullConversation")
+      // SpotIMAPI.showFullConversation()
     }
 
-    SpotIMEventEmitter.addListener('createCommentForGuest', onCreateCommentForGuest);
+    const createCommentPreConversation = (event) => {
+      console.log("--> createCommentPreConversation")
+      // SpotIMAPI.showFullConversation()
+    }
+
+    SpotIMEventEmitter.addListener('createCommentFullConversation', createCommentFullConversation);
+    SpotIMEventEmitter.addListener('createCommentPreConversation', createCommentPreConversation);
 
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+
+
   }
 
   render() {
