@@ -3,7 +3,7 @@
 //  Spotim
 //
 //  Created by SpotIM on 11/05/2020.
-//  Copyright © 2020 Facebook. All rights reserved.
+//  Copyright © 2019 Spot.IM. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -57,7 +57,8 @@ NSString *const OPENWEB_EVENT_EMITTER_NOTIFICATIN = @"openwebEventEmitted";
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"startLoginFlow", @"viewHeightDidChange", @"startSSOSuccess", @"startSSOFailed", @"completeSSOSuccess", @"completeSSOFailed", @"ssoSuccess", @"ssoFailed", @"getUserLoginStatusSuccess", @"getUserLoginStatusFailed", @"logoutSuccess", @"logoutFailed"];
+    return @[@"startLoginFlow", @"viewHeightDidChange", @"startSSOSuccess", @"startSSOFailed", @"completeSSOSuccess", @"completeSSOFailed", @"ssoSuccess", @"ssoFailed", @"getUserLoginStatusSuccess", @"getUserLoginStatusFailed", @"logoutSuccess", @"logoutFailed", @"createCommentPreConversation", @"createCommentFullConversation"];
 }
+
 
 @end

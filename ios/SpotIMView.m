@@ -3,18 +3,24 @@
 //  Spotim
 //
 //  Created by SpotIM on 08/05/2020.
-//  Copyright © 2020 Facebook. All rights reserved.
+//  Copyright © 2019 Spot.IM. All rights reserved.
 //
 
 #import "SpotIMView.h"
 #import <react_native_spotim/react_native_spotim-Swift.h>
 
+@interface SpotIMView()
+
+@property (nonatomic, strong) SpotImBridge *spotIm;
+@property (nonatomic, weak) UIViewController *preConversationVC;
+@property (nonatomic, weak) UIViewController *appRootViewController;
+@property (nonatomic, assign) BOOL defaultNavBarVisibilityHidden;
+
+@end
+
+
 @implementation SpotIMView
 
-SpotImBridge *spotIm;
-UIViewController *preConversationVC;
-UIViewController *appRootViewController;
-BOOL defaultNavBarVisibilityHidden;
 
 - (id)initWithFrame:(CGRect)frame;
 {
@@ -30,21 +36,26 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)initWithSpotId:(NSString *)spotId
 {
-    spotIm = [SpotImBridge new];
-    [spotIm initialize:spotId];
+    self.spotIm = [SpotImBridge new];
+    [self.spotIm initialize:spotId];
 }
 
 - (void)setSpotId:(NSString *)spotId
 {
     _spotId = spotId;
 
-    if (self->_darkModeBackgroundColor) {
+    if (self.darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
     } else {
-        [spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
+        [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
 
     [self initPreConversationControlle];
+}
+
+- (void) setNotifyOnCommentCreate:(BOOL)notifyOnCommentCreate {
+    _notifyOnCommentCreate = notifyOnCommentCreate;
+    [self.spotIm notifyOnCommentCreate:notifyOnCommentCreate];
 }
 
 - (void)initPreConversationControlle
@@ -52,18 +63,18 @@ BOOL defaultNavBarVisibilityHidden;
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;
 
-    appRootViewController = rootViewController;
-    defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
+    self.appRootViewController = rootViewController;
+    self.defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
 
-    [spotIm createSpotImFlowCoordinator:self completion:^() {
+    [self.spotIm createSpotImFlowCoordinator:self completion:^() {
 
-        [spotIm getPreConversationController:navController postId:self->_postId url:self->_url title:self->_title subtitle:self->_subtitle thumbnailUrl:self->_thumbnailUrl completion:^(UIViewController *vc) {
+        [self.spotIm getPreConversationController:navController postId:self.postId url:self.url title:self.title subtitle:self.subtitle thumbnailUrl:self.thumbnailUrl completion:^(UIViewController *vc) {
 
             [rootViewController addChildViewController:vc];
             [self addSubview:vc.view];
             vc.view.frame = self.bounds;
             [vc didMoveToParentViewController:rootViewController];
-            preConversationVC = vc;
+            self.preConversationVC = vc;
 
         } onError:^(NSError * error) {
 
@@ -74,17 +85,17 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)setDarkModeBackgroundColor
 {
-    NSString *hex = self->_darkModeBackgroundColor;
+    NSString *hex = self.darkModeBackgroundColor;
 
     NSUInteger red, green, blue;
     sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
 
-    [spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
+    [self.spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
 }
 
 - (void)startSSO:(RequestCompletion)completion
                   onError:(SSOErrorBlock)error {
-    [spotIm startSSO:^(NSDictionary *response) {
+    [self.spotIm startSSO:^(NSDictionary *response) {
         completion(response);
     } onError:^(NSError *err) {
         error(err);
@@ -94,7 +105,7 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)completeSSO:(NSString *)with
        onCompletion:(RequestCompletion)completion
             onError:(SSOErrorBlock)error {
-    [spotIm completeSSO:with completion:^(NSDictionary * _Nonnull response) {
+    [self.spotIm completeSSO:with completion:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -104,7 +115,7 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)ssoWithJwtSecret:(NSString *)token
             onCompletion:(RequestCompletion)completion
                  onError:(SSOErrorBlock)error {
-    [spotIm sso:token completion:^(NSDictionary * _Nonnull response) {
+    [self.spotIm sso:token completion:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -113,7 +124,7 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)getUserLoginStatus:(RequestCompletion)completion
                    onError:(SSOErrorBlock)error {
-    [spotIm getUserLoginStatus:^(NSDictionary * _Nonnull response) {
+    [self.spotIm getUserLoginStatus:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -122,18 +133,23 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)logout:(RequestCompletion)completion
        onError:(SSOErrorBlock)error {
-    [spotIm logout:^(NSDictionary * _Nonnull response) {
+    [self.spotIm logout:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
     }];
 }
 
+- (void)showFullConversation {
+    SEL selector = NSSelectorFromString(@"reactNativeShowMoreComments");
+    [self.preConversationVC performSelector:selector];
+}
+
 - (void)didMoveToWindow {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;
 
-    if (defaultNavBarVisibilityHidden && appRootViewController == rootViewController) {
+    if (self.defaultNavBarVisibilityHidden && self.appRootViewController == rootViewController) {
         [navController setNavigationBarHidden:YES];
     }
 }

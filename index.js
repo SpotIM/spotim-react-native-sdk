@@ -34,7 +34,7 @@ export class SpotIM extends React.Component {
             setTimeout(() => {
                 this.setState({ loading: false });
             }, 2500);
-        }  
+        }
     }
     create = () => {
         const androidViewId = findNodeHandle(this.nativeComponentRef);
@@ -56,7 +56,7 @@ export class SpotIM extends React.Component {
             }
             this.heightUpdateTimestamp = Date.now() / 1000;
         }
-        
+
     }
     render() {
         return <RNSpotIM
@@ -155,6 +155,9 @@ export class SpotIMAPI {
 
             SpotIMModule.logout();
         })
+    }
+    static showFullConversation = () => {
+      SpotIMModule.showFullConversation()
     }
 }
 
