@@ -3,7 +3,7 @@
 //  RNSpotim
 //
 //  Created by SpotIM on 11/04/2020.
-//  Copyright © 2020 Facebook. All rights reserved.
+//  Copyright © 2019 Spot.IM. All rights reserved.
 //
 
 import Foundation
