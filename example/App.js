@@ -8,7 +8,7 @@
  * https://github.com/facebook/react-native
  */
 
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 import React, { Component } from 'react';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 
@@ -17,6 +17,7 @@ export default class App extends Component<{}> {
   componentDidMount() {
     const onStartLoginFlow = (event) => {
       // Load here login view
+      Alert.alert("onStartLoginFlow is called")
     }
 
     const createCommentFullConversation = (event) => {
