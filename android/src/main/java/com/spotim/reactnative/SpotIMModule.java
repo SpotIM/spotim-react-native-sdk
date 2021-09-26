@@ -55,6 +55,10 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("startLoginFlow", params);
             }
+            @Override
+            public boolean shouldDisplayLoginPromptForGuests() {
+                return false;
+            }
         });
     }
 
