@@ -94,13 +94,12 @@ self.window.rootViewController = self.navControll;
 ```gradle
 repositories {
    maven { url 'https://jitpack.io' }
-   maven { url "http://giphy.bintray.com/giphy-sdk" }
 }
 ```
 2. Add the following lines to the **app** module's `build.gradle` file.
 ```gradle
 implementation 'androidx.multidex:multidex:2.0.1'
-implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.2.0'
+implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.6.1'
 ```
 3. Apply Spot.IM gradle plugin
 	There are two options to implement the plugin:

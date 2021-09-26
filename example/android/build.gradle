@@ -39,8 +39,6 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
-        maven { url "http://giphy.bintray.com/giphy-sdk" }
-        maven { url 'https://repo.pubmatic.com/artifactory/public-repos' }
     }
 
 }
