@@ -69,10 +69,10 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             public void trackEvent(@NotNull AnalyticsEventType analyticsEventType, @NotNull Event event) {
                 try {
                     Gson gson = new Gson();
-                    WritableMap responseMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(event)));
+                    WritableMap eventAsMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(event)));
                 reactContext
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("trackAnalyticsEvent", responseMap);
+                        .emit("trackAnalyticsEvent", eventAsMap);
                 } catch (JSONException e) {
                     sendError("trackAnalyticsEventFailed", e);
                 }
