@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.3.0] - 2021-09-29
+
+- Update iOS SDK v1.6.2
+- Update Android SDK v1.6.1
+- Analytics Event callback
+
 ## [v1.2.1] - 2021-09-12
 
 - Update the react native iOS podspec file with iOS SDK v1.5.13
