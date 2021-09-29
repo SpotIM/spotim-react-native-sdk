@@ -57,7 +57,7 @@ NSString *const OPENWEB_EVENT_EMITTER_NOTIFICATIN = @"openwebEventEmitted";
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"startLoginFlow", @"viewHeightDidChange", @"startSSOSuccess", @"startSSOFailed", @"completeSSOSuccess", @"completeSSOFailed", @"ssoSuccess", @"ssoFailed", @"getUserLoginStatusSuccess", @"getUserLoginStatusFailed", @"logoutSuccess", @"logoutFailed"];
+    return @[@"startLoginFlow", @"viewHeightDidChange", @"startSSOSuccess", @"startSSOFailed", @"completeSSOSuccess", @"completeSSOFailed", @"ssoSuccess", @"ssoFailed", @"getUserLoginStatusSuccess", @"getUserLoginStatusFailed", @"logoutSuccess", @"logoutFailed", @"trackAnalyticsEvent"];
 }
 
 @end

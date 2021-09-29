@@ -46,6 +46,11 @@ RCT_EXPORT_MODULE(SpotIM)
     [SpotIMEvents emitEventWithName:@"viewHeightDidChange" andPayload:@{@"newHeight": notification.object}];
 }
 
+- (void)trackAnalyticsEvent:(NSNotification *)notification
+{
+    [SpotIMEvents emitEventWithName:@"trackAnalyticsEvent" andPayload:notification.object];
+}
+
 RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     dispatch_async(dispatch_get_main_queue(), ^{
         spotIMView = [[SpotIMView alloc] init];
@@ -53,6 +58,7 @@ RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoginFlow) name:@"StartLoginFlow" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewHeightDidChange:) name:@"ViewHeightDidChange" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trackAnalyticsEvent:) name:@"TrackAnalyticsEvent" object:nil];
     });
 }
 

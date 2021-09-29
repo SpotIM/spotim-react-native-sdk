@@ -1,7 +1,6 @@
 package com.spotim.reactnative;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -12,6 +11,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,8 +19,11 @@ import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
 import spotIm.common.SpotVoidCallback;
 import spotIm.common.UserStatus;
+import spotIm.common.analytics.AnalyticsEventDelegate;
+import spotIm.common.analytics.AnalyticsEventType;
 import spotIm.common.login.LoginDelegate;
 import spotIm.common.model.CompleteSSOResponse;
+import spotIm.common.model.Event;
 import spotIm.common.model.SsoWithJwtResponse;
 import spotIm.common.model.StartSSOResponse;
 import spotIm.sdk.SpotIm;
@@ -58,6 +61,21 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             @Override
             public boolean shouldDisplayLoginPromptForGuests() {
                 return false;
+            }
+        });
+
+        SpotIm.setAnalyticsEventDelegate(new AnalyticsEventDelegate() {
+            @Override
+            public void trackEvent(@NotNull AnalyticsEventType analyticsEventType, @NotNull Event event) {
+                try {
+                    Gson gson = new Gson();
+                    WritableMap eventAsMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(event)));
+                reactContext
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("trackAnalyticsEvent", eventAsMap);
+                } catch (JSONException e) {
+                    sendError("trackAnalyticsEventFailed", e);
+                }
             }
         });
     }
