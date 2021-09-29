@@ -103,6 +103,13 @@ export default class App extends Component<{}> {
     //   console.log("User status error: ");
     //   console.log(error);
     // });
+
+    // const onTrackAnalyticsEvent = (event) => {
+    //   console.log("trackAnalyticsEvent type " + event["type"])
+    // }
+    //
+    // SpotIMEventEmitter.addListener('trackAnalyticsEvent', onTrackAnalyticsEvent);
+
     return (
       <ScrollView style={styles.container}>
         <View style={{marginTop: 30}} />
