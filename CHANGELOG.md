@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.0] - 2021-10-10
+
+### Fixed
+- Analytics event duplications
+- Memory leak when re-render SpotIm View
+- SpotIm component should be update when changing posdId prop
+
+### Changed
+- SDK initialization with SpotIMAPI module in root component constructor
+- Remove spotId from SpotIm component props
+- Android - no need to add android SDK dependency and to initialize the SDK from the native code
+
 ## [v1.3.0] - 2021-09-29
 
 - Update iOS SDK v1.6.2
