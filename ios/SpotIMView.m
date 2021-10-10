@@ -9,9 +9,14 @@
 #import "SpotIMView.h"
 #import <react_native_spotim/react_native_spotim-Swift.h>
 
+@interface SpotIMView()
+
+@property(nonatomic, strong) SpotImBridge *spotIm;
+
+@end
+
 @implementation SpotIMView
 
-SpotImBridge *spotIm;
 UIViewController *preConversationVC;
 UIViewController *appRootViewController;
 BOOL defaultNavBarVisibilityHidden;
@@ -30,24 +35,24 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)initWithSpotId:(NSString *)spotId
 {
-    spotIm = [SpotImBridge new];
-    [spotIm initialize:spotId];
+    self.spotIm = [SpotImBridge new];
+    [self.spotIm initialize:spotId];
 }
 
-- (void)setSpotId:(NSString *)spotId
+- (void)setPostId:(NSString *)postId
 {
-    _spotId = spotId;
-
+    _postId = postId;
+    
     if (self->_darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
     } else {
-        [spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
+        [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
 
-    [self initPreConversationControlle];
+    [self initPreConversationController];
 }
 
-- (void)initPreConversationControlle
+- (void)initPreConversationController
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;
@@ -55,10 +60,16 @@ BOOL defaultNavBarVisibilityHidden;
     appRootViewController = rootViewController;
     defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
 
-    [spotIm createSpotImFlowCoordinator:self completion:^() {
+    [self.spotIm createSpotImFlowCoordinator:self completion:^() {
 
-        [spotIm getPreConversationController:navController postId:self->_postId url:self->_url title:self->_title subtitle:self->_subtitle thumbnailUrl:self->_thumbnailUrl completion:^(UIViewController *vc) {
+        [self.spotIm getPreConversationController:navController postId:self->_postId url:self->_url title:self->_title subtitle:self->_subtitle thumbnailUrl:self->_thumbnailUrl completion:^(UIViewController *vc) {
 
+            // remove existing views when re-rendering view
+            if (preConversationVC) {
+                [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                [preConversationVC removeFromParentViewController];
+            }
+            
             [rootViewController addChildViewController:vc];
             [self addSubview:vc.view];
             vc.view.frame = self.bounds;
@@ -79,12 +90,12 @@ BOOL defaultNavBarVisibilityHidden;
     NSUInteger red, green, blue;
     sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
 
-    [spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
+    [self.spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
 }
 
 - (void)startSSO:(RequestCompletion)completion
                   onError:(SSOErrorBlock)error {
-    [spotIm startSSO:^(NSDictionary *response) {
+    [self.spotIm startSSO:^(NSDictionary *response) {
         completion(response);
     } onError:^(NSError *err) {
         error(err);
@@ -94,7 +105,7 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)completeSSO:(NSString *)with
        onCompletion:(RequestCompletion)completion
             onError:(SSOErrorBlock)error {
-    [spotIm completeSSO:with completion:^(NSDictionary * _Nonnull response) {
+    [self.spotIm completeSSO:with completion:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -104,7 +115,7 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)ssoWithJwtSecret:(NSString *)token
             onCompletion:(RequestCompletion)completion
                  onError:(SSOErrorBlock)error {
-    [spotIm sso:token completion:^(NSDictionary * _Nonnull response) {
+    [self.spotIm sso:token completion:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -113,7 +124,7 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)getUserLoginStatus:(RequestCompletion)completion
                    onError:(SSOErrorBlock)error {
-    [spotIm getUserLoginStatus:^(NSDictionary * _Nonnull response) {
+    [self.spotIm getUserLoginStatus:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
@@ -122,7 +133,7 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)logout:(RequestCompletion)completion
        onError:(SSOErrorBlock)error {
-    [spotIm logout:^(NSDictionary * _Nonnull response) {
+    [self.spotIm logout:^(NSDictionary * _Nonnull response) {
         completion(response);
     } onError:^(NSError * _Nonnull err) {
         error(err);
