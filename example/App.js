@@ -8,20 +8,43 @@
  * https://github.com/facebook/react-native
  */
 
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import React, { Component } from 'react';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 
-export default class App extends Component<{}> {
-  render() {
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      postId: "sdk1",
+      show: true,
+      subsctiption: null
+    }
+
+    SpotIMAPI.init("sp_eCIlROSD")
+  }
+
+  onTrackAnalyticsEvent(event) {
+    console.log('\n', event.type, '\n', event);
+  }
+
+  componentDidMount() {
+    // SPOT IM INIT
+
+
+    // Show analytics events
+    // SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
+
     const onStartLoginFlow = (event) => {
+      console.log("onStartLoginFlow");
       // Load here login view
     }
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+  }
 
-    // SPOT IM INIT
-    // SpotIMAPI.init(SPOT_ID);
-
+  render() {
+    console.log("render :: postId - " + this.state.postId);
 
     // COMPLETE SSO FLOW
     // const Http = new XMLHttpRequest();
@@ -104,26 +127,27 @@ export default class App extends Component<{}> {
     //   console.log(error);
     // });
 
-    // const onTrackAnalyticsEvent = (event) => {
-    //   console.log("trackAnalyticsEvent type " + event["type"])
-    // }
-    //
-    // SpotIMEventEmitter.addListener('trackAnalyticsEvent', onTrackAnalyticsEvent);
-
     return (
       <ScrollView style={styles.container}>
         <View style={{marginTop: 30}} />
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
         <Text style={{margin:10}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
         <View style={{marginTop: 30}} />
-        <SpotIM
-          spotId="sp_eCIlROSD"
-          postId="sdk1"
-          url="http://www.spotim.name/bd-playground/post9.html"
-          title="Spot.IM is aiming for the stars!"
-          subtitle=""
-          thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
-          style={{flex: 1}} />
+        {this.state.show && (
+          <SpotIM
+            postId={this.state.postId}
+            url="http://www.spotim.name/bd-playground/post9.html"
+            title="Spot.IM is aiming for the stars!"
+            subtitle=""
+            thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
+            style={{flex: 1}} />
+        )}
+        <Button title="Change Post ID" onPress={() => {
+            this.setState({postId: this.state.postId === "sdk1" ? "sdk2" : "sdk1"})
+        }}/>
+      <Button title="Hide / Show" onPress={() => {
+            this.setState({show: !this.state.show})
+        }}/>
       </ScrollView>
     );
   }

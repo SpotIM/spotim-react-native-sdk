@@ -1,40 +1,29 @@
 package com.spotim.reactnative;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.Choreographer;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
@@ -66,28 +55,25 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         return REACT_CLASS;
     }
 
-    @ReactPropGroup(names = {"spotId","postId","url","title","subtitle","thumbnailUrl","darkModeBackgroundColor"})
-    public void setSpotId(View view, int index, Dynamic value) {
+    @ReactPropGroup(names = {"postId","url","title","subtitle","thumbnailUrl","darkModeBackgroundColor"})
+    public void setProps(View view, int index, Dynamic value) {
         switch (index) {
             case 0:
-                spotId = value.asString();
-                break;
-            case 1:
                 postId = value.asString();
                 break;
-            case 2:
+            case 1:
                 url = value.asString();
                 break;
-            case 3:
+            case 2:
                 title = value.asString();
                 break;
-            case 4:
+            case 3:
                 subtitle = value.asString();
                 break;
-            case 5:
+            case 4:
                 thumbnailUrl = value.asString();
                 break;
-            case 6:
+            case 5:
                 darkModeBackgroundColor = value.asString();
                 break;
         }
@@ -96,12 +82,6 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     @Override
     public boolean needsCustomLayoutForChildren() {
         return true;
-    }
-
-    @ReactProp(name = "spotId")
-    public void setSpotId(FrameLayout view, @NonNull String value) {
-        SpotIm.init(context, value);
-        spotId = value;
     }
 
     @Override
@@ -120,13 +100,8 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         int reactNativeViewId = args.getInt(0);
         int commandIdInt = Integer.parseInt(commandId);
 
-        switch (commandIdInt) {
-            case COMMAND_CREATE:
-                createFragment(root, reactNativeViewId);
-                break;
-            default: {
-
-            }
+        if (commandIdInt == COMMAND_CREATE) {
+            createFragment(root, reactNativeViewId);
         }
     }
 
@@ -144,8 +119,8 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 .addTheme(themeParams)
                 .build();
 
-        View parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
-        setupLayoutHack((ViewGroup) parentView);
+        ViewGroup parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
+        setupLayoutHack(parentView);
 
         SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
