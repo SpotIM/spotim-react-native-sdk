@@ -3,7 +3,7 @@
 //  Spotim
 //
 //  Created by SpotIM on 08/05/2020.
-//  Copyright © 2020 Facebook. All rights reserved.
+//  Copyright © 2019 Spot.IM. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -20,6 +20,7 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *thumbnailUrl;
 @property (nonatomic, copy) NSString *darkModeBackgroundColor;
+@property (nonatomic, assign) BOOL showLoginScreenOnRootViewController;
 
 - (void)initWithSpotId:(NSString *)spotId;
 - (void)startSSO:(RequestCompletion)completion onError:(SSOErrorBlock)error;
@@ -27,5 +28,5 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 - (void)ssoWithJwtSecret:(NSString *)token onCompletion:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)getUserLoginStatus:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)logout:(RequestCompletion)completion onError:(SSOErrorBlock)error;
-
+- (void)showFullConversation;
 @end

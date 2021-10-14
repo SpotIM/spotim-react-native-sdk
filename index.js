@@ -173,6 +173,9 @@ export class SpotIMAPI {
             SpotIMModule.logout();
         })
     }
+    static showFullConversation = () => {
+      SpotIMModule.showFullConversation()
+    }
 }
 
 SpotIM.propTypes = {

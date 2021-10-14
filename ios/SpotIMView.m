@@ -3,7 +3,7 @@
 //  Spotim
 //
 //  Created by SpotIM on 08/05/2020.
-//  Copyright © 2020 Facebook. All rights reserved.
+//  Copyright © 2019 Spot.IM. All rights reserved.
 //
 
 #import "SpotIMView.h"
@@ -11,15 +11,16 @@
 
 @interface SpotIMView()
 
-@property(nonatomic, strong) SpotImBridge *spotIm;
+@property (nonatomic, strong) SpotImBridge *spotIm;
+@property (nonatomic, weak) UIViewController *preConversationVC;
+@property (nonatomic, weak) UIViewController *appRootViewController;
+@property (nonatomic, assign) BOOL defaultNavBarVisibilityHidden;
 
 @end
 
+
 @implementation SpotIMView
 
-UIViewController *preConversationVC;
-UIViewController *appRootViewController;
-BOOL defaultNavBarVisibilityHidden;
 
 - (id)initWithFrame:(CGRect)frame;
 {
@@ -42,8 +43,8 @@ BOOL defaultNavBarVisibilityHidden;
 - (void)setPostId:(NSString *)postId
 {
     _postId = postId;
-    
-    if (self->_darkModeBackgroundColor) {
+
+    if (self.darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
     } else {
         [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
@@ -52,29 +53,34 @@ BOOL defaultNavBarVisibilityHidden;
     [self initPreConversationController];
 }
 
+- (void) setShowLoginScreenOnRootViewController:(BOOL)showLoginScreenOnRootViewController {
+    _showLoginScreenOnRootViewController = showLoginScreenOnRootViewController;
+    [self.spotIm showLoginScreenOnRootViewController:showLoginScreenOnRootViewController];
+}
+
 - (void)initPreConversationController
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;
 
-    appRootViewController = rootViewController;
-    defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
+    self.appRootViewController = rootViewController;
+    self.defaultNavBarVisibilityHidden = navController.navigationBar.isHidden;
 
     [self.spotIm createSpotImFlowCoordinator:self completion:^() {
 
-        [self.spotIm getPreConversationController:navController postId:self->_postId url:self->_url title:self->_title subtitle:self->_subtitle thumbnailUrl:self->_thumbnailUrl completion:^(UIViewController *vc) {
+        [self.spotIm getPreConversationController:navController postId:self.postId url:self.url title:self.title subtitle:self.subtitle thumbnailUrl:self.thumbnailUrl completion:^(UIViewController *vc) {
 
             // remove existing views when re-rendering view
-            if (preConversationVC) {
+            if (self.preConversationVC) {
                 [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                [preConversationVC removeFromParentViewController];
+                [self.preConversationVC removeFromParentViewController];
             }
-            
+
             [rootViewController addChildViewController:vc];
             [self addSubview:vc.view];
             vc.view.frame = self.bounds;
             [vc didMoveToParentViewController:rootViewController];
-            preConversationVC = vc;
+            self.preConversationVC = vc;
 
         } onError:^(NSError * error) {
 
@@ -85,7 +91,7 @@ BOOL defaultNavBarVisibilityHidden;
 
 - (void)setDarkModeBackgroundColor
 {
-    NSString *hex = self->_darkModeBackgroundColor;
+    NSString *hex = self.darkModeBackgroundColor;
 
     NSUInteger red, green, blue;
     sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
@@ -140,11 +146,16 @@ BOOL defaultNavBarVisibilityHidden;
     }];
 }
 
+- (void)showFullConversation {
+    SEL selector = NSSelectorFromString(@"reactNativeShowMoreComments");
+    [self.preConversationVC performSelector:selector];
+}
+
 - (void)didMoveToWindow {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;
 
-    if (defaultNavBarVisibilityHidden && appRootViewController == rootViewController) {
+    if (self.defaultNavBarVisibilityHidden && self.appRootViewController == rootViewController) {
         [navController setNavigationBarHidden:YES];
     }
 }

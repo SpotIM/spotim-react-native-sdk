@@ -3,7 +3,7 @@
 //  RNSpotim
 //
 //  Created by SpotIM on 11/04/2020.
-//  Copyright © 2020 Facebook. All rights reserved.
+//  Copyright © 2019 Spot.IM. All rights reserved.
 //
 
 import Foundation
@@ -30,6 +30,10 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
 
     var spotImCoordinator: SpotImSDKFlowCoordinator!
 
+    @objc public func showLoginScreenOnRootViewController(_ shouldShow: Bool) {
+        SpotIm.reactNativeShowLoginScreenOnRootVC = shouldShow
+    }
+
     @objc public func startLoginFlow() {
         NotificationCenter.default.post(name: Notification.Name("StartLoginFlow"), object: nil)
     }
@@ -37,7 +41,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     @objc public func viewHeightDidChange(to newValue: CGFloat) {
         NotificationCenter.default.post(name: Notification.Name("ViewHeightDidChange"), object: String(describing: newValue))
     }
-    
+
     public func trackEvent(type: SPEventType, event: SPEventInfo) {
         NotificationCenter.default.post(name: Notification.Name("TrackAnalyticsEvent"), object: getAnalyticsEventAsDictionary(event: event))
     }
@@ -178,7 +182,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
             }
         })
     }
-    
+
     private func getAnalyticsEventAsDictionary(event: SPEventInfo)-> [String: Any] {
         let eventAsDic = dictionary(encodable: event)
         if var eventAsDic = eventAsDic {
@@ -192,7 +196,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         } else {
             return [:]
         }
-        
+
     }
 
     private func dictionary<T>(encodable: T) -> [String: Any]? where T : Encodable {
