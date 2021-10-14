@@ -58,7 +58,7 @@
     [self.spotIm notifyOnCommentCreate:notifyOnCommentCreate];
 }
 
-- (void)initPreConversationControlle
+- (void)initPreConversationController
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *rootViewController = navController.topViewController;
@@ -71,9 +71,9 @@
         [self.spotIm getPreConversationController:navController postId:self.postId url:self.url title:self.title subtitle:self.subtitle thumbnailUrl:self.thumbnailUrl completion:^(UIViewController *vc) {
 
             // remove existing views when re-rendering view
-            if (preConversationVC) {
+            if (self.preConversationVC) {
                 [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                [preConversationVC removeFromParentViewController];
+                [self.preConversationVC removeFromParentViewController];
             }
 
             [rootViewController addChildViewController:vc];

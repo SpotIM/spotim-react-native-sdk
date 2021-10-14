@@ -31,7 +31,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     var spotImCoordinator: SpotImSDKFlowCoordinator!
 
     @objc public func notifyOnCommentCreate(_ shouldNotify: Bool) {
-        SpotIm.reactNativeNotifyOnCreateComment = shouldNotify
+        SpotIm.reactNativeShowLoginScreenOnRootVC = shouldNotify
     }
 
     @objc public func startLoginFlow() {
