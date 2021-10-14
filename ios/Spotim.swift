@@ -47,7 +47,13 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     }
 
     @objc public func initialize(_ spotId: String) {
-        SpotIm.initialize(spotId: spotId)
+        SpotIm.initialize(spotId: spotId) { success, error in
+            if success {
+                print("SpotIm was initialize successfully!")
+            } else if let error = error {
+                print("SpotIm initialization Error: " + error.localizedDescription)
+            }
+        }
         SpotIm.setAnalyticsEventDelegate(delegate: self)
     }
 
