@@ -53,9 +53,9 @@
     [self initPreConversationController];
 }
 
-- (void) setNotifyOnCommentCreate:(BOOL)notifyOnCommentCreate {
-    _notifyOnCommentCreate = notifyOnCommentCreate;
-    [self.spotIm notifyOnCommentCreate:notifyOnCommentCreate];
+- (void) setShowLoginScreenOnRootViewController:(BOOL)showLoginScreenOnRootViewController {
+    _showLoginScreenOnRootViewController = showLoginScreenOnRootViewController;
+    [self.spotIm showLoginScreenOnRootViewController:showLoginScreenOnRootViewController];
 }
 
 - (void)initPreConversationController

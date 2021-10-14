@@ -29,7 +29,7 @@ RCT_EXPORT_VIEW_PROPERTY(title, NSString)
 RCT_EXPORT_VIEW_PROPERTY(subtitle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(thumbnailUrl, NSString)
 RCT_EXPORT_VIEW_PROPERTY(darkModeBackgroundColor, NSString)
-RCT_EXPORT_VIEW_PROPERTY(notifyOnCommentCreate, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(showLoginScreenOnRootViewController, BOOL)
 
 RCT_EXPORT_MODULE(SpotIM)
 
