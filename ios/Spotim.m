@@ -53,25 +53,19 @@ RCT_EXPORT_MODULE(SpotIM)
     [SpotIMEvents emitEventWithName:@"viewHeightDidChange" andPayload:@{@"newHeight": notification.object}];
 }
 
-- (void)createCommentFullConversation:(NSNotification *)notification
+- (void)trackAnalyticsEvent:(NSNotification *)notification
 {
-    [SpotIMEvents emitEventWithName:@"createCommentFullConversation" andPayload:@{}];
-}
-
-- (void)createCommentPreConversation:(NSNotification *)notification
-{
-    [SpotIMEvents emitEventWithName:@"createCommentPreConversation" andPayload:@{}];
+    [SpotIMEvents emitEventWithName:@"trackAnalyticsEvent" andPayload:notification.object];
 }
 
 RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.spotIMView = [[SpotIMView alloc] init];
         [self.spotIMView initWithSpotId:spotId];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoginFlow) name:@"StartLoginFlow" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewHeightDidChange:) name:@"ViewHeightDidChange" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentFullConversation:) name:@"OWCreateCommentFullConversation" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createCommentPreConversation:) name:@"OWCreateCommentPreConversation" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trackAnalyticsEvent:) name:@"TrackAnalyticsEvent" object:nil];
     });
 }
 

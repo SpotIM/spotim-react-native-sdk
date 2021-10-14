@@ -21,22 +21,27 @@ export class SpotIM extends React.Component {
     }
 
     componentDidMount() {
-        SpotIMModule.initWithSpotId(this.props.spotId);
-
         if (ISIOS) {
             SpotIMEventEmitter.addListener('viewHeightDidChange', (event) => {
                 this.setState({height: event['newHeight']});
             });
         } else {
-            this.create();
-            this.setState({ loading: true });
-            this.heightUpdateTimestamp = Date.now() / 1000;
-            setTimeout(() => {
-                this.setState({ loading: false });
-            }, 2500);
+            this.loadConversationAndroid()
         }
     }
-    create = () => {
+
+    loadConversationAndroid() {
+      this.setState({ height: 0 });
+      this.lastHeightUpdate = 0;
+      this.dispatchCreateCommandAndroid();
+      this.setState({ loading: true });
+      this.heightUpdateTimestamp = Date.now() / 1000;
+      setTimeout(() => {
+          this.setState({ loading: false });
+      }, 2500);
+    }
+
+    dispatchCreateCommandAndroid() {
         const androidViewId = findNodeHandle(this.nativeComponentRef);
         UIManager.dispatchViewManagerCommand(
           androidViewId,
@@ -58,6 +63,18 @@ export class SpotIM extends React.Component {
         }
 
     }
+    componentWillUnmount() {
+        if (ISIOS) {
+            SpotIMEventEmitter.removeAllListeners("viewHeightDidChange")
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+      if (!ISIOS && (prevProps.postId != this.props.postId)) {
+        this.loadConversationAndroid()
+      }
+    }
+
     render() {
         return <RNSpotIM
                 {...this.props}
@@ -162,7 +179,6 @@ export class SpotIMAPI {
 }
 
 SpotIM.propTypes = {
-    spotId: PropTypes.string,
     postId: PropTypes.string,
     url: PropTypes.string,
     title: PropTypes.string,

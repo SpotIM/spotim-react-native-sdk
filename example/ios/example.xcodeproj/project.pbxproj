@@ -450,10 +450,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-example-exampleTests/Pods-example-exampleTests-resources.sh",
 				"${PODS_ROOT}/SpotIMCore/SpotImAdsProvider/GoogleAdsProvider.swift",
+				"${PODS_ROOT}/SpotIMCore/SpotImAdsProvider/GoogleAdsV7Provider.swift",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleAdsProvider.swift",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleAdsV7Provider.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -562,10 +564,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-example/Pods-example-resources.sh",
 				"${PODS_ROOT}/SpotIMCore/SpotImAdsProvider/GoogleAdsProvider.swift",
+				"${PODS_ROOT}/SpotIMCore/SpotImAdsProvider/GoogleAdsV7Provider.swift",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleAdsProvider.swift",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleAdsV7Provider.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

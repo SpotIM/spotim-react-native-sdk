@@ -40,9 +40,9 @@
     [self.spotIm initialize:spotId];
 }
 
-- (void)setSpotId:(NSString *)spotId
+- (void)setPostId:(NSString *)postId
 {
-    _spotId = spotId;
+    _postId = postId;
 
     if (self.darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
@@ -50,7 +50,7 @@
         [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
 
-    [self initPreConversationControlle];
+    [self initPreConversationController];
 }
 
 - (void) setNotifyOnCommentCreate:(BOOL)notifyOnCommentCreate {
@@ -69,6 +69,12 @@
     [self.spotIm createSpotImFlowCoordinator:self completion:^() {
 
         [self.spotIm getPreConversationController:navController postId:self.postId url:self.url title:self.title subtitle:self.subtitle thumbnailUrl:self.thumbnailUrl completion:^(UIViewController *vc) {
+
+            // remove existing views when re-rendering view
+            if (preConversationVC) {
+                [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                [preConversationVC removeFromParentViewController];
+            }
 
             [rootViewController addChildViewController:vc];
             [self addSubview:vc.view];
