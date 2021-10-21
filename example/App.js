@@ -10,8 +10,14 @@
 
 import { Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import React, { Component } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
+import MainScreen from './Screens/MainScreen.js'
+import ArticlesScreen from './Screens/ArticlesScreen.js'
+import ArticleScreen from './Screens/ArticleScreen.js'
 
+const Stack = createNativeStackNavigator();
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -21,8 +27,6 @@ export default class App extends Component {
       show: true,
       subsctiption: null
     }
-
-    SpotIMAPI.init("sp_eCIlROSD")
   }
 
   onTrackAnalyticsEvent(event) {
@@ -126,31 +130,41 @@ export default class App extends Component {
     //   console.log("User status error: ");
     //   console.log(error);
     // });
+    //
+    // return (
+    //   <ScrollView style={styles.container}>
+    //     <View style={{marginTop: 30}} />
+    //     <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
+    //     <Text style={{margin:10}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
+    //     <View style={{marginTop: 30}} />
+    //     {this.state.show && (
+    //       <SpotIM
+    //         postId={this.state.postId}
+    //         url="http://www.spotim.name/bd-playground/post9.html"
+    //         title="Spot.IM is aiming for the stars!"
+    //         subtitle=""
+    //         thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
+    //         showLoginScreenOnRootViewController={false}
+    //         style={{flex: 1}} />
+    //     )}
+    //     <Button title="Change Post ID" onPress={() => {
+    //         this.setState({postId: this.state.postId === "sdk1" ? "sdk2" : "sdk1"})
+    //     }}/>
+    //   <Button title="Hide / Show" onPress={() => {
+    //         this.setState({show: !this.state.show})
+    //     }}/>
+    //   </ScrollView>
+    // );
 
     return (
-      <ScrollView style={styles.container}>
-        <View style={{marginTop: 30}} />
-        <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
-        <Text style={{margin:10}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
-        <View style={{marginTop: 30}} />
-        {this.state.show && (
-          <SpotIM
-            postId={this.state.postId}
-            url="http://www.spotim.name/bd-playground/post9.html"
-            title="Spot.IM is aiming for the stars!"
-            subtitle=""
-            thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
-            showLoginScreenOnRootViewController={false}
-            style={{flex: 1}} />
-        )}
-        <Button title="Change Post ID" onPress={() => {
-            this.setState({postId: this.state.postId === "sdk1" ? "sdk2" : "sdk1"})
-        }}/>
-      <Button title="Hide / Show" onPress={() => {
-            this.setState({show: !this.state.show})
-        }}/>
-      </ScrollView>
-    );
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home"component={MainScreen}/>
+          <Stack.Screen name="Articles" component={ArticlesScreen} />
+          <Stack.Screen name="Article" component={ArticleScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    )
   }
 }
 

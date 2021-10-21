@@ -1,0 +1,44 @@
+import { Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import React, { Component } from 'react';
+import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
+
+export default class ArticlesScreen extends Component {
+  constructor(props) {
+    super(props)
+    const spotId = this.props.route.params.spotId
+    SpotIMAPI.init(spotId)
+
+    this.articles = ["sdk1", "sdk2"]
+  }
+
+  render() {
+    return (
+      <ScrollView>
+      {this.articles.map(articleId => this.getArticleButton(articleId))}
+      </ScrollView>
+    );
+  }
+
+  getArticleButton(articleId) {
+    return (
+      <Button key={articleId} title={articleId} onPress={() => {
+        // open article screen
+        this.props.navigation.navigate('Article', {articleId: articleId})
+      }}/>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginVertical: 30,
+  },
+  welcome: {
+    fontSize: 24,
+    color: 'blue',
+    textAlign: 'center',
+    marginTop: 40,
+    marginBottom: 20,
+  },
+});
