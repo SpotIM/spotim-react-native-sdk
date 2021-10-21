@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.2] - 2021-10-21
+
+### Fixed
+- [Android] Login Screen "hiding" below "Create Comment" instead of on top - flag for open the login screen on the root Activity.
+
 ## [v1.4.1] - 2021-10-14
 
 ### Fixed
-- Login Screen "hiding" below "Create Comment" instead of on top - flag for open the login screen on the root VC.
+- [iOS] Login Screen "hiding" below "Create Comment" instead of on top - flag for open the login screen on the root VC.
 
 
 ## [v1.4.0] - 2021-10-10
