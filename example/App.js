@@ -140,7 +140,7 @@ export default class App extends Component {
             title="Spot.IM is aiming for the stars!"
             subtitle=""
             thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
-            showLoginScreenOnRootViewController={false}
+            showLoginScreenOnRootScreen={false}
             style={{flex: 1}} />
         )}
         <Button title="Change Post ID" onPress={() => {

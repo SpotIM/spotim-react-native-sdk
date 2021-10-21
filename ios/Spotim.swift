@@ -30,7 +30,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
 
     var spotImCoordinator: SpotImSDKFlowCoordinator!
 
-    @objc public func showLoginScreenOnRootViewController(_ shouldShow: Bool) {
+    @objc public func showLoginScreenOnRootScreen(_ shouldShow: Bool) {
         SpotIm.reactNativeShowLoginScreenOnRootVC = shouldShow
     }
 
