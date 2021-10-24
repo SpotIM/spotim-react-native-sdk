@@ -58,6 +58,17 @@
     [self.spotIm showLoginScreenOnRootViewController:showLoginScreenOnRootViewController];
 }
 
+- (UIViewController *)parentViewController {
+    UIResponder *responder = [self nextResponder];
+    while (responder != nil) {
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)responder;
+        }
+        responder = [responder nextResponder];
+    }
+    return nil;
+}
+
 - (void)initPreConversationController
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -75,11 +86,13 @@
                 [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
                 [self.preConversationVC removeFromParentViewController];
             }
-
-            [rootViewController addChildViewController:vc];
+            
+            UIViewController *parentViewController = [self parentViewController];
+            
+            [parentViewController addChildViewController:vc];
             [self addSubview:vc.view];
             vc.view.frame = self.bounds;
-            [vc didMoveToParentViewController:rootViewController];
+            [vc didMoveToParentViewController:parentViewController];
             self.preConversationVC = vc;
 
         } onError:^(NSError * error) {
