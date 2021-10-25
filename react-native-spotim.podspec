@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "SpotIMCore", '1.6.5'
+  s.dependency "SpotIMCore", '1.6.6'
 
 end
