@@ -53,9 +53,9 @@
     [self initPreConversationController];
 }
 
-- (void) setShowLoginScreenOnRootViewController:(BOOL)showLoginScreenOnRootViewController {
-    _showLoginScreenOnRootViewController = showLoginScreenOnRootViewController;
-    [self.spotIm showLoginScreenOnRootViewController:showLoginScreenOnRootViewController];
+- (void) setShowLoginScreenOnRootScreen:(BOOL)showLoginScreenOnRootScreen {
+    _showLoginScreenOnRootScreen = showLoginScreenOnRootScreen;
+    [self.spotIm showLoginScreenOnRootScreen:showLoginScreenOnRootScreen];
 }
 
 - (UIViewController *)parentViewController {

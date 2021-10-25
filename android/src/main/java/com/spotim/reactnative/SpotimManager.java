@@ -19,7 +19,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
-import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
@@ -39,13 +38,13 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     ThemedReactContext context;
     FrameLayout viewRoot;
 
-    String spotId = "";
     String postId = "";
     String url = "";
     String title = "";
     String subtitle = "";
     String thumbnailUrl = "";
     String darkModeBackgroundColor = "";
+    Boolean showLoginScreenOnRootScreen = false;
 
     public static final String REACT_CLASS = "SpotIM";
     public final int COMMAND_CREATE = 1;
@@ -55,7 +54,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         return REACT_CLASS;
     }
 
-    @ReactPropGroup(names = {"postId","url","title","subtitle","thumbnailUrl","darkModeBackgroundColor"})
+    @ReactPropGroup(names = {"postId","url","title","subtitle","thumbnailUrl","darkModeBackgroundColor","showLoginScreenOnRootScreen"})
     public void setProps(View view, int index, Dynamic value) {
         switch (index) {
             case 0:
@@ -75,6 +74,9 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 break;
             case 5:
                 darkModeBackgroundColor = value.asString();
+                break;
+            case 6:
+                showLoginScreenOnRootScreen = value.asBoolean();
                 break;
         }
     }
@@ -121,6 +123,8 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
 
         ViewGroup parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
         setupLayoutHack(parentView);
+
+        SpotIm.setEnableReactNativeShowLoginScreenOnRootActivity(showLoginScreenOnRootScreen);
 
         SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
