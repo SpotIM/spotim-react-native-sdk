@@ -2,10 +2,9 @@ import { Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-nati
 import React, { Component } from 'react';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 
-export default class ArticlesScreen extends Component {
+export default class ArticleScreen extends Component {
   constructor(props) {
     super(props)
-    // const spotId = this.props.route.params.spotId
     this.articleId = this.props.route.params.articleId
   }
 

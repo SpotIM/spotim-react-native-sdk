@@ -23,12 +23,6 @@ const Stack = createStackNavigator();
 export default class App extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      postId: "sdk1",
-      show: true,
-      subsctiption: null
-    }
   }
 
   onTrackAnalyticsEvent(event) {
@@ -36,19 +30,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // SPOT IM INIT
-
-
     // Show analytics events
-    // SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
-
-    // const onStartLoginFlow = (event) => {
-    //   console.log("onStartLoginFlow");
-    //   // Load here login view
-    //   this.props.navigation.navigate('Login')
-    //
-    // }
-    // const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+    SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
   }
 
   render() {

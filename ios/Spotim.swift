@@ -112,7 +112,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
                                                    completion: @escaping (UIViewController) -> Void,
                                                    onError: @escaping (Error) -> Void) {
 
-        let articleMetadata: SpotImArticleMetadata = SpotImArticleMetadata.init(url: url, title: title, subtitle: subtitle, thumbnailUrl: thumbnailUrl, readOnlyMode: .disable)
+        let articleMetadata: SpotImArticleMetadata = SpotImArticleMetadata.init(url: url, title: title, subtitle: subtitle, thumbnailUrl: thumbnailUrl)
 
         self.spotImCoordinator?.preConversationController(withPostId: postId, articleMetadata: articleMetadata, navigationController: nc, completion: { preConversationVC in
              completion(preConversationVC)
