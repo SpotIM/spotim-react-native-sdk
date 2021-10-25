@@ -235,9 +235,11 @@ PODS:
     - React-cxxreact (= 0.63.2)
     - React-jsi (= 0.63.2)
   - React-jsinspector (0.63.2)
+  - react-native-safe-area-context (3.3.2):
+    - React-Core
   - react-native-spotim (1.4.2):
     - React
-    - SpotIMCore (= 1.6.5)
+    - SpotIMCore (= 1.6.6)
   - React-RCTActionSheet (0.63.2):
     - React-Core/RCTActionSheetHeaders (= 0.63.2)
   - React-RCTAnimation (0.63.2):
@@ -298,7 +300,14 @@ PODS:
     - React-Core (= 0.63.2)
     - React-cxxreact (= 0.63.2)
     - React-jsi (= 0.63.2)
-  - SpotIMCore (1.6.5):
+  - RNCMaskedView (0.2.6):
+    - React-Core
+  - RNGestureHandler (1.10.3):
+    - React-Core
+  - RNScreens (3.8.0):
+    - React-Core
+    - React-RCTImage
+  - SpotIMCore (1.6.6):
     - Alamofire (~> 5.2)
     - PromiseKit (~> 6.8)
   - Yoga (1.14.0)
@@ -322,6 +331,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-spotim (from `../..`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -333,6 +343,9 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -379,6 +392,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-spotim:
     :path: "../.."
   React-RCTActionSheet:
@@ -401,6 +416,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-masked-view/masked-view"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -429,7 +450,8 @@ SPEC CHECKSUMS:
   React-jsi: 54245e1d5f4b690dec614a73a3795964eeef13a8
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
-  react-native-spotim: c5d5480ba89e1789cee9f1a77d6c8e489859407e
+  react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
+  react-native-spotim: 5840e32b133110f9e7ce7ba396e35b120ada6454
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
   React-RCTBlob: 39cf0ece1927996c4466510e25d2105f67010e13
@@ -440,9 +462,12 @@ SPEC CHECKSUMS:
   React-RCTText: 1b6773e776e4b33f90468c20fe3b16ca3e224bb8
   React-RCTVibration: 4d2e726957f4087449739b595f107c0d4b6c2d2d
   ReactCommon: a0a1edbebcac5e91338371b72ffc66aa822792ce
-  SpotIMCore: 0f273c9c6a305227f0e2b7cdfbf12ded0c4cfe71
+  RNCMaskedView: d367b2a8df3992114e31b32b091a0c00dc800827
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNScreens: 6e1ea5787989f92b0671049b808aef64fa1ef98c
+  SpotIMCore: 017a1b462bda2d18fde5e24b91046b29677196fd
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
 
 PODFILE CHECKSUM: 77272c862e90e9aacc635dc246e9d9729cdda3b6
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.10.1
