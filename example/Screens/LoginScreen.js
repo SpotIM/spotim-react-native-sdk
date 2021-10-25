@@ -65,10 +65,8 @@ export default class LoginScreen extends Component {
     }));
     Http.onreadystatechange=(e) => {
       if(Http.readyState == 4) {
-        console.log(Http.responseText);
         const json = JSON.parse(Http.responseText);
         const userToken = json.token
-        console.log("user token: " + userToken);
         //Start SSO
         SpotIMAPI.startSSO()
         .then((response) => {
