@@ -21,7 +21,7 @@ export default class ArticlesScreen extends Component {
             title="Spot.IM is aiming for the stars!" //TODO
             subtitle="" //TODO
             thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp" //TODO
-            showLoginScreenOnRootViewController={false}
+            showLoginScreenOnRootViewController={true}
             style={{flex: 1}} />
       </ScrollView>
     );

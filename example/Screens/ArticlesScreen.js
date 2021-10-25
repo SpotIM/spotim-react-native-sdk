@@ -6,9 +6,10 @@ export default class ArticlesScreen extends Component {
   constructor(props) {
     super(props)
     const spotId = this.props.route.params.spotId
+    // TODO - clean from previus spotId if exsist
     SpotIMAPI.init(spotId)
 
-    this.articles = ["sdk1", "sdk2"]
+    this.articles = ["sdk1", "sdk2", "sdk3"]
   }
 
   render() {

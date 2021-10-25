@@ -8,8 +8,28 @@ export default class MainScreen extends Component {
     this.spotIds = [{
       displayName: "Demo Spot",
       id: "sp_eCIlROSD"
+    },{
+      displayName: "sp_mobileGuest",
+      id: "sp_mobileGuest"
     }]
   }
+
+  componentDidMount() {
+    // SPOT IM INIT
+
+
+    // Show analytics events
+    // SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
+
+    const onStartLoginFlow = (event) => {
+      console.log("onStartLoginFlow");
+      // Load here login view
+      this.props.navigation.navigate('Login')
+
+    }
+    const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+  }
+
 
   render() {
     return (
@@ -26,7 +46,6 @@ export default class MainScreen extends Component {
   getSpotButton(spot) {
     return (
       <Button key={spot.id} title={spot.displayName} onPress={() => {
-        debugger
         this.props.navigation.navigate('Articles', {spotId: spot.id})
       }}/>
     )

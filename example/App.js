@@ -11,13 +11,15 @@
 import { Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
 import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
 import MainScreen from './Screens/MainScreen.js'
 import ArticlesScreen from './Screens/ArticlesScreen.js'
 import ArticleScreen from './Screens/ArticleScreen.js'
+import LoginScreen from './Screens/LoginScreen.js'
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -40,96 +42,18 @@ export default class App extends Component {
     // Show analytics events
     // SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
 
-    const onStartLoginFlow = (event) => {
-      console.log("onStartLoginFlow");
-      // Load here login view
-    }
-    const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
+    // const onStartLoginFlow = (event) => {
+    //   console.log("onStartLoginFlow");
+    //   // Load here login view
+    //   this.props.navigation.navigate('Login')
+    //
+    // }
+    // const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
   }
 
   render() {
     console.log("render :: postId - " + this.state.postId);
 
-    // COMPLETE SSO FLOW
-    // const Http = new XMLHttpRequest();
-    // const url=SSO_ENDPOINT_BASE_URL+SSO_ENDPOINT_LOGIN;
-    // Http.open("POST", url);
-    // Http.setRequestHeader("content-type","application/json");
-    // Http.send(JSON.stringify({
-    //   "username":USERNAME,
-    //   "password":PASSWORD
-    // }));
-    // Http.onreadystatechange=(e) => {
-    //   if(Http.readyState == 4) {
-    //     console.log(Http.responseText);
-    //     const json = JSON.parse(Http.responseText);
-    //     const userToken = json.token
-    //     console.log("user token: " + userToken);
-    //     SpotIMAPI.startSSO()
-    //     .then((data) => {
-    //       console.log("SpotIm: Succees for SSO: ");
-    //       console.log("SpotIm: Code: " + data.code_a);
-
-    //       const Http = new XMLHttpRequest();
-    //       const url=SSO_ENDPOINT_BASE_URL+SSO_ENDPOINT_CODE_B;
-    //       Http.open("POST", url);
-    //       Http.setRequestHeader("access-token-network", SPOT_ACCESS_TOKEN);
-    //       Http.setRequestHeader("content-type","application/json");
-    //       Http.send(JSON.stringify({
-    //         "code_a":data.code_a,
-    //         "access_token":userToken,
-    //         "username":USERNAME,
-    //         "environment":"production"
-    //       }));
-    //       Http.onreadystatechange=(e) => {
-    //         if(Http.readyState == 4) {
-    //           const json = JSON.parse(Http.responseText);
-    //           console.log("Got code B: ");
-    //           console.log(json)
-    //           SpotIMAPI.completeSSO(json.code_b)
-    //           .then((response) => {
-    //             console.log("SpotIm: " + response.success);
-    //           })
-    //           .catch((error) => {
-    //             console.log("SpotIm: " + error);
-    //           })
-    //         }
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.log("SpotIm: Api call error: " + error);
-    //     });
-    //   }
-    // }
-
-
-    // SSO WITH JWT
-    // SpotIMAPI.sso(JWT_TOKEN)
-    // .then((data) => {
-    //   console.log("Succees for SSO: ");
-    //   console.log(data.success);
-    // }).catch((error)=>{
-    //   console.log("Api call error: " + error.error);
-    // });
-
-    // LOGOUT
-    // SpotIMAPI.logout()
-    // .then((response) => {
-    //   console.log("Logout success: " + response.success);
-    // })
-    // .catch((error) => {
-    //   console.log("Logout error: " + error);
-    // });
-
-    // // GET USER STATUS
-    // SpotIMAPI.getUserLoginStatus()
-    // .then((response) => {
-    //   console.log("User status is: " + response.status);
-    // })
-    // .catch((error) => {
-    //   console.log("User status error: ");
-    //   console.log(error);
-    // });
     //
     // return (
     //   <ScrollView style={styles.container}>
@@ -158,10 +82,11 @@ export default class App extends Component {
 
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home"component={MainScreen}/>
           <Stack.Screen name="Articles" component={ArticlesScreen} />
           <Stack.Screen name="Article" component={ArticleScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     )
