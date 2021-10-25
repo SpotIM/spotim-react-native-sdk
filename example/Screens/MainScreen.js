@@ -15,17 +15,10 @@ export default class MainScreen extends Component {
   }
 
   componentDidMount() {
-    // SPOT IM INIT
-
-
-    // Show analytics events
-    // SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
-
     const onStartLoginFlow = (event) => {
       console.log("onStartLoginFlow");
       // Load here login view
       this.props.navigation.navigate('Login')
-
     }
     const subscription = SpotIMEventEmitter.addListener('startLoginFlow', onStartLoginFlow);
   }
@@ -34,7 +27,7 @@ export default class MainScreen extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View style={{marginTop: 30}} />
+        <View style={{marginTop: 10}} />
         <Text style={styles.welcome}>Spot.IM React-Native Demo App</Text>
         {this.spotIds.map((spot) =>
           this.getSpotButton(spot)

@@ -14,8 +14,9 @@ export default class ArticlesScreen extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{flex: 1}}>
       {this.articles.map(articleId => this.getArticleButton(articleId))}
+      <Button style={{marginTop: 30}} title="Login Screen" onPress={() => this.props.navigation.navigate('Login')}/>
       </ScrollView>
     );
   }
