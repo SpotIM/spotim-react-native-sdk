@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.3] - 2021-10-26
+
+### Added
+- Update iOS SDK v1.6.6
+
+### Fixed
+- SpotIM component UIViewControllerHierarchyIncosistencyException issue
+
+### Changed
+- Sample app improvements - navigation and simulate login
+
 ## [v1.4.2] - 2021-10-21
 
 ### Fixed
