@@ -27,6 +27,7 @@ import java.util.Map;
 import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
 import spotIm.common.SpotLayoutListener;
+import spotIm.common.SpotSSOStartLoginFlowMode;
 import spotIm.common.options.Article;
 import spotIm.common.options.ConversationOptions;
 import spotIm.common.options.theme.SpotImThemeMode;
@@ -124,7 +125,11 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         ViewGroup parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
         setupLayoutHack(parentView);
 
-        SpotIm.setEnableReactNativeShowLoginScreenOnRootActivity(showLoginScreenOnRootScreen);
+        SpotIm.setSsoStartLoginFlowMode(
+                showLoginScreenOnRootScreen ?
+                        SpotSSOStartLoginFlowMode.ON_ROOT_ACTIVITY :
+                        SpotSSOStartLoginFlowMode.DEFAULT
+        );
 
         SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
