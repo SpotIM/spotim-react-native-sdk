@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.4] - 2021-10-31
+
+### Fixed
+- iOS flag to open login screen on root VC issue with reply to comment
+- Android flag to open login screen on root Activity issue with logged in user
+
+### Changed
+- Update Android SDK version to 1.6.3
+- Update iOS SDK version to 1.6.7
+
 ## [v1.4.3] - 2021-10-26
 
 ### Added
