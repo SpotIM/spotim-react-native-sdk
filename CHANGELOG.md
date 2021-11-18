@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.5.0] - 2021-11-18
+
+### Added
+- Support Android 11 (API level 30)
+- Update Android SDK v1.7.0
+- Update iOS SDK v1.6.8
+
 ## [v1.4.4] - 2021-10-31
 
 ### Fixed
