@@ -239,7 +239,7 @@ PODS:
     - React-Core
   - react-native-spotim (1.4.4):
     - React
-    - SpotIMCore (= 1.6.7)
+    - SpotIMCore (= 1.6.8)
   - React-RCTActionSheet (0.63.2):
     - React-Core/RCTActionSheetHeaders (= 0.63.2)
   - React-RCTAnimation (0.63.2):
@@ -307,7 +307,7 @@ PODS:
   - RNScreens (3.8.0):
     - React-Core
     - React-RCTImage
-  - SpotIMCore (1.6.7):
+  - SpotIMCore (1.6.8):
     - Alamofire (~> 5.2)
     - PromiseKit (~> 6.8)
   - Yoga (1.14.0)
@@ -451,7 +451,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
   react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
-  react-native-spotim: 948252c03e0386ef6aa0e284c60c50f03f322020
+  react-native-spotim: 99bcff8f5f837e2344b5fa89aec678b267070201
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
   React-RCTBlob: 39cf0ece1927996c4466510e25d2105f67010e13
@@ -465,7 +465,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: d367b2a8df3992114e31b32b091a0c00dc800827
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: 6e1ea5787989f92b0671049b808aef64fa1ef98c
-  SpotIMCore: 84a9ed50f9a9cb2a3af8078443968e48f2202a12
+  SpotIMCore: df0c17f3c19dbde807240c2a55811addc34c4267
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
 
 PODFILE CHECKSUM: 77272c862e90e9aacc635dc246e9d9729cdda3b6
