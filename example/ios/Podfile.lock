@@ -238,7 +238,7 @@ PODS:
   - react-native-safe-area-context (3.3.2):
     - React-Core
   - react-native-spotim (1.5.0):
-    - React
+    - React-Core
     - SpotIMCore (= 1.6.8)
   - React-RCTActionSheet (0.63.2):
     - React-Core/RCTActionSheetHeaders (= 0.63.2)
@@ -451,7 +451,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
   react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
-  react-native-spotim: b94ff05654a34855e6f7cc7d118dc69f9c6e9063
+  react-native-spotim: 5a1f3f8d01a1865f3d347fff133e42fcfbc22828
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
   React-RCTBlob: 39cf0ece1927996c4466510e25d2105f67010e13
