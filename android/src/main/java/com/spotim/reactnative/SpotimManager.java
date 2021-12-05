@@ -122,8 +122,10 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 .addTheme(themeParams)
                 .build();
 
-        ViewGroup parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
-        setupLayoutHack(parentView);
+//        ViewGroup parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
+//        setupLayoutHack(parentView);
+
+        setupLayoutHack(viewRoot, reactNativeViewId);
 
         SpotIm.setSsoStartLoginFlowMode(
                 showLoginScreenOnRootScreen ?
@@ -160,22 +162,35 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         });
     }
 
-    private void setupLayoutHack(final ViewGroup view) {
+    private void setupLayoutHack(final ViewGroup view,final Integer reactNativeViewId) {
         Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
             public void doFrame(long frameTimeNanos) {
-                manuallyLayoutChildren(view);
-                view.getViewTreeObserver().dispatchOnGlobalLayout();
-                Choreographer.getInstance().postFrameCallback(this);
+                ViewGroup parentView = (ViewGroup) view.findViewById(reactNativeViewId).getParent();
+                if (parentView != null) {
+                    manuallyLayoutChildren(parentView);
+                    parentView.getViewTreeObserver().dispatchOnGlobalLayout();
+                    Choreographer.getInstance().postFrameCallback(this);
+                }
             }
         });
     }
 
     private void manuallyLayoutChildren(ViewGroup view) {
+        // propWidth and propHeight coming from react-native props
+//        int width = view.getMeasuredWidth();
+//        int height = view.getMeasuredHeight();
+//
+//        view.measure(
+//                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+//                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
+
+//        view.layout(0, 0, width, height);
         for (int i = 0; i < view.getChildCount(); i++) {
             View child = view.getChildAt(i);
             if(child == viewRoot) {
-                child.measure(View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+                child.measure(
+                        View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
                         View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
                 child.layout(child.getLeft(), child.getTop(), child.getMeasuredWidth(), child.getMeasuredHeight());
             }
