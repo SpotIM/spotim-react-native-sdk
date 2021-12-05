@@ -1,6 +1,8 @@
 package com.spotim.reactnative;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -47,8 +49,15 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void initWithSpotId(String spodId) {
-        SpotIm.init(reactContext, spodId);
+    public void initWithSpotId(final String spodId) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                // Code here will run in UI thread
+                SpotIm.init(reactContext, spodId);
+            }
+        });
+
 
         SpotIm.setLoginDelegate(new LoginDelegate() {
             @Override
