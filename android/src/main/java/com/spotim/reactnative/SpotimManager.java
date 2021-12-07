@@ -122,9 +122,6 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 .addTheme(themeParams)
                 .build();
 
-//        ViewGroup parentView = (ViewGroup) viewRoot.findViewById(reactNativeViewId).getParent();
-//        setupLayoutHack(parentView);
-
         setupLayoutHack(viewRoot, reactNativeViewId);
 
         SpotIm.setSsoStartLoginFlowMode(
