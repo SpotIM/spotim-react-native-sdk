@@ -177,15 +177,6 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     }
 
     private void manuallyLayoutChildren(ViewGroup view) {
-        // propWidth and propHeight coming from react-native props
-//        int width = view.getMeasuredWidth();
-//        int height = view.getMeasuredHeight();
-//
-//        view.measure(
-//                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
-//                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
-
-//        view.layout(0, 0, width, height);
         for (int i = 0; i < view.getChildCount(); i++) {
             View child = view.getChildAt(i);
             if(child == viewRoot) {
