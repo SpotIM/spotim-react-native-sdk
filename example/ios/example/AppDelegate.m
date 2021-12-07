@@ -19,14 +19,19 @@
 #if RCT_DEV // Fix issue: https://github.com/facebook/react-native/issues/16376#issuecomment-350523177
   [bridge moduleForClass:[RCTDevLoadingView class]];
 #endif
-  
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"example"
                                             initialProperties:nil];
 
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  if (@available(iOS 13.0, *)) {
+      rootView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+      rootView.backgroundColor = [UIColor whiteColor];
+  }
+
   [GoogleAdsProvider setSpotImSDKWithProvider];
-  
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   self.navControll = [[UINavigationController alloc] initWithRootViewController:rootViewController];
@@ -34,7 +39,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = self.navControll;
   [self.window makeKeyAndVisible];
-  
+
   return YES;
 }
 
