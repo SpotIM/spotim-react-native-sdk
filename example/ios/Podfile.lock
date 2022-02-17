@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.4.4)
+  - Alamofire (5.5.0)
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.66.1)
@@ -261,7 +261,7 @@ PODS:
     - glog
   - react-native-safe-area-context (3.3.2):
     - React-Core
-  - react-native-spotim (1.5.1):
+  - react-native-spotim (1.6.0):
     - React-Core
     - SpotIMCore (= 1.6.8)
   - React-perflogger (0.66.1)
@@ -467,7 +467,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 500821d196c3d1bd10e7e828bc93ce075234080f
@@ -494,7 +494,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8c0517dee5e8c70cd6c3066f20213ff7ce54f176
   React-logger: bfddd3418dc1d45b77b822958f3e31422e2c179b
   react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
-  react-native-spotim: e97300bce2e9d4d0c487b03a8e605fbec1b70009
+  react-native-spotim: 21705580f00d993a50366932229058af1fb22814
   React-perflogger: fcac6090a80e3d967791b4c7f1b1a017f9d4a398
   React-RCTActionSheet: caf5913d9f9e605f5467206cf9d1caa6d47d7ad6
   React-RCTAnimation: 6539e3bf594f6a529cd861985ba6548286ae1ead
@@ -515,4 +515,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9d60cac3157a84c4948f53887f5922792fd3be80
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2
