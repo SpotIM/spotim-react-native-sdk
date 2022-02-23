@@ -44,6 +44,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     String title = "";
     String subtitle = "";
     String thumbnailUrl = "";
+    Boolean androidDarkModeEnabled = false;
     String darkModeBackgroundColor = "";
     Boolean showLoginScreenOnRootScreen = false;
 
@@ -55,7 +56,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         return REACT_CLASS;
     }
 
-    @ReactPropGroup(names = {"postId","url","title","subtitle","thumbnailUrl","darkModeBackgroundColor","showLoginScreenOnRootScreen"})
+    @ReactPropGroup(names = {"postId","url","title","subtitle","thumbnailUrl", "androidDarkModeEnabled", "darkModeBackgroundColor","showLoginScreenOnRootScreen"})
     public void setProps(View view, int index, Dynamic value) {
         switch (index) {
             case 0:
@@ -74,9 +75,12 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
                 thumbnailUrl = value.asString();
                 break;
             case 5:
-                darkModeBackgroundColor = value.asString();
+                androidDarkModeEnabled = value.asBoolean();
                 break;
             case 6:
+                darkModeBackgroundColor = value.asString();
+                break;
+            case 7:
                 showLoginScreenOnRootScreen = value.asBoolean();
                 break;
         }
@@ -109,12 +113,19 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     }
 
     public void createFragment(FrameLayout parentLayout, final int reactNativeViewId) {
-        SpotImThemeParams themeParams = new SpotImThemeParams(false, SpotImThemeMode.LIGHT, Color.WHITE);
-        if (darkModeBackgroundColor != "") {
-            SpotImThemeMode themeMode = SpotImThemeMode.DARK;
-            int backgroundColor = Color.parseColor(darkModeBackgroundColor);
-            themeParams = new SpotImThemeParams(false, themeMode, backgroundColor);
+        SpotImThemeMode themeMode = SpotImThemeMode.LIGHT;
+        if (androidDarkModeEnabled) {
+            themeMode = SpotImThemeMode.DARK;
         }
+
+        int backgroundColor;
+        if (!darkModeBackgroundColor.equals("")) {
+            backgroundColor = Color.parseColor(darkModeBackgroundColor);
+        } else {
+            backgroundColor = Color.parseColor("#181818"); // default dark background color
+        }
+
+        SpotImThemeParams themeParams = new SpotImThemeParams(false, themeMode, backgroundColor);
 
         ConversationOptions options = new ConversationOptions.Builder()
                 .configureArticle(new Article(url, thumbnailUrl, title, subtitle))
