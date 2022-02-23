@@ -46,8 +46,6 @@
 
     if (self.darkModeBackgroundColor) {
         [self setDarkModeBackgroundColor];
-    } else {
-        [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
     }
 
     [self initPreConversationController];
@@ -86,9 +84,9 @@
                 [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
                 [self.preConversationVC removeFromParentViewController];
             }
-            
+
             UIViewController *parentViewController = [self parentViewController];
-            
+
             [parentViewController addChildViewController:vc];
             [self addSubview:vc.view];
             vc.view.frame = self.bounds;
@@ -162,6 +160,14 @@
 - (void)showFullConversation {
     SEL selector = NSSelectorFromString(@"reactNativeShowMoreComments");
     [self.preConversationVC performSelector:selector];
+}
+
+- (void)setIsDarkModeEnabled:(BOOL)isEnabled {
+    if (isEnabled) {
+        [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleDark];
+    } else {
+        [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];
+    }
 }
 
 - (void)didMoveToWindow {

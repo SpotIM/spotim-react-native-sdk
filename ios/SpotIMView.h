@@ -29,4 +29,5 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 - (void)getUserLoginStatus:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)logout:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)showFullConversation;
+- (void)setIsDarkModeEnabled:(BOOL)isEnabled;
 @end
