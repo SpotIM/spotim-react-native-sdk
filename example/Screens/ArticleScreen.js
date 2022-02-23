@@ -6,6 +6,8 @@ export default class ArticleScreen extends Component {
   constructor(props) {
     super(props)
     this.articleId = this.props.route.params.articleId
+
+    // SpotIMAPI.setIOSDarkModeEnabled(true)
   }
 
   render() {
@@ -21,6 +23,7 @@ export default class ArticleScreen extends Component {
             title="Spot.IM is aiming for the stars!" //TODO
             subtitle="" //TODO
             thumbnailUrl="https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp" //TODO
+            androidDarkModeEnabled={false}
             showLoginScreenOnRootScreen={true}
             style={{flex: 1}} />
       </ScrollView>
