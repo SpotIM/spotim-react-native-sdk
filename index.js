@@ -176,9 +176,9 @@ export class SpotIMAPI {
     static showFullConversation = () => {
       SpotIMModule.showFullConversation()
     }
-    static setIOSDarkModeEnabled = (isEnabled) => {
+    static setIOSDarkMode = (isOn) => {
       if (ISIOS) {
-        SpotIMModule.setIsDarkModeEnabled(isEnabled)
+        SpotIMModule.setIsDarkMode(isOn)
       }
     }
 }

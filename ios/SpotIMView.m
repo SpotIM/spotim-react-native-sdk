@@ -162,8 +162,8 @@
     [self.preConversationVC performSelector:selector];
 }
 
-- (void)setIsDarkModeEnabled:(BOOL)isEnabled {
-    if (isEnabled) {
+- (void)setIsDarkMode:(BOOL)isOn {
+    if (isOn) {
         [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleDark];
     } else {
         [self.spotIm overrideUserInterfaceStyleWithStyle:SpotImUserInterfaceStyleLight];

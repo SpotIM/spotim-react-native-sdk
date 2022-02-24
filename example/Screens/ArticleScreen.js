@@ -7,7 +7,7 @@ export default class ArticleScreen extends Component {
     super(props)
     this.articleId = this.props.route.params.articleId
 
-    // SpotIMAPI.setIOSDarkModeEnabled(true)
+    // SpotIMAPI.setIOSDarkMode(true)
   }
 
   render() {

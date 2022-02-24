@@ -86,9 +86,9 @@ RCT_EXPORT_METHOD(showFullConversation) {
     });
 }
 
-RCT_EXPORT_METHOD(setIsDarkModeEnabled:(BOOL)isEnabled) {
+RCT_EXPORT_METHOD(setIsDarkMode:(BOOL)isOn) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.spotIMView setIsDarkModeEnabled:isEnabled];
+        [self.spotIMView setIsDarkMode:isOn];
     });
 }
 
