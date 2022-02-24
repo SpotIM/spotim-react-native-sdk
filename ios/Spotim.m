@@ -86,6 +86,12 @@ RCT_EXPORT_METHOD(showFullConversation) {
     });
 }
 
+RCT_EXPORT_METHOD(setIsDarkMode:(BOOL)isOn) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.spotIMView setIsDarkMode:isOn];
+    });
+}
+
 RCT_EXPORT_METHOD(completeSSO:(NSString *)codeB) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.spotIMView completeSSO:codeB onCompletion:^(NSDictionary *response) {
