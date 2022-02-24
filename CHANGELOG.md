@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.7.0] - 2022-02-24
+- Dark mode support
+
 ## [v1.6.0] - 2021-12-07
 
 ### Fixed
-- Fix crash on RN 0.66 
+- Fix crash on RN 0.66
 
 ## [v1.5.1] - 2021-11-25
 
