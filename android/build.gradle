@@ -76,7 +76,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.7.0'
+    implementation 'com.github.SpotIM.spotim-android-sdk:spotim-sdk:1.9.8'
     implementation 'com.google.code.gson:gson:2.8.5'
 }
 
