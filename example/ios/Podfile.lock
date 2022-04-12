@@ -263,7 +263,7 @@ PODS:
     - React-Core
   - react-native-spotim (1.7.0):
     - React-Core
-    - SpotIMCore (= 1.6.8)
+    - SpotIMCore (= 1.11.0)
   - React-perflogger (0.66.1)
   - React-RCTActionSheet (0.66.1):
     - React-Core/RCTActionSheetHeaders (= 0.66.1)
@@ -336,9 +336,17 @@ PODS:
   - RNScreens (3.8.0):
     - React-Core
     - React-RCTImage
-  - SpotIMCore (1.6.8):
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - SpotIMCore (1.11.0):
     - Alamofire (~> 5.2)
     - PromiseKit (~> 6.8)
+    - RxCocoa
+    - RxSwift
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -392,6 +400,9 @@ SPEC REPOS:
     - nanopb
     - PromiseKit
     - PromisesObjC
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SpotIMCore
 
 EXTERNAL SOURCES:
@@ -494,7 +505,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8c0517dee5e8c70cd6c3066f20213ff7ce54f176
   React-logger: bfddd3418dc1d45b77b822958f3e31422e2c179b
   react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
-  react-native-spotim: 73e086b12936d5b6c49159d1befb614260211074
+  react-native-spotim: 004f1ce1a278281d744949a9c69ca3bc9399fc70
   React-perflogger: fcac6090a80e3d967791b4c7f1b1a017f9d4a398
   React-RCTActionSheet: caf5913d9f9e605f5467206cf9d1caa6d47d7ad6
   React-RCTAnimation: 6539e3bf594f6a529cd861985ba6548286ae1ead
@@ -510,7 +521,10 @@ SPEC CHECKSUMS:
   RNCMaskedView: d367b2a8df3992114e31b32b091a0c00dc800827
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: 6e1ea5787989f92b0671049b808aef64fa1ef98c
-  SpotIMCore: df0c17f3c19dbde807240c2a55811addc34c4267
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SpotIMCore: 663b80157a3b6980660fe02cfe7bfee090f826c9
   Yoga: 2b4a01651f42a32f82e6cef3830a3ba48088237f
 
 PODFILE CHECKSUM: 9d60cac3157a84c4948f53887f5922792fd3be80
