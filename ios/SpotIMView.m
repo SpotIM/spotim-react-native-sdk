@@ -104,10 +104,7 @@
 {
     NSString *hex = self.darkModeBackgroundColor;
 
-    NSUInteger red, green, blue;
-    sscanf([hex UTF8String], "#%02X%02X%02X", &red, &green, &blue);
-
-    [self.spotIm setBackgroundColor:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
+    [self.spotIm setBackgroundColorWithHex:hex];
 }
 
 - (void)startSSO:(RequestCompletion)completion
