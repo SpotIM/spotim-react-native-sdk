@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.8.0] - 2022-04-12
+### Added
+- Update Android SDK to version 1.9.8
+- Update iOS SDK to version 1.11.0
+
+### Fixed
+- Custom dark mode background color is not applied
+
 ## [v1.7.0] - 2022-02-24
 - Dark mode support
 
