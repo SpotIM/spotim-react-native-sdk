@@ -8,22 +8,20 @@
  * https://github.com/facebook/react-native
  */
 
-import { Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import React, { Component } from 'react';
-import type {Node} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import { SpotIM, SpotIMAPI, SpotIMEventEmitter } from '@spot.im/react-native-spotim';
-import MainScreen from './Screens/MainScreen.js'
-import ArticlesScreen from './Screens/ArticlesScreen.js'
-import ArticleScreen from './Screens/ArticleScreen.js'
-import LoginScreen from './Screens/LoginScreen.js'
+import { SpotIMEventEmitter } from '@spot.im/react-native-spotim';
+import MainScreen from './Screens/MainScreen.js';
+import ArticlesScreen from './Screens/ArticlesScreen.js';
+import ArticleScreen from './Screens/ArticleScreen.js';
+import LoginScreen from './Screens/LoginScreen.js';
 
 const Stack = createStackNavigator();
 export default class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   onTrackAnalyticsEvent(event) {
@@ -32,33 +30,22 @@ export default class App extends Component {
 
   componentDidMount() {
     // Show analytics events
-    SpotIMEventEmitter.addListener('trackAnalyticsEvent', this.onTrackAnalyticsEvent);
+    SpotIMEventEmitter.addListener(
+      'trackAnalyticsEvent',
+      this.onTrackAnalyticsEvent,
+    );
   }
 
   render() {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home"component={MainScreen}/>
+          <Stack.Screen name="Home" component={MainScreen} />
           <Stack.Screen name="Articles" component={ArticlesScreen} />
           <Stack.Screen name="Article" component={ArticleScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    )
+    );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginVertical: 30,
-  },
-  welcome: {
-    fontSize: 24,
-    color: 'blue',
-    textAlign: 'center',
-    marginTop: 40,
-    marginBottom: 20,
-  },
-});
