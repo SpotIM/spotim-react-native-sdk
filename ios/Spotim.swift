@@ -47,10 +47,11 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     }
 
     @objc public func initialize(_ spotId: String) {
-        SpotIm.initialize(spotId: spotId) { success, error in
-            if success {
+        SpotIm.initialize(spotId: spotId) { result in
+            switch result {
+            case .success:
                 print("SpotIm was initialize successfully!")
-            } else if let error = error {
+            case .failure(let error):
                 print("SpotIm initialization Error: " + error.localizedDescription)
             }
         }
@@ -144,41 +145,44 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
 
     @objc public func startSSO(_ completion: @escaping ([String:Any]) -> Void,
                                  onError: @escaping (Error) -> Void) {
-        SpotIm.startSSO { response, error in
-            if let error = error {
-                onError(error)
-            } else {
-                if let response = response, let responseAsDic = self.dictionary(encodable: response) {
+        SpotIm.startSSO { result in
+            switch result {
+            case .success(let response):
+                if let responseAsDic = self.dictionary(encodable: response) {
                     completion(responseAsDic)
                 } else {
                     completion([String:Any]())
                 }
+            case .failure(let error):
+                onError(error)
             }
         }
     }
 
     @objc public func completeSSO(_ with: String, completion: @escaping ([String:Any]) -> Void,
                                     onError: @escaping (Error) -> Void) {
-        SpotIm.completeSSO(with: with) { success, error in
-            if let error = error {
+        SpotIm.completeSSO(with: with) { result in
+            switch result {
+            case .success(let response):
+                completion(["success": response])
+            case .failure(let error):
                 onError(error)
-            } else if success {
-                completion(["success": success])
             }
         }
     }
 
     @objc public func sso(_ withJwtSecret: String, completion: @escaping ([String:Any]) -> Void,
                             onError: @escaping (Error) -> Void) {
-        SpotIm.sso(withJwtSecret: withJwtSecret) { response, error in
-            if let error = error {
-                onError(error)
-            } else {
-                if let response = response, let responseAsDic = self.dictionary(encodable: response) {
+        SpotIm.sso(withJwtSecret: withJwtSecret) { result in
+            switch result {
+            case .success(let response):
+                if let responseAsDic = self.dictionary(encodable: response) {
                     completion(responseAsDic)
                 } else {
                     completion([String:Any]())
                 }
+            case .failure(let error):
+                onError(error)
             }
         }
     }
