@@ -163,8 +163,6 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
             public void onFailure(SpotException exception) {
                 Log.d("MainActivity", exception.toString());
             }
-
-            // TODO - Use after resolve crash on native SDK
         }, new SpotLayoutListener() {
             @Override
             public void heightDidChange(float v) {
