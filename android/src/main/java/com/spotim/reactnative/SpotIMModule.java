@@ -53,7 +53,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 // Code here will run in UI thread
-                SpotIm.INSTANCE.init(reactContext, spodId, new SpotVoidCallback() {
+                SpotIm.init(reactContext, spodId, new SpotVoidCallback() {
                     @Override
                     public void onSuccess() {
                     }
@@ -66,7 +66,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
         });
 
 
-        SpotIm.INSTANCE.setLoginDelegate(new LoginDelegate() {
+        SpotIm.setLoginDelegate(new LoginDelegate() {
             @Override
             public void startLoginUIFlow(@NonNull Context context) {
                 WritableMap params = Arguments.createMap();
@@ -86,7 +86,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             }
         });
 
-        SpotIm.INSTANCE.setAnalyticsEventDelegate(new AnalyticsEventDelegate() {
+        SpotIm.setAnalyticsEventDelegate(new AnalyticsEventDelegate() {
             @Override
             public void trackEvent(@NotNull AnalyticsEventType analyticsEventType, @NotNull Event event) {
                 try {
@@ -104,7 +104,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startSSO() {
-        SpotIm.INSTANCE.startSSO(new SpotCallback<StartSSOResponse>() {
+        SpotIm.startSSO(new SpotCallback<StartSSOResponse>() {
             @Override
             public void onSuccess(StartSSOResponse response) {
                 try {
@@ -127,7 +127,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void completeSSO(String codeB) {
-        SpotIm.INSTANCE.completeSSO(codeB, new SpotCallback<String>() {
+        SpotIm.completeSSO(codeB, new SpotCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 try {
@@ -150,7 +150,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void ssoWithJwtSecret(String jwt) {
-        SpotIm.INSTANCE.ssoWithJwt(jwt, new SpotCallback<SsoWithJwtResponse>() {
+        SpotIm.ssoWithJwt(jwt, new SpotCallback<SsoWithJwtResponse>() {
             @Override
             public void onSuccess(SsoWithJwtResponse response) {
                 try {
@@ -173,7 +173,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getUserLoginStatus(final Promise promise) {
-        SpotIm.INSTANCE.getUserLoginStatus(new SpotCallback<UserStatus>() {
+        SpotIm.getUserLoginStatus(new SpotCallback<UserStatus>() {
             @Override
             public void onSuccess(UserStatus status) {
                 JSONObject json = new JSONObject();
@@ -204,7 +204,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void logout() {
-        SpotIm.INSTANCE.logout(new SpotVoidCallback() {
+        SpotIm.logout(new SpotVoidCallback() {
             @Override
             public void onSuccess() {
                 try {
