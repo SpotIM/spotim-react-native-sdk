@@ -15,16 +15,16 @@
   "keywords": [
     "react-native"
   ],
-  "author": "SpotIM <support@spot.im>",
+  "author": "OpenWeb",
   "license": "Apache-2.0",
   "licenseFilename": "LICENSE",
   "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.60.0-rc.0 <1.0.x"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
-    "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react": "18.2.0",
+    "react-native": "0.69.9"
   },
   "bugs": {
     "url": "https://github.com/SpotIM/spotim-react-native-sdk/issues"
