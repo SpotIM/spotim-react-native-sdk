@@ -139,13 +139,13 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
 
         setupLayoutHack(viewRoot, reactNativeViewId);
 
-        SpotIm.setSsoStartLoginFlowMode(
+        SpotIm.INSTANCE.setSsoStartLoginFlowMode(
                 showLoginScreenOnRootScreen ?
                         SpotSSOStartLoginFlowMode.ON_ROOT_ACTIVITY :
                         SpotSSOStartLoginFlowMode.DEFAULT
         );
 
-        SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
+        SpotIm.INSTANCE.getPreConversationFragment(postId, new SpotCallback<Fragment>() {
             @Override
             public void onSuccess(final Fragment fragment) {
                 if(context.getCurrentActivity() != null && context.getCurrentActivity() instanceof FragmentActivity && context.getCurrentActivity().findViewById(reactNativeViewId) != null) {
@@ -168,6 +168,14 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
             public void heightDidChange(float v) {
                 WritableMap map = Arguments.createMap();
                 map.putInt("height", Math.round(v));
+                context.getJSModule(RCTEventEmitter.class)
+                        .receiveEvent(reactNativeViewId, "topChange", map);
+            }
+
+            @Override
+            public void heightDidChange(int i) {
+                WritableMap map = Arguments.createMap();
+                map.putInt("height", Math.round(i));
                 context.getJSModule(RCTEventEmitter.class)
                         .receiveEvent(reactNativeViewId, "topChange", map);
             }

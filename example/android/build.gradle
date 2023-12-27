@@ -3,9 +3,9 @@
 buildscript {
     ext {
         buildToolsVersion = "30.0.2"
-        minSdkVersion = 21
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        minSdkVersion = 23
+        compileSdkVersion = 33
+        targetSdkVersion = 33
     }
     repositories {
         google()
@@ -16,8 +16,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.0.1")
-        classpath "gradle.plugin.im.spot:spotim-gradle-plugin:1.0"
+        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -38,7 +38,5 @@ allprojects {
         }
 
         google()
-        maven { url 'https://www.jitpack.io' }
     }
-
 }
