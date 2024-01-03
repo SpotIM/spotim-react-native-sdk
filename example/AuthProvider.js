@@ -4,7 +4,7 @@ import {
   SSO_ENDPOINT_CODE_B_URL,
   ACCESS_TOKEN_NETWORK,
 } from './Consts';
-import { SpotIMAPI } from '@spot.im/react-native-spotim';
+import { SpotIMAPI } from '..';
 
 export function getCodeB(codeA, userToken, username) {
   return new Promise((resolve, reject) => {
