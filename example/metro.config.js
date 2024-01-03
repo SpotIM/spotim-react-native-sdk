@@ -23,6 +23,15 @@ module.exports = {
     ),
   },
 
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        // this defeats the RCTDeviceEventEmitter is not a registered callable module
+        inlineRequires: true,
+      },
+    }),
+  },
+
   // quick workaround for another issue with symlinks
   watchFolders: ['.', '..'],
 };
