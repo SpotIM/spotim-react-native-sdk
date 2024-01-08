@@ -31,15 +31,15 @@ export function getCodeB(codeA, userToken, username) {
         console.log(json);
         SpotIMAPI.completeSSO(json.code_b)
           .then(response => {
-            console.log('SpotIm: ' + response.success);
-            if (response.success) {
+            console.log('SpotIm completeSSO success: ' + response.user_id);
+            if (response) {
               resolve();
             } else {
               reject();
             }
           })
           .catch(error => {
-            console.log('SpotIm: ' + error);
+            console.log('SpotIm completeSSO error: ' + error);
             reject();
           });
       }

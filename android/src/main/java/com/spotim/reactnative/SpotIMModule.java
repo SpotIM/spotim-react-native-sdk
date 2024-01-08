@@ -130,15 +130,11 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
         SpotIm.completeSSO(codeB, new SpotCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                try {
-                    Gson gson = new Gson();
-                    WritableMap responseMap = ReactNativeJson.convertJsonToMap(new JSONObject(gson.toJson(response)));
-                    reactContext
-                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                            .emit("completeSSOSuccess", responseMap);
-                } catch (JSONException e) {
-                    sendError("completeSSOFailed", e);
-                }
+                WritableMap responseMap = Arguments.createMap();
+                responseMap.putString("user_id", response);
+                reactContext
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit("completeSSOSuccess", responseMap);
             }
 
             @Override
