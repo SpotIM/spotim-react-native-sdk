@@ -10,7 +10,7 @@ import Foundation
 import SpotImCore
 
 @objc public protocol SpotImLoginDelegate: AnyObject {
-    @objc func startLoginFlow()
+    @objc func startLoginUIFlow(navigationController: UINavigationController)
 }
 
 @objc public protocol SpotImLayoutDelegate: AnyObject {
@@ -34,7 +34,7 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         SpotIm.reactNativeShowLoginScreenOnRootVC = shouldShow
     }
 
-    @objc public func startLoginFlow() {
+    @objc public func startLoginUIFlow(navigationController: UINavigationController) {
         NotificationCenter.default.post(name: Notification.Name("StartLoginFlow"), object: nil)
     }
 
