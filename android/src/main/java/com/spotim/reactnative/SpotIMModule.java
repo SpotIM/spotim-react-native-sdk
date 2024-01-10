@@ -131,7 +131,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             @Override
             public void onSuccess(String response) {
                 WritableMap responseMap = Arguments.createMap();
-                responseMap.putString("user_id", response);
+                responseMap.putString("success", response);
                 reactContext
                         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("completeSSOSuccess", responseMap);

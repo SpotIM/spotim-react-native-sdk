@@ -31,7 +31,7 @@ export function getCodeB(codeA, userToken, username) {
         console.log(json);
         SpotIMAPI.completeSSO(json.code_b)
           .then(response => {
-            console.log('SpotIm completeSSO success: ' + response.user_id);
+            console.log('SpotIm completeSSO success: ' + response.success);
             if (response) {
               resolve();
             } else {
