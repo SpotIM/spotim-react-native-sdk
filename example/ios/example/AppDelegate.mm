@@ -2,6 +2,8 @@
 //#import "example-Swift.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
+#import <React/RCTBridge.h>
 
 @implementation AppDelegate
 
@@ -16,7 +18,21 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                     moduleName:@"example"
+                                              initialProperties:nil];
+
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIViewController *rootViewController = [UIViewController new];
+    self.navControll = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    [self.navControll setNavigationBarHidden:YES]; // Hide nav bar if you don't use native navigation controller
+    rootViewController.view = rootView;
+    self.window.rootViewController = self.navControll;
+    [self.window makeKeyAndVisible];
+
+    return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
