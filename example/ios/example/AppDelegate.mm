@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-//#import "example-Swift.h"
+#import "example-Swift.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -10,7 +10,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-//  [GoogleAdsProvider setSpotImSDKWithProvider];
+  [GoogleAdsProvider setSpotImSDKWithProvider];
 
   self.moduleName = @"example";
 
