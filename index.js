@@ -66,6 +66,7 @@ export class SpotIM extends React.Component {
   componentWillUnmount() {
     if (ISIOS) {
       SpotIMEventEmitter.removeAllListeners("viewHeightDidChange")
+      SpotIMEventEmitter.removeAllListeners("renewSSOAuthentication")
     }
   }
 

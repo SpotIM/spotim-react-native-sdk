@@ -26,6 +26,16 @@ export default class MainScreen extends Component {
       'startLoginFlow',
       onStartLoginFlow,
     );
+
+    const renewSSOAuthentication = userId => {
+      // TODO - renew SSO authentication
+      console.log('renewSSOAuthentication, userId: ' + userId);
+    };
+
+    const subscriptionRenewSSOAuthentication = SpotIMEventEmitter.addListener(
+      'renewSSOAuthentication',
+      renewSSOAuthentication,
+    );
   }
 
   render() {
