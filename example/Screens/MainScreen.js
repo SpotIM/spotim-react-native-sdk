@@ -1,6 +1,7 @@
 import { StyleSheet, ScrollView, View, Text, Button } from 'react-native';
 import React, { Component } from 'react';
 import { SpotIMEventEmitter } from '@spot.im/react-native-spotim';
+import * as AuthProvider from '../AuthProvider';
 export default class MainScreen extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,17 @@ export default class MainScreen extends Component {
     const subscription = SpotIMEventEmitter.addListener(
       'startLoginFlow',
       onStartLoginFlow,
+    );
+
+    const renewSSOAuthentication = userId => {
+      // TODO - renew SSO authentication
+      console.log('renewSSOAuthentication, userId: ' + userId);
+      AuthProvider.login()
+    };
+
+    const subscriptionRenewSSOAuthentication = SpotIMEventEmitter.addListener(
+      'renewSSOAuthentication',
+      renewSSOAuthentication,
     );
   }
 

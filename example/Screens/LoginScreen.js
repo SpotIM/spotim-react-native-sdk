@@ -14,7 +14,8 @@ import {
   USERNAME,
   PASSWORD,
 } from '../Consts';
-import { getCodeB, getUserStatus } from '../AuthProvider';
+import * as AuthProvider from '../AuthProvider';
+import axios from 'axios';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class LoginScreen extends Component {
   }
 
   updateStatus() {
-    getUserStatus().then(status => {
+    AuthProvider.getUserStatus().then(status => {
       this.setState({ userStatus: status });
     });
   }
@@ -65,44 +66,19 @@ export default class LoginScreen extends Component {
       });
   }
 
-  onLoginClicked() {
+  async onLoginClicked() {
     //Login
     this.setState({ isLoading: true });
-    const Http = new XMLHttpRequest();
-    const url =
-      Platform.OS === 'ios' ? SSO_ENDPOINT_LOGIN : ANDROID_SSO_ENDPOINT_LOGIN;
-    Http.open('POST', url);
-    Http.setRequestHeader('content-type', 'application/json');
-    Http.send(
-      JSON.stringify({
-        username: USERNAME,
-        password: PASSWORD,
-      }),
-    );
-    Http.onreadystatechange = e => {
-      if (Http.readyState === 4) {
-        //Start SSO
-        SpotIMAPI.startSSO()
-          .then(response => {
-            var codeA = response.code_a;
-            var token = response.jwt_token;
-            getCodeB(codeA, token, USERNAME)
-              .then(() => {
-                this.setState({ isLoading: false });
-                this.props.navigation.pop();
-              })
-              .catch(error => {
-                this.setState({ isLoading: false });
-                console.error(error);
-              });
-          })
-          .catch(error => {
-            this.setState({ isLoading: false });
-            console.error(error);
-          });
-      }
-    };
-    Http.onreadystatechange = Http.onreadystatechange.bind(this);
+
+    try {
+      const res = await AuthProvider.login();
+      console.log('Login success: ' + res);
+      this.setState({ isLoading: false });
+      this.props.navigation.pop();
+    } catch (error) {
+      console.log('Login error: ' + error);
+      this.setState({ isLoading: false });
+    }
   }
 }
 

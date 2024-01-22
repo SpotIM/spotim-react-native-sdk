@@ -13,6 +13,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { SpotIMEventEmitter } from '@spot.im/react-native-spotim';
+
 import MainScreen from './Screens/MainScreen.js';
 import ArticlesScreen from './Screens/ArticlesScreen.js';
 import ArticleScreen from './Screens/ArticleScreen.js';

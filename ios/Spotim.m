@@ -58,6 +58,11 @@ RCT_EXPORT_MODULE(SpotIM)
     [SpotIMEvents emitEventWithName:@"trackAnalyticsEvent" andPayload:notification.object];
 }
 
+- (void)renewSSOAuthentication:(NSNotification *)notification
+{
+    [SpotIMEvents emitEventWithName:@"renewSSOAuthentication" andPayload:notification.object];
+}
+
 RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.spotIMView = [[SpotIMView alloc] init];
@@ -66,6 +71,7 @@ RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startLoginFlow) name:@"StartLoginFlow" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewHeightDidChange:) name:@"ViewHeightDidChange" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trackAnalyticsEvent:) name:@"TrackAnalyticsEvent" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(renewSSOAuthentication:) name:@"renewSSOAuthentication" object:nil];
     });
 }
 
