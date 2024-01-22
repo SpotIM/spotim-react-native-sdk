@@ -7,7 +7,7 @@ import {
   ANDROID_SSO_ENDPOINT_LOGIN,
   USERNAME,
   PASSWORD,
-} from './Consts';
+} from './Constants';
 import axios from 'axios';
 import { SpotIMAPI } from '@spot.im/react-native-spotim';
 
