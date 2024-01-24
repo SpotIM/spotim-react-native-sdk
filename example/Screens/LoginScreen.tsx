@@ -22,19 +22,18 @@ const LoginScreen = (props: any) => {
     setUserStatus(status);
   }
 
-  const onLogoutClicked = () => {
+  const onLogoutClicked = async () => {
     setIsLoading(true);
-    SpotIMAPI.logout()
-      .then(response => {
-        setIsLoading(false);
-        updateStatus();
-        console.log('Logout success: ' + response.success);
-      })
-      .catch(error => {
-        setIsLoading(false);
-        updateStatus();
-        console.log('Logout error: ' + error);
-      });
+    try {
+      const response: any = await SpotIMAPI.logout()
+      setIsLoading(false);
+      updateStatus();
+      console.log('Logout success: ' + response.success);
+    } catch (error) {
+      setIsLoading(false);
+      updateStatus();
+      console.log('Logout error: ' + error);
+    }
   }
 
   const onLoginClicked = async () => {

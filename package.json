@@ -3,7 +3,7 @@
   "title": "React Native SpotIM",
   "version": "1.8.0",
   "description": "This library provides an easy integration with Spot.IM into a React-Native app",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

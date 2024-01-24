@@ -15,13 +15,13 @@ import { SpotIMAPI } from '@spot.im/react-native-spotim';
 export const login = async () => {
   await loginUser();
 
-  const startSSOResponse = await SpotIMAPI.startSSO();
+  const startSSOResponse: any = await SpotIMAPI.startSSO();
   const codeA = startSSOResponse.code_a;
   const token = startSSOResponse.jwt_token;
 
   const codeB = await getCodeB(codeA, token, USERNAME);
 
-  const completeSSOResponse = await SpotIMAPI.completeSSO(codeB)
+  const completeSSOResponse: any = await SpotIMAPI.completeSSO(codeB)
 
   return completeSSOResponse.success;
 }
@@ -46,16 +46,15 @@ const getCodeB = async (codeA: string, userToken: string, username: string) => {
 }
 
 export function getUserStatus() {
-  return new Promise((resolve, reject) => {
-    SpotIMAPI.getUserLoginStatus()
-      .then(response => {
-        console.log('User status is: ' + response.status);
-        resolve(response.status);
-      })
-      .catch(error => {
-        console.log('User status error: ');
-        console.log(error);
-        reject();
-      });
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response: any = await SpotIMAPI.getUserLoginStatus();
+      console.log('User status is: ' + response.status);
+      resolve(response.status);
+    } catch (error) {
+      console.log('User status error: ');
+      console.log(error);
+      reject();
+    }
   });
 }
