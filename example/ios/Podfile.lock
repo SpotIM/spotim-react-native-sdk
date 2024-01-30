@@ -932,7 +932,7 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - SpotIMCore (= 1.18.5)
+    - RNSpotIMCore (= 1.18.6)
   - React-nativeconfig (0.73.2)
   - React-NativeModulesApple (0.73.2):
     - glog
@@ -1108,6 +1108,9 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
+  - RNSpotIMCore (1.18.6):
+    - RxCocoa (~> 6.5)
+    - RxSwift (~> 6.5)
   - RxCocoa (6.6.0):
     - RxRelay (= 6.6.0)
     - RxSwift (= 6.6.0)
@@ -1115,9 +1118,6 @@ PODS:
     - RxSwift (= 6.6.0)
   - RxSwift (6.6.0)
   - SocketRocket (0.6.1)
-  - SpotIMCore (1.18.5):
-    - RxCocoa (~> 6.5)
-    - RxSwift (~> 6.5)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -1189,11 +1189,11 @@ SPEC REPOS:
     - libevent
     - nanopb
     - PromisesObjC
+    - RNSpotIMCore
     - RxCocoa
     - RxRelay
     - RxSwift
     - SocketRocket
-    - SpotIMCore
 
 EXTERNAL SOURCES:
   boost:
@@ -1341,7 +1341,7 @@ SPEC CHECKSUMS:
   React-logger: 66b168e2b2bee57bd8ce9e69f739d805732a5570
   React-Mapbuffer: f40e0ea0df8161075390332dfcb0496442c09371
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
-  react-native-spotim: 0a646c2a0f4715bfe0f586e8f60864e01ffff032
+  react-native-spotim: 8fbd2e5169fe39678cf5095b02405eeb9ec4ddcb
   React-nativeconfig: 4dda3cbbdd1c4ce38450bb10b34b3e54120e4a91
   React-NativeModulesApple: d25a530c61e94fb317a0124b1cde1c459e4a47d3
   React-perflogger: 29efe63b7ef5fbaaa50ef6eaa92482f98a24b97e
@@ -1365,11 +1365,11 @@ SPEC CHECKSUMS:
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: 2b73f5eb2ac5d94fbd61fa4be0bfebd345716825
+  RNSpotIMCore: 75ebf52ffe8ef6d5f5bd8ed11f02a0c4857762e5
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  SpotIMCore: 49a2553b85fcf681df995aa0f5f99a4976dd0738
   Yoga: e64aa65de36c0832d04e8c7bd614396c77a80047
 
 PODFILE CHECKSUM: 308b78c1cdf5a09aa6e11a158246e95a0e17db9d
