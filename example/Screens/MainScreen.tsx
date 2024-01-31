@@ -27,9 +27,8 @@ const MainScreen = (props: any) => {
       onStartLoginFlow,
     );
 
-    const renewSSOAuthentication = (userId: string) => {
-      // TODO - renew SSO authentication
-      console.log('renewSSOAuthentication, userId: ' + userId);
+    const renewSSOAuthentication = (e: any) => {
+      console.log('renewSSOAuthentication, userId: ' + e.userId);
       AuthProvider.login()
     };
 
