@@ -89,6 +89,8 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  api 'io.github.spotim:spotim-sdk:1.18.0'
   implementation 'com.google.code.gson:gson:2.9.1'
+
+  // Android native SDK - api since we want to expose it to the client
+  api 'io.github.spotim:spotim-sdk:1.18.0'
 }
