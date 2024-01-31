@@ -197,11 +197,18 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         SpotIm.getUserLoginStatus(completion: { result in
             switch result {
                 case .success(let loginStatus):
-                    completion(["status":"\(loginStatus)"])
+                    let loginStatusString: String
+                    switch loginStatus {
+                    case .guest:
+                        loginStatusString = "guest"
+                    case .ssoLoggedIn:
+                        loginStatusString = "loggedIn"
+                    @unknown default:
+                        loginStatusString = ""
+                    }
+                    completion(["status":"\(loginStatusString)"])
                 case .failure(let error):
                     onError(error)
-                @unknown default:
-                    print("Got unknown response")
             }
         })
     }
