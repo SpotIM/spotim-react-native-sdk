@@ -53,7 +53,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 // Code here will run in UI thread
-                SpotIm.init(reactContext, spodId, new SpotVoidCallback() {
+                SpotIm.INSTANCE.init(reactContext, spodId, new SpotVoidCallback() {
                     @Override
                     public void onSuccess() {
                     }
@@ -66,7 +66,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
         });
 
 
-        SpotIm.setLoginDelegate(new LoginDelegate() {
+        SpotIm.INSTANCE.setLoginDelegate(new LoginDelegate() {
             @Override
             public void startLoginUIFlow(@NonNull Context context) {
                 WritableMap params = Arguments.createMap();
@@ -90,7 +90,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
             }
         });
 
-        SpotIm.setAnalyticsEventDelegate(new AnalyticsEventDelegate() {
+        SpotIm.INSTANCE.setAnalyticsEventDelegate(new AnalyticsEventDelegate() {
             @Override
             public void trackEvent(@NotNull AnalyticsEventType analyticsEventType, @NotNull Event event) {
                 try {
@@ -108,7 +108,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startSSO() {
-        SpotIm.startSSO(new SpotCallback<StartSSOResponse>() {
+        SpotIm.INSTANCE.startSSO(new SpotCallback<StartSSOResponse>() {
             @Override
             public void onSuccess(StartSSOResponse response) {
                 try {
@@ -131,7 +131,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void completeSSO(String codeB) {
-        SpotIm.completeSSO(codeB, new SpotCallback<String>() {
+        SpotIm.INSTANCE.completeSSO(codeB, new SpotCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 WritableMap responseMap = Arguments.createMap();
@@ -150,7 +150,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void ssoWithJwtSecret(String jwt) {
-        SpotIm.ssoWithJwt(jwt, new SpotCallback<SsoWithJwtResponse>() {
+        SpotIm.INSTANCE.ssoWithJwt(jwt, new SpotCallback<SsoWithJwtResponse>() {
             @Override
             public void onSuccess(SsoWithJwtResponse response) {
                 try {
@@ -173,7 +173,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getUserLoginStatus(final Promise promise) {
-        SpotIm.getUserLoginStatus(new SpotCallback<UserStatus>() {
+        SpotIm.INSTANCE.getUserLoginStatus(new SpotCallback<UserStatus>() {
             @Override
             public void onSuccess(UserStatus status) {
                 JSONObject json = new JSONObject();
@@ -204,7 +204,7 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void logout() {
-        SpotIm.logout(new SpotVoidCallback() {
+        SpotIm.INSTANCE.logout(new SpotVoidCallback() {
             @Override
             public void onSuccess() {
                 try {
