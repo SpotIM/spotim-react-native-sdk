@@ -34,7 +34,9 @@ export class SpotIMAPI {
       const successSubscription = SpotIMEventEmitter.addListener('completeSSOSuccess', (response) => {
         successSubscription.remove();
         failureSubscription.remove();
-        resolve(response);
+        setTimeout(() => { // Workaround - short delay to make sure the UI is updated
+          resolve(response);
+        }, 200);
       });
 
       const failureSubscription = SpotIMEventEmitter.addListener('completeSSOFailed', (event) => {
