@@ -45,9 +45,9 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.12.0)"
   - GoogleUtilities/Reachability (7.12.0):
     - GoogleUtilities/Logger
-  - hermes-engine (0.73.0):
-    - hermes-engine/Pre-built (= 0.73.0)
-  - hermes-engine/Pre-built (0.73.0)
+  - hermes-engine (0.73.2):
+    - hermes-engine/Pre-built (= 0.73.2)
+  - hermes-engine/Pre-built (0.73.2)
   - libevent (2.1.12)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -932,7 +932,7 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - RNSpotIMCore (= 1.18.6)
+    - RNSpotIMCore (= 1.18.6-xcode15.2)
   - React-nativeconfig (0.73.2)
   - React-NativeModulesApple (0.73.2):
     - glog
@@ -1108,7 +1108,7 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-  - RNSpotIMCore (1.18.6):
+  - RNSpotIMCore (1.18.6-xcode15.2):
     - RxCocoa (~> 6.5)
     - RxSwift (~> 6.5)
   - RxCocoa (6.6.0):
@@ -1315,7 +1315,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: fd19169c3034975cb934e865e5667bfdce59df7f
   GoogleUserMessagingPlatform: b168e8c46cd8f92aa3e34b584c4ca78a411ce367
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
-  hermes-engine: 34304f8c6e8fa68f63a5fe29af82f227d817d7a7
+  hermes-engine: b361c9ef5ef3cda53f66e195599b47e1f84ffa35
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
@@ -1341,7 +1341,7 @@ SPEC CHECKSUMS:
   React-logger: 66b168e2b2bee57bd8ce9e69f739d805732a5570
   React-Mapbuffer: f40e0ea0df8161075390332dfcb0496442c09371
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
-  react-native-spotim: 8fbd2e5169fe39678cf5095b02405eeb9ec4ddcb
+  react-native-spotim: 1e8f6c83fb67f72e7625933c950c66f7a3d805f8
   React-nativeconfig: 4dda3cbbdd1c4ce38450bb10b34b3e54120e4a91
   React-NativeModulesApple: d25a530c61e94fb317a0124b1cde1c459e4a47d3
   React-perflogger: 29efe63b7ef5fbaaa50ef6eaa92482f98a24b97e
@@ -1365,7 +1365,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: 2b73f5eb2ac5d94fbd61fa4be0bfebd345716825
-  RNSpotIMCore: 75ebf52ffe8ef6d5f5bd8ed11f02a0c4857762e5
+  RNSpotIMCore: a160efa0f35651470c39b1af36e156baaa2d03c1
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
@@ -1374,4 +1374,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 308b78c1cdf5a09aa6e11a158246e95a0e17db9d
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.14.3
