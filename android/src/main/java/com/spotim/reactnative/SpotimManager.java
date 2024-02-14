@@ -22,7 +22,9 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
@@ -112,8 +114,30 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         int commandIdInt = Integer.parseInt(commandId);
 
         if (commandIdInt == COMMAND_CREATE) {
+            postHeight(reactNativeViewId, 0);
+            tryRemoveExistingFragment();
             createFragment(root, reactNativeViewId);
         }
+    }
+
+    public void tryRemoveExistingFragment() {
+        List<Fragment> existingFragments = ((FragmentActivity) Objects.requireNonNull(context.getCurrentActivity()))
+                .getSupportFragmentManager()
+                .getFragments();
+        for (Fragment fragment : existingFragments) {
+            ((FragmentActivity) context.getCurrentActivity())
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+    }
+
+    public void postHeight(int reactNativeViewId, int height) {
+        WritableMap map = Arguments.createMap();
+        map.putInt("height", height);
+        context.getJSModule(RCTEventEmitter.class)
+                .receiveEvent(reactNativeViewId, "topChange", map);
     }
 
     public void createFragment(FrameLayout parentLayout, final int reactNativeViewId) {
@@ -166,10 +190,7 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         }, new SpotLayoutListener() {
             @Override
             public void heightDidChange(int i) {
-                WritableMap map = Arguments.createMap();
-                map.putInt("height", i);
-                context.getJSModule(RCTEventEmitter.class)
-                        .receiveEvent(reactNativeViewId, "topChange", map);
+                postHeight(reactNativeViewId, i);
             }
 
             @Override
