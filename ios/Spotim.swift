@@ -10,7 +10,8 @@ import Foundation
 import SpotImCore
 
 @objc public protocol SpotImLoginDelegate: AnyObject {
-    @objc func startLoginFlow()
+    @objc func startLoginUIFlow(navigationController: UINavigationController)
+    @objc func renewSSOAuthentication(userId: String)
 }
 
 @objc public protocol SpotImLayoutDelegate: AnyObject {
@@ -34,8 +35,12 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         SpotIm.reactNativeShowLoginScreenOnRootVC = shouldShow
     }
 
-    @objc public func startLoginFlow() {
+    @objc public func startLoginUIFlow(navigationController: UINavigationController) {
         NotificationCenter.default.post(name: Notification.Name("StartLoginFlow"), object: nil)
+    }
+
+    @objc public func renewSSOAuthentication(userId: String) {
+        NotificationCenter.default.post(name: Notification.Name("renewSSOAuthentication"), object: ["userId": userId])
     }
 
     @objc public func viewHeightDidChange(to newValue: CGFloat) {
@@ -47,10 +52,11 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
     }
 
     @objc public func initialize(_ spotId: String) {
-        SpotIm.initialize(spotId: spotId) { success, error in
-            if success {
+        SpotIm.initialize(spotId: spotId) { result in
+            switch result {
+            case .success:
                 print("SpotIm was initialize successfully!")
-            } else if let error = error {
+            case .failure(let error):
                 print("SpotIm initialization Error: " + error.localizedDescription)
             }
         }
@@ -144,41 +150,44 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
 
     @objc public func startSSO(_ completion: @escaping ([String:Any]) -> Void,
                                  onError: @escaping (Error) -> Void) {
-        SpotIm.startSSO { response, error in
-            if let error = error {
-                onError(error)
-            } else {
-                if let response = response, let responseAsDic = self.dictionary(encodable: response) {
+        SpotIm.startSSO { result in
+            switch result {
+            case .success(let response):
+                if let responseAsDic = self.dictionary(encodable: response) {
                     completion(responseAsDic)
                 } else {
                     completion([String:Any]())
                 }
+            case .failure(let error):
+                onError(error)
             }
         }
     }
 
     @objc public func completeSSO(_ with: String, completion: @escaping ([String:Any]) -> Void,
                                     onError: @escaping (Error) -> Void) {
-        SpotIm.completeSSO(with: with) { success, error in
-            if let error = error {
+        SpotIm.completeSSO(with: with) { result in
+            switch result {
+            case .success(let response):
+                completion(["success": response])
+            case .failure(let error):
                 onError(error)
-            } else if success {
-                completion(["success": success])
             }
         }
     }
 
     @objc public func sso(_ withJwtSecret: String, completion: @escaping ([String:Any]) -> Void,
                             onError: @escaping (Error) -> Void) {
-        SpotIm.sso(withJwtSecret: withJwtSecret) { response, error in
-            if let error = error {
-                onError(error)
-            } else {
-                if let response = response, let responseAsDic = self.dictionary(encodable: response) {
+        SpotIm.sso(withJwtSecret: withJwtSecret) { result in
+            switch result {
+            case .success(let response):
+                if let responseAsDic = self.dictionary(encodable: response) {
                     completion(responseAsDic)
                 } else {
                     completion([String:Any]())
                 }
+            case .failure(let error):
+                onError(error)
             }
         }
     }
@@ -188,11 +197,18 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         SpotIm.getUserLoginStatus(completion: { result in
             switch result {
                 case .success(let loginStatus):
-                    completion(["status":"\(loginStatus)"])
+                    let loginStatusString: String
+                    switch loginStatus {
+                    case .guest:
+                        loginStatusString = "guest"
+                    case .ssoLoggedIn:
+                        loginStatusString = "loggedIn"
+                    @unknown default:
+                        loginStatusString = ""
+                    }
+                    completion(["status":"\(loginStatusString)"])
                 case .failure(let error):
                     onError(error)
-                @unknown default:
-                    print("Got unknown response")
             }
         })
     }

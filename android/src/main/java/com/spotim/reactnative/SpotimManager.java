@@ -22,7 +22,9 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import spotIm.common.SpotCallback;
 import spotIm.common.SpotException;
@@ -112,8 +114,30 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         int commandIdInt = Integer.parseInt(commandId);
 
         if (commandIdInt == COMMAND_CREATE) {
+            postHeight(reactNativeViewId, 0);
+            tryRemoveExistingFragment();
             createFragment(root, reactNativeViewId);
         }
+    }
+
+    public void tryRemoveExistingFragment() {
+        List<Fragment> existingFragments = ((FragmentActivity) Objects.requireNonNull(context.getCurrentActivity()))
+                .getSupportFragmentManager()
+                .getFragments();
+        for (Fragment fragment : existingFragments) {
+            ((FragmentActivity) context.getCurrentActivity())
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove(fragment)
+                    .commit();
+        }
+    }
+
+    public void postHeight(int reactNativeViewId, int height) {
+        WritableMap map = Arguments.createMap();
+        map.putInt("height", height);
+        context.getJSModule(RCTEventEmitter.class)
+                .receiveEvent(reactNativeViewId, "topChange", map);
     }
 
     public void createFragment(FrameLayout parentLayout, final int reactNativeViewId) {
@@ -139,13 +163,13 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
 
         setupLayoutHack(viewRoot, reactNativeViewId);
 
-        SpotIm.setSsoStartLoginFlowMode(
+        SpotIm.INSTANCE.setSsoStartLoginFlowMode(
                 showLoginScreenOnRootScreen ?
                         SpotSSOStartLoginFlowMode.ON_ROOT_ACTIVITY :
                         SpotSSOStartLoginFlowMode.DEFAULT
         );
 
-        SpotIm.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
+        SpotIm.INSTANCE.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
             public void onSuccess(final Fragment fragment) {
                 if(context.getCurrentActivity() != null && context.getCurrentActivity() instanceof FragmentActivity && context.getCurrentActivity().findViewById(reactNativeViewId) != null) {
@@ -165,11 +189,13 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
             }
         }, new SpotLayoutListener() {
             @Override
+            public void heightDidChange(int i) {
+                postHeight(reactNativeViewId, i);
+            }
+
+            @Override
             public void heightDidChange(float v) {
-                WritableMap map = Arguments.createMap();
-                map.putInt("height", Math.round(v));
-                context.getJSModule(RCTEventEmitter.class)
-                        .receiveEvent(reactNativeViewId, "topChange", map);
+
             }
         });
     }

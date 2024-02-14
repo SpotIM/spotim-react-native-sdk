@@ -3,7 +3,7 @@
   "title": "React Native SpotIM",
   "version": "1.8.0",
   "description": "This library provides an easy integration with Spot.IM into a React-Native app",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,24 +13,36 @@
     "baseUrl": "https://github.com/SpotIM/spotim-react-native-sdk"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "OpenWeb"
   ],
-  "author": "SpotIM <support@spot.im>",
+  "author": "OpenWeb",
   "license": "Apache-2.0",
   "licenseFilename": "LICENSE",
   "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.60.0-rc.0 <1.0.x"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
-    "react": "16.13.1",
-    "react-native": "0.63.2"
+    "@babel/eslint-parser": "^7.18.2",
+    "@react-native-community/eslint-config": "^3.0.2",
+    "@types/jest": "^26.0.14",
+    "@types/react": "^16.14.20",
+    "@types/react-native": "^0.66.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.0",
+    "react-native-webview": "^13.6.3",
+    "typescript": "^4.5.2"
   },
   "bugs": {
     "url": "https://github.com/SpotIM/spotim-react-native-sdk/issues"
   },
-  "homepage": "https://github.com/SpotIM/spotim-react-native-sdk#readme",
-  "directories": {
-    "example": "example"
-  }
+  "homepage": "https://github.com/SpotIM/spotim-react-native-sdk#readme"
 }
