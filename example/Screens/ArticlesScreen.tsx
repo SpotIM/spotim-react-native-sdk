@@ -27,15 +27,43 @@ const ArticlesScreen = (props: any) => {
     );
   }
 
-  return (
-    <ScrollView style={{ flex: 1 }}>
-      {articles.map(articleId => getArticleButton(articleId))}
+  const getOpenFullConversationButton = () => {
+    return (
+      <Button
+        title="Open Full Conversation"
+        onPress={() => {
+          // open full conversation
+          SpotIMAPI.openFullConversation({
+            postId: "sdk1",
+            url: "http://www.spotim.name/bd-playground/post9.html",
+            title: "Spot.IM is aiming for the stars!",
+            subtitle: "",
+            thumbnailUrl: "https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
+          });
+        }}
+      />
+    );
+  }
+
+  const getLoginButton = () => {
+    return (
       <View style={{ marginTop: 30 }}>
         <Button
           title="Login Screen"
-          onPress={() => props.navigation.navigate('Login')}
+          onPress={() => {
+            // open login screen
+            props.navigation.navigate('Login');
+          }}
         />
       </View>
+    );
+  }
+
+  return (
+    <ScrollView style={{ flex: 1 }}>
+      {articles.map(articleId => getArticleButton(articleId))}
+      {getOpenFullConversationButton()}
+      {getLoginButton()}
     </ScrollView>
   );
 }

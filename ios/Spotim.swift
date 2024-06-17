@@ -131,6 +131,26 @@ public class SpotImBridge: NSObject, SpotImCore.SpotImLoginDelegate, SpotImCore.
         }
     }
 
+    @objc public func openFullConversationViewController(_ vc: UIViewController,
+                                                    postId: String,
+                                                    url: String,
+                                                    title: String,
+                                                    subtitle: String,
+                                                    thumbnailUrl: String,
+                                                    completion: @escaping ([String:Any]) -> Void,
+                                                    onError: @escaping (Error) -> Void) {
+
+        let articleMetadata: SpotImArticleMetadata = SpotImArticleMetadata.init(url: url, title: title, subtitle: subtitle, thumbnailUrl: thumbnailUrl)
+
+        self.spotImCoordinator?.openFullConversationViewController(postId: postId, articleMetadata: articleMetadata, presentationalMode: .present(viewController: vc), completion: { success, error in
+            if success {
+                completion(["success": true])
+            } else if let error = error {
+                onError(error)
+            }
+        })
+    }
+
     @objc public func getPreConversationController(_ nc: UINavigationController,
                                                    postId: String,
                                                    url: String,

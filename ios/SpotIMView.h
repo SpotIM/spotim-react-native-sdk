@@ -30,4 +30,5 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 - (void)logout:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)showFullConversation;
 - (void)setIsDarkMode:(BOOL)isOn;
+- (void)openFullConversationWithPostId:(NSString *)postId url:(NSString *)url title:(NSString *)title subtitle:(NSString *)subtitle thumbnailUrl:(NSString *)thumbnailUrl;
 @end

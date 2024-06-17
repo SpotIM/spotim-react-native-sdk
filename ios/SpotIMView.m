@@ -67,6 +67,23 @@
     return nil;
 }
 
+- (void)openFullConversationWithPostId:(NSString *)postId url:(NSString *)url title:(NSString *)title subtitle:(NSString *)subtitle thumbnailUrl:(NSString *)thumbnailUrl {
+
+    UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *rootViewController = navController.topViewController;
+
+    self.appRootViewController = rootViewController;
+
+    [self.spotIm createSpotImFlowCoordinator:self completion:^() {
+        [self.spotIm openFullConversationViewController:self.appRootViewController postId:postId url:url title:title subtitle:subtitle thumbnailUrl:thumbnailUrl completion:^(NSDictionary<NSString *,id> * _Nonnull) {
+
+        } onError:^(NSError * _Nonnull) {
+
+        }];
+    } onError:^(NSError *error) {
+    }];
+}
+
 - (void)initPreConversationController
 {
     UINavigationController *navController = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
