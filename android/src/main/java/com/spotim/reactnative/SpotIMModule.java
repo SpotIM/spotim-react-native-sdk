@@ -1,9 +1,13 @@
 package com.spotim.reactnative;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -27,6 +31,8 @@ import spotIm.common.login.LoginDelegate;
 import spotIm.common.model.Event;
 import spotIm.common.model.SsoWithJwtResponse;
 import spotIm.common.model.StartSSOResponse;
+import spotIm.common.options.Article;
+import spotIm.common.options.ConversationOptions;
 import spotIm.sdk.SpotIm;
 
 public class SpotIMModule extends ReactContextBaseJavaModule {
@@ -102,6 +108,25 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
                 } catch (JSONException e) {
                     sendError("trackAnalyticsEventFailed", e);
                 }
+            }
+        });
+    }
+
+    @ReactMethod
+    public void openFullConversation(String postId, String url, String title, String subtitle, String thumbnailUrl) {
+        ConversationOptions options = new ConversationOptions.Builder()
+                .configureArticle(new Article(url, thumbnailUrl, title, subtitle))
+                .build();
+
+        SpotIm.INSTANCE.getConversationIntent(reactContext, postId, options, new SpotCallback<Intent>() {
+            @Override
+            public void onSuccess(Intent intent) {
+                reactContext.startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(SpotException e) {
+                // sendError("openFullConversationFailed", e);
             }
         });
     }
