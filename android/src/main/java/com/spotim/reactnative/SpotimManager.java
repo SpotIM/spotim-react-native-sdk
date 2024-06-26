@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Dynamic;
@@ -22,7 +23,6 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -53,6 +53,8 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
 
     public static final String REACT_CLASS = "SpotIM";
     public final int COMMAND_CREATE = 1;
+
+    private final String PRE_CONVERSATION_FRAGMENT_TAG = "PreConversationFragmentTag";
 
     @Override
     public String getName() {
@@ -121,14 +123,16 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
     }
 
     public void tryRemoveExistingFragment() {
-        List<Fragment> existingFragments = ((FragmentActivity) Objects.requireNonNull(context.getCurrentActivity()))
-                .getSupportFragmentManager()
-                .getFragments();
-        for (Fragment fragment : existingFragments) {
-            ((FragmentActivity) context.getCurrentActivity())
-                    .getSupportFragmentManager()
+        FragmentManager fragmentManager = ((FragmentActivity) Objects.requireNonNull(context.getCurrentActivity()))
+                .getSupportFragmentManager();
+
+        Fragment existingFragment = fragmentManager
+                .findFragmentByTag(PRE_CONVERSATION_FRAGMENT_TAG);
+
+        if (existingFragment != null) {
+            fragmentManager
                     .beginTransaction()
-                    .remove(fragment)
+                    .remove(existingFragment)
                     .commit();
         }
     }
@@ -172,11 +176,12 @@ public class SpotimManager extends ViewGroupManager<FrameLayout> {
         SpotIm.INSTANCE.getPreConversationFragment(postId, options, new SpotCallback<Fragment>() {
             @Override
             public void onSuccess(final Fragment fragment) {
+
                 if(context.getCurrentActivity() != null && context.getCurrentActivity() instanceof FragmentActivity && context.getCurrentActivity().findViewById(reactNativeViewId) != null) {
                     ((FragmentActivity) context.getCurrentActivity())
                             .getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(reactNativeViewId, fragment, String.valueOf(reactNativeViewId))
+                            .replace(reactNativeViewId, fragment, PRE_CONVERSATION_FRAGMENT_TAG)
                             .commitAllowingStateLoss();
                     ((FragmentActivity) context.getCurrentActivity())
                             .getSupportFragmentManager().executePendingTransactions();
