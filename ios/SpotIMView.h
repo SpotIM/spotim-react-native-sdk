@@ -11,6 +11,7 @@
 @interface SpotIMView : UIView
 
 typedef void (^SSOErrorBlock)(NSError *error);
+typedef void (^ErrorCompletion)(NSError *error);
 typedef void (^RequestCompletion)(NSDictionary *response);
 
 @property (nonatomic, copy) NSString *spotId;
@@ -30,5 +31,5 @@ typedef void (^RequestCompletion)(NSDictionary *response);
 - (void)logout:(RequestCompletion)completion onError:(SSOErrorBlock)error;
 - (void)showFullConversation;
 - (void)setIsDarkMode:(BOOL)isOn;
-- (void)openFullConversationWithPostId:(NSString *)postId url:(NSString *)url title:(NSString *)title subtitle:(NSString *)subtitle thumbnailUrl:(NSString *)thumbnailUrl;
+- (void)openFullConversationWithPostId:(NSString *)postId url:(NSString *)url title:(NSString *)title subtitle:(NSString *)subtitle thumbnailUrl:(NSString *)thumbnailUrl onCompletion:(RequestCompletion)completion onError:(ErrorCompletion)error;
 @end

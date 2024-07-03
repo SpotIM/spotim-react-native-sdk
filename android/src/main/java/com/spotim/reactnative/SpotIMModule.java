@@ -121,12 +121,22 @@ public class SpotIMModule extends ReactContextBaseJavaModule {
         SpotIm.INSTANCE.getConversationIntent(reactContext, postId, options, new SpotCallback<Intent>() {
             @Override
             public void onSuccess(Intent intent) {
-                reactContext.startActivity(intent);
+                try {
+                    reactContext.startActivity(intent);
+                    JSONObject json = new JSONObject();
+                    json.put("success", true);
+                    WritableMap responseMap = ReactNativeJson.convertJsonToMap(json);
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("openFullConversationSuccess", responseMap);
+                } catch (JSONException e) {
+                    sendError("openFullConversationFailed", e);
+                }
             }
 
             @Override
             public void onFailure(SpotException e) {
-                // sendError("openFullConversationFailed", e);
+                sendError("openFullConversationFailed", e);
             }
         });
     }
