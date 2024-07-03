@@ -13,7 +13,22 @@ const ArticlesScreen = (props: any) => {
     SpotIMAPI.init(spotId);
   }, []);
 
-
+  const openFullConversation = async () => {
+    try {
+      setIsLoading(true);
+      await SpotIMAPI.openFullConversation({
+        postId: "sdk1",
+        url: "http://www.spotim.name/bd-playground/post9.html",
+        title: "Spot.IM is aiming for the stars!",
+        subtitle: "",
+        thumbnailUrl: "https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
+      });
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      // handle error
+    }
+  };
 
   const getArticleButton = (articleId: string) => {
     return (
@@ -32,23 +47,7 @@ const ArticlesScreen = (props: any) => {
     return (
       <Button
         title="Open Full Conversation"
-        onPress={async () => {
-          // open full conversation
-          try {
-            setIsLoading(true);
-            await SpotIMAPI.openFullConversation({
-              postId: "sdk1",
-              url: "http://www.spotim.name/bd-playground/post9.html",
-              title: "Spot.IM is aiming for the stars!",
-              subtitle: "",
-              thumbnailUrl: "https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
-            });
-            setIsLoading(false);
-          } catch (error) {
-            setIsLoading(false);
-            // handle error
-          }
-        }}
+        onPress={openFullConversation}
       />
     );
   }
