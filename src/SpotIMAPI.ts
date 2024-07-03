@@ -116,13 +116,27 @@ export class SpotIMAPI {
   }
 
   static openFullConversation = (params: OpenFullConversationParams) => {
-    SpotIMModule.openFullConversation(
-      params.postId,
-      params.url,
-      params.title,
-      params.subtitle,
-      params.thumbnailUrl,
-    )
+    return new Promise((resolve, reject) => {
+      const successSubscription = SpotIMEventEmitter.addListener('openFullConversationSuccess', (response) => {
+        successSubscription.remove();
+        failureSubscription.remove();
+        resolve(response);
+      });
+
+      const failureSubscription = SpotIMEventEmitter.addListener('openFullConversationFailed', (error) => {
+        successSubscription.remove();
+        failureSubscription.remove();
+        reject(error);
+      });
+
+      SpotIMModule.openFullConversation(
+        params.postId,
+        params.url,
+        params.title,
+        params.subtitle,
+        params.thumbnailUrl,
+      )
+    })
   }
 
   static setIOSDarkMode = (isOn: boolean) => {
