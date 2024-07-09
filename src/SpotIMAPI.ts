@@ -3,6 +3,14 @@ import { SpotIMEventEmitter } from './SpotIMEventEmitter';
 
 const ISIOS = Platform.OS === "ios";
 
+export interface OpenFullConversationParams {
+  postId: string;
+  url: string;
+  title: string;
+  subtitle: string;
+  thumbnailUrl: string;
+}
+
 const SpotIMModule = NativeModules.SpotIM;
 
 export class SpotIMAPI {
@@ -105,6 +113,30 @@ export class SpotIMAPI {
 
   static showFullConversation = () => {
     SpotIMModule.showFullConversation()
+  }
+
+  static openFullConversation = (params: OpenFullConversationParams) => {
+    return new Promise((resolve, reject) => {
+      const successSubscription = SpotIMEventEmitter.addListener('openFullConversationSuccess', (response) => {
+        successSubscription.remove();
+        failureSubscription.remove();
+        resolve(response);
+      });
+
+      const failureSubscription = SpotIMEventEmitter.addListener('openFullConversationFailed', (error) => {
+        successSubscription.remove();
+        failureSubscription.remove();
+        reject(error);
+      });
+
+      SpotIMModule.openFullConversation(
+        params.postId,
+        params.url,
+        params.title,
+        params.subtitle,
+        params.thumbnailUrl,
+      )
+    })
   }
 
   static setIOSDarkMode = (isOn: boolean) => {

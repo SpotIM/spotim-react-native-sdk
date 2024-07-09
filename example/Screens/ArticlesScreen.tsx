@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { ScrollView, Button, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, Button, View, ActivityIndicator } from 'react-native';
 import { SpotIMAPI } from '@spot.im/react-native-spotim';
 
 const ArticlesScreen = (props: any) => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const articles = ['sdk1', 'sdk2', 'sdk3'];
 
@@ -12,7 +13,22 @@ const ArticlesScreen = (props: any) => {
     SpotIMAPI.init(spotId);
   }, []);
 
-
+  const openFullConversation = async () => {
+    try {
+      setIsLoading(true);
+      await SpotIMAPI.openFullConversation({
+        postId: "sdk1",
+        url: "http://www.spotim.name/bd-playground/post9.html",
+        title: "Spot.IM is aiming for the stars!",
+        subtitle: "",
+        thumbnailUrl: "https://images.spot.im/v1/production/trqsvhyviejd0bfp2qlp"
+      });
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      // handle error
+    }
+  };
 
   const getArticleButton = (articleId: string) => {
     return (
@@ -27,15 +43,37 @@ const ArticlesScreen = (props: any) => {
     );
   }
 
-  return (
-    <ScrollView style={{ flex: 1 }}>
-      {articles.map(articleId => getArticleButton(articleId))}
+  const getOpenFullConversationButton = () => {
+    return (
+      <Button
+        title="Open Full Conversation"
+        onPress={openFullConversation}
+      />
+    );
+  }
+
+  const getLoginButton = () => {
+    return (
       <View style={{ marginTop: 30 }}>
         <Button
           title="Login Screen"
-          onPress={() => props.navigation.navigate('Login')}
+          onPress={() => {
+            // open login screen
+            props.navigation.navigate('Login');
+          }}
         />
       </View>
+    );
+  }
+
+  return (
+    <ScrollView style={{ flex: 1 }}>
+      {articles.map(articleId => getArticleButton(articleId))}
+      {getOpenFullConversationButton()}
+      {isLoading && (
+        <ActivityIndicator style={{ paddingTop: 20 }} color="blue" />
+      )}
+      {getLoginButton()}
     </ScrollView>
   );
 }

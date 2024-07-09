@@ -75,6 +75,16 @@ RCT_EXPORT_METHOD(initWithSpotId:(NSString *)spotId) {
     });
 }
 
+RCT_EXPORT_METHOD(openFullConversation:(NSString *)postId url:(NSString *)url title:(NSString *)title subtitle:(NSString *)subtitle thumbnailUrl:(NSString *)thumbnailUrl) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.spotIMView openFullConversationWithPostId:postId url:url title:title subtitle:subtitle thumbnailUrl:thumbnailUrl onCompletion:^(NSDictionary *response) {
+            [SpotIMEvents emitEventWithName:@"openFullConversationSuccess" andPayload:response];
+        } onError:^(NSError *error) {
+            [SpotIMEvents emitErrorEventWithName:@"openFullConversationFailed" andError:error];
+        }];
+    });
+}
+
 RCT_EXPORT_METHOD(startSSO) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.spotIMView startSSO:^(NSDictionary *response) {
