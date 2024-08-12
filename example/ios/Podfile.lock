@@ -985,7 +985,7 @@ PODS:
     - React-debug
   - react-native-safe-area-context (3.4.1):
     - React-Core
-  - react-native-spotim (1.9.0):
+  - react-native-spotim (1.10.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1510,7 +1510,7 @@ SPEC CHECKSUMS:
   React-logger: fa92ba4d3a5d39ac450f59be2a3cec7b099f0304
   React-Mapbuffer: 70da5955150a58732e9336a0c7e71cd49e909f25
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
-  react-native-spotim: fba5d43dd6e248289dcf1531b99344936b9d1fdf
+  react-native-spotim: 7e1266510264c0e6e27cb302317d6ef4d73fe55a
   React-nativeconfig: 84806b820491db30175afbf027e99e8415dc63f0
   React-NativeModulesApple: 7b79212f8cf496ab554e0b7b09acbd4aa4690260
   React-perflogger: 7bb9ba49435ff66b666e7966ee10082508a203e8
