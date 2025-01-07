@@ -1005,7 +1005,7 @@ PODS:
     - React-utils
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSpotIMCore (= 1.18.9-xcode15.4)
+    - RNSpotIMCore (= 1.18.10-xcode16)
     - Yoga
   - React-nativeconfig (0.74.3)
   - React-NativeModulesApple (0.74.3):
@@ -1261,7 +1261,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSpotIMCore (1.18.9-xcode15.4):
+  - RNSpotIMCore (1.18.10-xcode16):
     - RxCocoa (~> 6.5)
     - RxSwift (~> 6.5)
   - RxCocoa (6.7.1):
@@ -1510,7 +1510,7 @@ SPEC CHECKSUMS:
   React-logger: fa92ba4d3a5d39ac450f59be2a3cec7b099f0304
   React-Mapbuffer: 70da5955150a58732e9336a0c7e71cd49e909f25
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
-  react-native-spotim: 7e1266510264c0e6e27cb302317d6ef4d73fe55a
+  react-native-spotim: 3924f2d602c6bd7ae9a9840cdf024e024e4ac161
   React-nativeconfig: 84806b820491db30175afbf027e99e8415dc63f0
   React-NativeModulesApple: 7b79212f8cf496ab554e0b7b09acbd4aa4690260
   React-perflogger: 7bb9ba49435ff66b666e7966ee10082508a203e8
@@ -1537,13 +1537,13 @@ SPEC CHECKSUMS:
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: 3b123205167166ac51936897b804eea9c6ffb8f5
-  RNSpotIMCore: 4ba36dd3f10550c3bb49bc50f9f2923f1f353810
+  RNSpotIMCore: f703a73c1083a507228be8fa1d359be9652fb333
   RxCocoa: f5609cb4637587a7faa99c5d5787e3ad582b75a4
   RxRelay: 4151ba01152436b08271e08410135e099880eae5
   RxSwift: b9a93a26031785159e11abd40d1a55bcb8057e52
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: eed50599a85bd9f6882a9938d118aed6a397db9c
 
-PODFILE CHECKSUM: 242857f95985faaf1373acfc920a9ca01f0f2951
+PODFILE CHECKSUM: 5890e59b37cf4c173f4fadb4886ef7b4ca986143
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2
