@@ -22,7 +22,7 @@ class AppDelegate: RCTAppDelegate {
     self.initialProps = [:]
     
     let bridge = RCTBridge(delegate: self, launchOptions: launchOptions)
-    let rootView = RCTRootView(bridge: bridge!, moduleName: "example", initialProperties: nil)
+    let rootView = RCTRootView(bridge: bridge!, moduleName: self.moduleName!, initialProperties: nil)
 
     let rootViewController = UIViewController()
     rootViewController.view = rootView
