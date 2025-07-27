@@ -24,22 +24,19 @@ class AppDelegate: RCTAppDelegate {
     let bridge = RCTBridge(delegate: self, launchOptions: launchOptions)
     let rootView = RCTRootView(bridge: bridge!, moduleName: "example", initialProperties: nil)
 
-    let window = UIWindow(frame: UIScreen.main.bounds)
     let rootViewController = UIViewController()
     rootViewController.view = rootView
 
     let navController = UINavigationController(rootViewController: rootViewController)
     navController.setNavigationBarHidden(true, animated: false)
-    window.rootViewController = navController
-    window.makeKeyAndVisible()
 
-    self.window = window
+    self.window = UIWindow(frame: UIScreen.main.bounds)
+    self.window.rootViewController = navController
+    self.window.makeKeyAndVisible()
     
     GoogleAdsProvider.setSpotImSDKWithProvider()
 
     return true
- 
-//    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
  
   override func sourceURL(for bridge: RCTBridge) -> URL? {
