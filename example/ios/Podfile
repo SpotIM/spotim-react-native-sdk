@@ -55,11 +55,6 @@ target 'example' do
       end
     end
   end
-
-  target 'exampleTests' do
-    inherit! :complete
-    # Pods for testing
-  end
 end
 
 target 'example-tvOS' do
