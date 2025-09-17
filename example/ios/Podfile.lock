@@ -1260,7 +1260,7 @@ PODS:
     - ReactCommon/turbomodule/core
   - react-native-safe-area-context (5.5.2):
     - React-Core
-  - react-native-spotim (1.11.0):
+  - react-native-spotim (1.12.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1926,7 +1926,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 6181b34841f5fd192674b828700b1cdf465a44ab
   React-microtasksnativemodule: f531aa6395168a61ed1beed0671e61a955078c7e
   react-native-safe-area-context: 63c9a6def15e6f6377e59cea51566148a2774d62
-  react-native-spotim: e5e0ce54452f997fa11724edd2b294bf236dcf74
+  react-native-spotim: 7923942a168ef6240ea16fc092fefef54f293da7
   React-nativeconfig: 29f53f7caa03e1d3f49396320f4f055ae42ab8db
   React-NativeModulesApple: 6d7ea164c673a36d6d7a43eb41584436773a56c9
   React-perflogger: 6820403fcb3daf843cb89772f2ba7b25cf7d5797
