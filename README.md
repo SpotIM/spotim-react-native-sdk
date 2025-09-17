@@ -14,12 +14,12 @@ This library provides an easy integration with OpenWebSDK into a React Native ap
 
 #### Using NPM
 ```
-npm install --save @spot.im/react-native-spotim@1.9.0
+npm install --save @spot.im/react-native-spotim@1.12.0
 ```
 
 #### Using Yarn
 ```
-yarn add @spot.im/react-native-spotim@1.9.0
+yarn add @spot.im/react-native-spotim@1.12.0
 ```
 
 ### Follow The Official Documentation
