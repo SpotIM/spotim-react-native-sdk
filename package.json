@@ -1,7 +1,7 @@
 {
   "name": "@spot.im/react-native-spotim",
   "title": "React Native SpotIM",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "This library provides an easy integration with Spot.IM into a React-Native app",
   "main": "src/index.ts",
   "scripts": {

@@ -1260,7 +1260,7 @@ PODS:
     - ReactCommon/turbomodule/core
   - react-native-safe-area-context (5.5.2):
     - React-Core
-  - react-native-spotim (1.12.0):
+  - react-native-spotim (1.13.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1280,7 +1280,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSpotIMCore (= 1.18.10-xcode16)
+    - RNSpotIMCore (= 1.18.11-xcode26.1.1)
     - Yoga
   - React-nativeconfig (0.77.3)
   - React-NativeModulesApple (0.77.3):
@@ -1635,7 +1635,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSpotIMCore (1.18.10-xcode16):
+  - RNSpotIMCore (1.18.11-xcode26.1.1):
     - RxCocoa (~> 6.5)
     - RxSwift (~> 6.5)
   - RxCocoa (6.9.0):
@@ -1926,7 +1926,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 6181b34841f5fd192674b828700b1cdf465a44ab
   React-microtasksnativemodule: f531aa6395168a61ed1beed0671e61a955078c7e
   react-native-safe-area-context: 63c9a6def15e6f6377e59cea51566148a2774d62
-  react-native-spotim: 7923942a168ef6240ea16fc092fefef54f293da7
+  react-native-spotim: 2040a1115f240ca45980752b0cb7cb7f73c47034
   React-nativeconfig: 29f53f7caa03e1d3f49396320f4f055ae42ab8db
   React-NativeModulesApple: 6d7ea164c673a36d6d7a43eb41584436773a56c9
   React-perflogger: 6820403fcb3daf843cb89772f2ba7b25cf7d5797
@@ -1959,7 +1959,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 9953b54e4f488389ec45d8befd8687d71e7c121e
   RNGestureHandler: 0573a746155b37786d57d89951f71433c90f80a5
   RNScreens: c3c3a4da0494c387f99a406148f50cf185a1767f
-  RNSpotIMCore: f703a73c1083a507228be8fa1d359be9652fb333
+  RNSpotIMCore: a76545b50e7d1739f0a9ab42aebcb66ec09d87fc
   RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
